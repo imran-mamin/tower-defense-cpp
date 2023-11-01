@@ -1,0 +1,12 @@
+{
+	"tile_width": 64,	
+	"map_width": 15,
+	"map_height": 10,
+	"background": [
+		[],
+		[],
+		[],
+		[]
+	],
+	"enemy_path": [(0,0), (0,1), (0,2)]
+}
