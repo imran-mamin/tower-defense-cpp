@@ -1,5 +1,8 @@
 #pragma once
 
+#include "enemy.hpp"
+#include <vector>
+
 // TODO: Implement methods
 class Tower {
 private:
