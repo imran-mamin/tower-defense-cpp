@@ -19,6 +19,18 @@ public:
     explicit Projectile(int travel_speed, int damage, int radius)
             : travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
     
+    int travel_speed() const {
+        return travel_speed_;
+    }
+
+    int damage() const {
+        return damage_;
+    }
+
+    int radius() {
+        return radius_;
+    }
+    
     /**
      * @brief destroy Projectile object.
      **/
