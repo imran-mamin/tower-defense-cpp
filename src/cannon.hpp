@@ -1,5 +1,7 @@
 #pragma once
 #include "tower.hpp"
+#include "bullet.hpp"
+
 
 // TODO: Implement methods
 class Cannon: public Tower {
