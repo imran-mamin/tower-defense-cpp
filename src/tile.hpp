@@ -1,6 +1,4 @@
-#ifndef TILE_CLASS
-#define TILE_CLASS
-
+#pragma once
 #include <vector>
 
 enum class TileType {
@@ -21,5 +19,3 @@ public:
     bool isEmpty() const;
 
 };
-
-#endif

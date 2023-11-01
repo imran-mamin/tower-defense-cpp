@@ -1,5 +1,4 @@
-#ifndef PROJECTILE_CLASS
-#define PROJECTILE_CLASS
+#pragma once
 
 class Projectile {
 private:
@@ -42,4 +41,3 @@ public:
     virtual void update() = 0;
 };
 
-#endif
