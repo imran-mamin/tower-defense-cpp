@@ -55,3 +55,4 @@ You can create a list of TODOs in this file.
 The recommended format is:
 - Complete class implementation **foo**. Assigned to \<Member 1\>
 - Test ...
+- Build instructions
