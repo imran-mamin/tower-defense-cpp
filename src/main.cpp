@@ -5,11 +5,10 @@
 int main(int argc, char **argv)
 {
 	sf::RenderWindow window(sf::VideoMode(320, 320), "TestiPiirto");
-    //sf::CircleShape shape(100.f);
-    //shape.setFillColor(sf::Color::Green);
 
+
+//TilesVector is a vector containing the addresses of the pictures as a string
     std::vector<std::vector<std::string>> tilesVector;
-
     std::vector<std::string> zero;
     tilesVector.push_back(zero);
     std::vector<std::string> one;
@@ -21,35 +20,39 @@ int main(int argc, char **argv)
     std::vector<std::string> four;
     tilesVector.push_back(four);
 
+    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
 
-    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[0].push_back("../rsrc/tiles/background/tile002.png");
-    tilesVector[0].push_back("../rsrc/tiles/background/tile003.png");
-    tilesVector[0].push_back("../rsrc/tiles/background/tile004.png");
-    tilesVector[0].push_back("../rsrc/tiles/background/tile005.png");
-    tilesVector[1].push_back("../rsrc/tiles/background/tile006.png");
-    tilesVector[1].push_back("../rsrc/tiles/background/tile007.png");
-    tilesVector[1].push_back("../rsrc/tiles/background/tile008.png");
-    tilesVector[1].push_back("../rsrc/tiles/background/tile009.png");
-    tilesVector[1].push_back("../rsrc/tiles/background/tile010.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile011.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile012.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile013.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile014.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile015.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/tile016.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/tile017.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/tile018.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/tile019.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/tile020.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile021.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile022.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile023.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile024.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile025.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/grass.png");
 
+    tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+
+
+//TexturesVector contains the corresponding textures
     std::vector<std::vector<sf::Texture>> texturesVector;
-
     std::vector<sf::Texture> zerot;
     texturesVector.push_back(zerot);
     std::vector<sf::Texture> onet;
@@ -112,109 +115,79 @@ int main(int argc, char **argv)
     sf::Texture tex25;
     texturesVector[4].push_back(tex25);
 
-
-    std::vector<sf::Sprite> sprites;
+//Sprites contains the textures converted to sprites
+    std::vector<std::vector<sf::Sprite>> sprites;
+    std::vector<sf::Sprite> spr0;
+    sprites.push_back(spr0);
+    std::vector<sf::Sprite> spr1;
+    sprites.push_back(spr1);
+    std::vector<sf::Sprite> spr2;
+    sprites.push_back(spr2);
+    std::vector<sf::Sprite> spr3;
+    sprites.push_back(spr3);
+    std::vector<sf::Sprite> spr4;
+    sprites.push_back(spr4);
 
     sf::Sprite sprite1;
-    sprites.push_back(sprite1);
+    sprites[0].push_back(sprite1);
     sf::Sprite sprite2;
-    sprites.push_back(sprite2);
+    sprites[0].push_back(sprite2);
     sf::Sprite sprite3;
-    sprites.push_back(sprite3);
+    sprites[0].push_back(sprite3);
     sf::Sprite sprite4;
-    sprites.push_back(sprite4);
+    sprites[0].push_back(sprite4);
     sf::Sprite sprite5;
-    sprites.push_back(sprite5);
+    sprites[0].push_back(sprite5);
     sf::Sprite sprite6;
-    sprites.push_back(sprite6);
+    sprites[1].push_back(sprite6);
     sf::Sprite sprite7;
-    sprites.push_back(sprite7);
+    sprites[1].push_back(sprite7);
     sf::Sprite sprite8;
-    sprites.push_back(sprite8);
+    sprites[1].push_back(sprite8);
     sf::Sprite sprite9;
-    sprites.push_back(sprite9);
+    sprites[1].push_back(sprite9);
     sf::Sprite sprite10;
-    sprites.push_back(sprite10);
+    sprites[1].push_back(sprite10);
     sf::Sprite sprite11;
-    sprites.push_back(sprite11);
+    sprites[2].push_back(sprite11);
     sf::Sprite sprite12;
-    sprites.push_back(sprite12);
+    sprites[2].push_back(sprite12);
     sf::Sprite sprite13;
-    sprites.push_back(sprite13);
+    sprites[2].push_back(sprite13);
     sf::Sprite sprite14;
-    sprites.push_back(sprite14);
+    sprites[2].push_back(sprite14);
     sf::Sprite sprite15;
-    sprites.push_back(sprite15);
+    sprites[2].push_back(sprite15);
     sf::Sprite sprite16;
-    sprites.push_back(sprite16);
+    sprites[3].push_back(sprite16);
     sf::Sprite sprite17;
-    sprites.push_back(sprite17);
+    sprites[3].push_back(sprite17);
     sf::Sprite sprite18;
-    sprites.push_back(sprite18);
+    sprites[3].push_back(sprite18);
     sf::Sprite sprite19;
-    sprites.push_back(sprite19);
+    sprites[3].push_back(sprite19);
     sf::Sprite sprite20;
-    sprites.push_back(sprite20);
+    sprites[3].push_back(sprite20);
     sf::Sprite sprite21;
-    sprites.push_back(sprite21);
+    sprites[4].push_back(sprite21);
     sf::Sprite sprite22;
-    sprites.push_back(sprite22);
+    sprites[4].push_back(sprite22);
     sf::Sprite sprite23;
-    sprites.push_back(sprite23);
+    sprites[4].push_back(sprite23);
     sf::Sprite sprite24;
-    sprites.push_back(sprite24);
+    sprites[4].push_back(sprite24);
     sf::Sprite sprite25;
-    sprites.push_back(sprite25);
+    sprites[4].push_back(sprite25);
 
-    
-    for (int i = 0; i < 5; i++) {
-        sf::Texture tex;
-
-        if (!tex.loadFromFile(tilesVector[0][i], sf::IntRect((i * 64), 0, 64, 64))) {
-        //Error
-        }
-
-        sprites[i].setTexture(tex);
-    }
 
     for (int i = 0; i < 5; i++) {
-        sf::Texture tex;
-
-        if (!tex.loadFromFile(tilesVector[1][i], sf::IntRect((i * 64), 64, 64, 64))) {
-        //Error
+        for (int j = 0; j < 5; j++) {
+            if (!texturesVector[i][j].loadFromFile(tilesVector[i][j], sf::IntRect(0, 0, 64, 64))) {
+                //Error
+            }
+            sprites[i][j].setPosition(j * 64, i * 64);
+            sprites[i][j].setTexture(texturesVector[i][j]);
         }
-
-        sprites[5 + i].setTexture(tex);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        sf::Texture tex;
-
-        if (!tex.loadFromFile(tilesVector[2][i], sf::IntRect((i * 64), (2 * 64), 64, 64))) {
-        //Error
-        }
-
-        sprites[10 + i].setTexture(tex);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        sf::Texture tex;
-
-        if (!tex.loadFromFile(tilesVector[3][i], sf::IntRect((i * 64), (3 * 64), 64, 64))) {
-        //Error
-        }
-
-        sprites[15 + i].setTexture(tex);
-    }
-
-    for (int i = 0; i < 5; i++) {
-        sf::Texture tex;
-
-        if (!tex.loadFromFile(tilesVector[4][i], sf::IntRect((i * 64), (4 * 64), 64, 64))) {
-        //Error
-        }
-
-        sprites[20 + i].setTexture(tex);
     }
 
     while (window.isOpen())
@@ -227,8 +200,10 @@ int main(int argc, char **argv)
         }
 
         window.clear();
-        for (int i = 0; i < 25; i++) {
-            window.draw(sprites[i]);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                window.draw(sprites[i][j]);
+            }
         }
         window.display();
     }
