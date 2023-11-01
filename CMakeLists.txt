@@ -12,6 +12,15 @@ file(GLOB SOURCES src/*.cpp)
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 set(CMAKE_BUILD_TYPE Debug)
 
+# get a lot of warnings
+if(MSVC)
+    target_compile_options(${EXECUTABLE_NAME} PRIVATE /Wall)
+else()
+    # gcc and clang
+    target_compile_options(${EXECUTABLE_NAME} PRIVATE -Wall -Wextra -pedantic -Wno-missing-field-initializers)
+endif()
+
+
 find_package(SFML 2.5 COMPONENTS network audio graphics window system REQUIRED)
 if(SFML_FOUND)
   include_directories(${SFML_INCLUDE_DIR})
