@@ -1,23 +1,21 @@
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 
 #include "json.hpp"
+#include "map_parser.hpp"
 
 
-// TODO: Implementation missing.
-GameGrid ParseMap(const std::string &path) {
-	std::ifstream is("../rsrc/maps/map1.json");
+MapInfo ParseMap(const std::string &path) {
+	std::ifstream is("rsrc/maps/map1.json");
 	nlohmann::json data = nlohmann::json::parse(is);
 
-	for (auto field : data) {
-		std::cout << field << std::endl;
+	try {
+		return MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], data["enemy_path"] };
 	}
-
-	
-
-	std::cout << 
-	std::cout << data["background"] << std::endl;
-
-
+	// TODO: More precise error output.
+	catch (/* TODO: Catch correct exception (trying to read data field that is incorrect, or type error idk.) */) {
+		throw MapParserError("TODO");
+	}
 }
 
