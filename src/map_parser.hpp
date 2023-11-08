@@ -7,7 +7,6 @@
 #include <tuple>
 #include <vector>
 
-#include "gamegrid.hpp"
 
 struct MapInfo {
     /* tileWidth = tileHeight */
