@@ -30,10 +30,9 @@ class GameGrid {
 	std::vector<sf::Sprite> sprites_;
 
 	std::uint8_t tileWidth_;
-	std::vector<sf::Sprite>
-	/* Vector of pairs containing tiles associated with a sprite. */
+	/* Vector of pairs containing tiles associated with a tile sprite. */
 	std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
     std::uint32_t width_;
-    std::uint32_t height_;
+	std::uint32_t height_;
 };
 
