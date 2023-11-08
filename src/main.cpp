@@ -91,47 +91,41 @@ int main()
 
     tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/path.png");
 
 
 //Row4
     tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
 
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
 
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
 
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
-    tilesVector[3].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/grass.png");
 
 
 //Row5
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/path.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
 
@@ -144,6 +138,12 @@ int main()
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/path.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[4].push_back("../rsrc/tiles/background/grass.png");
 
@@ -151,13 +151,7 @@ int main()
 //Row6
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/path.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
 
@@ -170,6 +164,12 @@ int main()
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/path.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[5].push_back("../rsrc/tiles/background/grass.png");
 
@@ -177,13 +177,7 @@ int main()
 //Row7
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[6].push_back("../rsrc/tiles/background/path.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
 
@@ -196,6 +190,12 @@ int main()
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[6].push_back("../rsrc/tiles/background/path.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[6].push_back("../rsrc/tiles/background/grass.png");
 
@@ -203,13 +203,7 @@ int main()
 //Row8
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[7].push_back("../rsrc/tiles/background/path.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
 
@@ -222,6 +216,12 @@ int main()
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[7].push_back("../rsrc/tiles/background/path.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[7].push_back("../rsrc/tiles/background/grass.png");
 
@@ -229,13 +229,7 @@ int main()
 //Row9
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[8].push_back("../rsrc/tiles/background/path.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
 
@@ -248,6 +242,12 @@ int main()
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[8].push_back("../rsrc/tiles/background/path.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[8].push_back("../rsrc/tiles/background/grass.png");
 
@@ -255,25 +255,25 @@ int main()
 //Row10
     tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
 
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
 
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
 
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
+    tilesVector[9].push_back("../rsrc/tiles/background/path.png");
     tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[9].push_back("../rsrc/tiles/background/grass.png");
 
@@ -322,7 +322,7 @@ int main()
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
-    
+
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
