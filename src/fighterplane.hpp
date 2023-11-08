@@ -4,11 +4,11 @@
 
 
 // TODO: Implement methods
-class Cannon: public Tower {
+class FighterPlane: public Tower {
 private:
     Bullet pr_;
 public:
-    Cannon(int radius, Bullet pr): Tower(radius), pr_(pr) {};
+    FighterPlane(int radius, Bullet pr): Tower(radius), pr_(pr) {};
 
     void fire();
     void onDestroy();

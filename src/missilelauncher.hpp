@@ -1,14 +1,15 @@
 #pragma once
 #include "tower.hpp"
-#include "bullet.hpp"
+#include "missile.hpp"
 
 
 // TODO: Implement methods
-class Cannon: public Tower {
+class MissileLauncher: public Tower {
 private:
-    Bullet pr_;
+    Missile pr_;
+
 public:
-    Cannon(int radius, Bullet pr): Tower(radius), pr_(pr) {};
+    MissileLauncher(int radius, Missile pr): Tower(radius), pr_(pr) {};
 
     void fire();
     void onDestroy();
