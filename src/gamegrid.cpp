@@ -26,7 +26,7 @@ void GameGrid::Draw(const sf::RenderWindow& RenderWindow);
 
 GameGrid::GameGrid(const MapInfo &mapInfo) {
 	tileWidth_ = mapInfo.tileWidth;
-	backgroundTiles_ = std::vector<std::vector<std::uint16_t>>;
+	std::vector<std::vector<std::uint16_t>> backgroundTiles_;
     std::uint32_t width_;
     std::uint32_t height_;
 }
