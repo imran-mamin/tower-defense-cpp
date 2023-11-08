@@ -1,15 +1,13 @@
 
 #pragma once
 
-#include <SFML/Graphics/RenderWindow.hpp>
 #include <cstdint>
 #include <map>
 #include <string>
 #include <tuple>
 #include <vector>
 
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "map_parser.hpp"
 #include "tile.hpp"
@@ -26,13 +24,14 @@ class GameGrid {
 	void Draw(const sf::RenderWindow& RenderWindow);
 
    private:
+	std::vector<std::tuple<std::uint32_t>> enemyPath_;
 	std::vector<sf::Texture> textures_;
 	std::vector<sf::Sprite> sprites_;
 
 	std::uint8_t tileWidth_;
 	/* Vector of pairs containing tiles associated with a tile sprite. */
-	std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
-    std::uint32_t width_;
-	std::uint32_t height_;
+	//std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
+    std::uint32_t mapWidth_;
+	std::uint32_t mapHeight_;
 };
 
