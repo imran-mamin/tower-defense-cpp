@@ -31,7 +31,7 @@ GameGrid::GameGrid(const MapInfo &mapInfo) {
     std::uint32_t height_;
 }
 
-GameGrid::Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const {
+Tile &GameGrid::TileAtCoordinate(std::uint8_t x, std::uint8_t y) const {
 	return tiles_[y / tileWidth_ + (y % tileWidth_ != 0 ? 1 : 0)][x / tileWidth_ + (x % tileWidth_ != 0 ? 1 : 0)];
 }
 

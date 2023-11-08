@@ -21,7 +21,7 @@ class GameGrid {
 	GameGrid(const std::string& path);
 	GameGrid() = delete;
 
-	Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
+	Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
 
 	void Draw(const sf::RenderWindow& RenderWindow);
 

@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <exception>
 #include <fstream>
 #include <iostream>
 
@@ -13,9 +14,12 @@ MapInfo ParseMap(const std::string &path) {
 	try {
 		return MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], data["enemy_path"] };
 	}
-	// TODO: More precise error output.
-	catch (/* TODO: Catch correct exception (trying to read data field that is incorrect, or type error idk.) */) {
-		throw MapParserError("TODO");
+	catch (const std::exception &e) {
+
 	}
+	// TODO: More precise error output.
+	//catch (/* TODO: Catch correct exception (trying to read data field that is incorrect, or type error idk.) */) {
+	//	throw MapParserError("TODO");
+	//}
 }
 
