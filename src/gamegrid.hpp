@@ -18,6 +18,7 @@ class GameGrid {
    public:
 	/* Create a new GameGrid object from map file. */
     GameGrid(const MapInfo &mapInfo);
+	GameGrid(const std::string& path);
 	GameGrid() = delete;
 
 	Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
@@ -31,7 +32,7 @@ class GameGrid {
 	std::uint8_t tileWidth_;
 	std::vector<sf::Sprite>
 	/* Vector of pairs containing tiles associated with a sprite. */
-	std::vector<Vector<std::pair<Tile, const &sf::Sprite>>> backgroundTilesAndSprites_;
+	std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
     std::uint32_t width_;
     std::uint32_t height_;
 };
