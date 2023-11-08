@@ -5,7 +5,7 @@
 int main()
 {
     int rows = 6;
-    int columns = 5;
+    int columns = 10;
 
 	sf::RenderWindow window(sf::VideoMode(columns * 64, rows * 64), "TestiPiirto");
 
@@ -23,31 +23,61 @@ int main()
     tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/tile001.png");
 
     tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[1].push_back("../rsrc/tiles/background/tile001.png");
 
-    tilesVector[2].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[2].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
+    tilesVector[2].push_back("../rsrc/tiles/background/tile256.png");
 
     tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[3].push_back("../rsrc/tiles/background/tile001.png");
 
-    tilesVector[4].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile001.png");
-    tilesVector[4].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
+    tilesVector[4].push_back("../rsrc/tiles/background/tile010.png");
 
+    tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
+    tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
     tilesVector[5].push_back("../rsrc/tiles/background/tile001.png");
