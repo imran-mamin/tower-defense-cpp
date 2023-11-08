@@ -180,8 +180,8 @@ int main(int argc, char **argv)
     sprites[4].push_back(sprite25);
 
 
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 5; j++) {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns; j++) {
             if (!texturesVector[i][j].loadFromFile(tilesVector[i][j], sf::IntRect(0, 0, 64, 64))) {
                 //Error
             }
@@ -200,8 +200,8 @@ int main(int argc, char **argv)
         }
 
         window.clear();
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 window.draw(sprites[i][j]);
             }
         }
