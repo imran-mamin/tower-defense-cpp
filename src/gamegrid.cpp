@@ -6,13 +6,13 @@
 
 
 GameGrid::GameGrid(const std::string &path) {
-
+	
 	// TODO: Parse the map.
 }
 
 GameGrid::GameGrid ParseMap(const std::string &path) {
 
-}
+
 
 	const std::uint8_t tileWidth;
 	const std::uint8_t mapWidth;
