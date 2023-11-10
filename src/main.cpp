@@ -5,13 +5,65 @@
 
 int main()
 {
+    int windowWidth = 20 * 64;
+    int windowHeight = 12 * 64;
+    
+	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
+
+    // Toolbar parameters
+    int toolbarWidth = 200;
+    int toolbarHeight = window.getSize().y;
+    
+    // Create a vertical toolbar on the right side using a rectangle
+    sf::RectangleShape toolbar(sf::Vector2f(toolbarWidth, toolbarHeight));
+    toolbar.setPosition(window.getSize().x - toolbarWidth, 0);
+    toolbar.setFillColor(sf::Color(200, 200, 200));
+
+    // Towers to protect base: Cannon, MissileLauncher and FighterPlane
+    std::vector<std::string> towersVec = {
+                                            "../rsrc/tiles/enemies/tank.png",
+                                            "../rsrc/tiles/enemies/tank-gun.png",
+                                            "../rsrc/tiles/enemies/fighterplane.png"       
+                                        };
+
+    // Add buttons to the toolbar (tower buttons)
+    sf::Texture tankTexture, tankGunTexture, planeTexture;
+
+    // Load tank texture
+    if (!tankTexture.loadFromFile(towersVec[0])) {
+        std::cout << "tankTexture loadFromFile problem." << std::endl;
+        return -1;
+    }
+
+    // Load tank-gun texture
+    if (!tankGunTexture.loadFromFile(towersVec[1])) {
+        std::cout << "tankGunTexture loadFromFile problem." << std:: endl;
+        return -1;
+    }
+
+    // Load plane texture
+    if (!planeTexture.loadFromFile(towersVec[2])) {
+        std::cout << "planeTexture loadFromFile problem." << std::endl;
+        return -1;
+    }
+
+    // Creating sprites for the towers.
+    sf::Sprite tankSprite(tankTexture);
+    sf::Sprite tankGunSprite(tankGunTexture);
+    sf::Sprite planeSprite(planeTexture);
+
+    // Set positions of the buttons
+    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
+    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
+    // 20 + tank x-coordinate + tank width + 20
+    planeSprite.setPosition(2 * 20 + tankSprite.getPosition().x + tankTexture.getSize().x, 80);
+    
+    // Creating board of tiles
     int rows = 12;
     int columns = 20;
 
-    int tileWidth = 64;
-    int tileHeight = 64;
-	sf::RenderWindow window(sf::VideoMode(columns * tileWidth, rows * tileHeight), "TestiPiirto");
-
+    double tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
+    double tileHeight = tileWidth;
 
 //TilesVector is a vector containing the addresses of the pictures as a string
     std::vector<std::vector<std::string>> tilesVector;
@@ -365,64 +417,17 @@ int main()
 
 
 //Load sprites
-
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < columns; j++) {
-            if (!texturesVector[i][j].loadFromFile(tilesVector[i][j], sf::IntRect(0, 0, 64, 64))) {
-                //Error
+            if (!texturesVector[i][j].loadFromFile(tilesVector[i][j], sf::IntRect(0, 0, tileWidth, tileHeight))) {
+                // ERROR
+                std::cout << "Error in texturesVector[i][j].loadFromFile()." << std::endl;
             }
-            sprites[i][j].setPosition(j * 64, i * 64);
+            sprites[i][j].setPosition(j * tileWidth, i * tileHeight);
             sprites[i][j].setTexture(texturesVector[i][j]);
         }
     }
 
-    // Toolbar parameters
-    int toolbarWidth = 200;
-    int toolbarHeight = window.getSize().y;
-    
-    // Create a vertical toolbar on the right side using a rectangle
-    sf::RectangleShape toolbar(sf::Vector2f(toolbarWidth, toolbarHeight));
-    toolbar.setPosition(window.getSize().x - toolbarWidth, 0);
-    toolbar.setFillColor(sf::Color(200, 200, 200));
-
-    // Towers to protect base: Cannon, MissileLauncher and FighterPlane
-    std::vector<std::string> towersVec = {
-                                            "../rsrc/tiles/enemies/tank.png",
-                                            "../rsrc/tiles/enemies/tank-gun.png",
-                                            "../rsrc/tiles/enemies/fighterplane.png"       
-                                        };
-
-    // Add buttons to the toolbar (tower buttons)
-    sf::Texture tankTexture, tankGunTexture, planeTexture;
-
-    // Load tank texture
-    if (!tankTexture.loadFromFile(towersVec[0])) {
-        std::cout << "tankTexture loadFromFile problem." << std::endl;
-        return -1;
-    }
-
-    // Load tank-gun texture
-    if (!tankGunTexture.loadFromFile(towersVec[1])) {
-        std::cout << "tankGunTexture loadFromFile problem." << std:: endl;
-        return -1;
-    }
-
-    // Load plane texture
-    if (!planeTexture.loadFromFile(towersVec[2])) {
-        std::cout << "planeTexture loadFromFile problem." << std::endl;
-        return -1;
-    }
-
-    // Creating sprites for the towers.
-    sf::Sprite tankSprite(tankTexture);
-    sf::Sprite tankGunSprite(tankGunTexture);
-    sf::Sprite planeSprite(planeTexture);
-
-    // Set positions of the buttons
-    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
-    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
-    // 20 + tank x-coordinate + tank width + 20
-    planeSprite.setPosition(2 * 20 + tankSprite.getPosition().x + tankTexture.getSize().x, 80);
     
 //Load window
     while (window.isOpen())
@@ -452,7 +457,7 @@ int main()
             }
         }
 
-        window.clear();
+        window.clear(sf::Color(200, 200, 200));
         
         // Draw the tiles
         for (int i = 0; i < rows; i++) {
