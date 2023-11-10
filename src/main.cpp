@@ -373,6 +373,20 @@ int main()
         }
     }
 
+    // Toolbar parameters
+    int toolbarWidth = 200;
+    int toolbarHeight = window.getSize().y;
+    
+    // Create a vertical toolbar on the right side using a rectangle
+    sf::RectangleShape toolbar(sf::Vector2f(toolbarWidth, toolbarHeight));
+    toolbar.setPosition(window.getSize().x - toolbarWidth, 0);
+    toolbar.setFillColor(sf::Color(200, 200, 200));
+
+    // Add buttons to the toolbar
+    sf::RectangleShape button1(sf::Vector2f(80, 30));
+    button1.setPosition(window.getSize().x - 90, 10);
+    button1.setFillColor(sf::Color(100, 100, 250));
+
 //Load window
     while (window.isOpen())
     {
@@ -384,11 +398,19 @@ int main()
         }
 
         window.clear();
+        
+        // Draw the tiles
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 window.draw(sprites[i][j]);
             }
         }
+
+        
+        // Draw the toolbar and buttons inside it.
+        window.draw(toolbar);
+        window.draw(button1);
+
         window.display();
     }
 
