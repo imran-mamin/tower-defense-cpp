@@ -1,6 +1,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 
 int main()
 {
@@ -385,13 +386,47 @@ int main()
     toolbar.setFillColor(sf::Color(200, 200, 200));
 
     // Towers to protect base: Cannon, MissileLauncher and FighterPlane
-    std::vector<std::string> towersVec = {};
+    std::vector<std::string> towersVec = {
+                                            "../rsrc/tiles/enemies/tank.png",
+                                            "../rsrc/tiles/enemies/tank-gun.png",
+                                            "../rsrc/tiles/enemies/fighterplane.png"       
+                                        };
 
     // Add buttons to the toolbar
-
-    sf::RectangleShape button1(sf::Vector2f(80, 30));
+    /* sf::RectangleShape button1(sf::Vector2f(80, 30));
     button1.setPosition(window.getSize().x - 90, 10);
     button1.setFillColor(sf::Color(100, 100, 250));
+    */
+    sf::Texture tankTexture, tankGunTexture, planeTexture;
+
+    // Load tank texture
+    if (!tankTexture.loadFromFile(towersVec[0])) {
+        std::cout << "tankTexture loadFromFile problem." << std::endl;
+        return -1;
+    }
+
+    // Load tank-gun texture
+    if (!tankGunTexture.loadFromFile(towersVec[1])) {
+        std::cout << "tankGunTexture loadFromFile problem." << std:: endl;
+        return -1;
+    }
+
+    // Load plane texture
+    if (!planeTexture.loadFromFile(towersVec[2])) {
+        std::cout << "planeTexture loadFromFile problem." << std::endl;
+        return -1;
+    }
+
+    // Creating sprites for the towers.
+    sf::Sprite tankSprite(tankTexture);
+    sf::Sprite tankGunSprite(tankGunTexture);
+    sf::Sprite planeSprite(planeTexture);
+
+    // Set positions of the buttons
+    tankSprite.setPosition(window.getSize().x - 90, 10);
+    tankGunSprite.setPosition(window.getSize().x - 90, 10);
+    planeSprite.setPosition(window.getSize().x - 90, 40);
+    
 
 //Load window
     while (window.isOpen())
@@ -415,7 +450,9 @@ int main()
         
         // Draw the toolbar and buttons inside it.
         window.draw(toolbar);
-        window.draw(button1);
+        window.draw(tankSprite);
+        window.draw(tankGunSprite);
+        window.draw(planeSprite);
 
         window.display();
     }
