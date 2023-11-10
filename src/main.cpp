@@ -392,11 +392,7 @@ int main()
                                             "../rsrc/tiles/enemies/fighterplane.png"       
                                         };
 
-    // Add buttons to the toolbar
-    /* sf::RectangleShape button1(sf::Vector2f(80, 30));
-    button1.setPosition(window.getSize().x - 90, 10);
-    button1.setFillColor(sf::Color(100, 100, 250));
-    */
+    // Add buttons to the toolbar (tower buttons)
     sf::Texture tankTexture, tankGunTexture, planeTexture;
 
     // Load tank texture
@@ -423,10 +419,11 @@ int main()
     sf::Sprite planeSprite(planeTexture);
 
     // Set positions of the buttons
-    tankSprite.setPosition(window.getSize().x - 90, 10);
-    tankGunSprite.setPosition(window.getSize().x - 90, 10);
-    planeSprite.setPosition(window.getSize().x - 90, 40);
-    
+    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80);
+    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80);
+    planeSprite.setPosition(2 * 20 + tankSprite.getPosition().x + tankTexture.getSize().x, 80);
+    std::cout << "Scale x: " << tankSprite.getScale().x << std::endl;
+    // std::cout << "Window size x: " << tankTexture.getSize().x 
 
 //Load window
     while (window.isOpen())
