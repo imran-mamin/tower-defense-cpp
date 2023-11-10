@@ -7,7 +7,9 @@ int main()
     int rows = 12;
     int columns = 20;
 
-	sf::RenderWindow window(sf::VideoMode(columns * 64, rows * 64), "TestiPiirto");
+    int tileWidth = 64;
+    int tileHeight = 64;
+	sf::RenderWindow window(sf::VideoMode(columns * tileWidth, rows * tileHeight), "TestiPiirto");
 
 
 //TilesVector is a vector containing the addresses of the pictures as a string
@@ -382,7 +384,11 @@ int main()
     toolbar.setPosition(window.getSize().x - toolbarWidth, 0);
     toolbar.setFillColor(sf::Color(200, 200, 200));
 
+    // Towers to protect base: Cannon, MissileLauncher and FighterPlane
+    std::vector<std::string> towersVec = {};
+
     // Add buttons to the toolbar
+
     sf::RectangleShape button1(sf::Vector2f(80, 30));
     button1.setPosition(window.getSize().x - 90, 10);
     button1.setFillColor(sf::Color(100, 100, 250));
