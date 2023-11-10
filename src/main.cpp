@@ -419,12 +419,11 @@ int main()
     sf::Sprite planeSprite(planeTexture);
 
     // Set positions of the buttons
-    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80);
-    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80);
+    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
+    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
+    // 20 + tank x-coordinate + tank width + 20
     planeSprite.setPosition(2 * 20 + tankSprite.getPosition().x + tankTexture.getSize().x, 80);
-    std::cout << "Scale x: " << tankSprite.getScale().x << std::endl;
-    // std::cout << "Window size x: " << tankTexture.getSize().x 
-
+    
 //Load window
     while (window.isOpen())
     {
@@ -433,6 +432,24 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            // Button click handling
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+                    // Is mouse over the button?
+                    if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
+                        std::cout << "tank button was clicked." << std::endl;
+                        // TODO: When clicking on this button the program should create a new tank instance.
+                    } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
+                        std::cout << "plane button was clicked." << std::endl;
+                        // TODO: When clicking on this button the program should create a new plane instance.
+                    }
+
+
+                }
+            }
         }
 
         window.clear();
