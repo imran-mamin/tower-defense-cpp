@@ -62,8 +62,8 @@ int main()
     int rows = 12;
     int columns = 20;
 
-    double tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
-    double tileHeight = tileWidth;
+    float tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
+    float tileHeight = tileWidth;
 
 //TilesVector is a vector containing the addresses of the pictures as a string
     std::vector<std::vector<std::string>> tilesVector;
@@ -428,7 +428,8 @@ int main()
         }
     }
 
-    
+    // std::cout << "Global width: " << sprites[rows - 1][columns - 1].getGlobalBounds().width << std::endl;
+
 //Load window
     while (window.isOpen())
     {
@@ -453,6 +454,30 @@ int main()
                     }
 
 
+                }
+            }
+
+            // Mouse hover event
+            if (event.type == sf::Event::MouseMoved) {
+                // Mouse position in window coordinates.
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < columns; j++) {
+                        if (sprites[i][j].getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+                            // Change opacity of the hovered sprite
+                            sf::Color spriteColor = sprites[i][j].getColor();
+                            spriteColor.a = 128;
+                            sprites[i][j].setColor(spriteColor);
+                            // std::cout << sprites[rows - 1][columns - 1].getGlobalBounds().width << std::endl;
+                        } else {
+                            // Restore opacity
+                            sf::Color spriteColor = sprites[i][j].getColor();
+                            spriteColor.a = 255; // Fully visible
+                            sprites[i][j].setColor(spriteColor);
+                        }
+
+                    }
                 }
             }
         }
