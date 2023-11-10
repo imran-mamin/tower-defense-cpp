@@ -428,8 +428,6 @@ int main()
         }
     }
 
-    // std::cout << "Global width: " << sprites[rows - 1][columns - 1].getGlobalBounds().width << std::endl;
-
 //Load window
     while (window.isOpen())
     {
@@ -460,16 +458,15 @@ int main()
             // Mouse hover event
             if (event.type == sf::Event::MouseMoved) {
                 // Mouse position in window coordinates.
-                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-                
+                sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 for (int i = 0; i < rows; i++) {
                     for (int j = 0; j < columns; j++) {
-                        if (sprites[i][j].getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+
+                        if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
                             // Change opacity of the hovered sprite
                             sf::Color spriteColor = sprites[i][j].getColor();
                             spriteColor.a = 128;
                             sprites[i][j].setColor(spriteColor);
-                            // std::cout << sprites[rows - 1][columns - 1].getGlobalBounds().width << std::endl;
                         } else {
                             // Restore opacity
                             sf::Color spriteColor = sprites[i][j].getColor();
