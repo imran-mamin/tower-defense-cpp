@@ -10,6 +10,17 @@ int main()
     
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
+    sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
+    sf::View applicationView(sf::FloatRect(0, 0, windowWidth, windowHeight));
+
+    // Set the startView
+    window.setView(startView);
+
+    // Create startButton
+    sf::RectangleShape startButton(sf::Vector2f(150, 150));
+    startButton.setPosition(100, 100);
+    startButton.setFillColor(sf::Color::Blue);
+
     // Toolbar parameters
     int toolbarWidth = 200;
     int toolbarHeight = window.getSize().y;
@@ -428,6 +439,7 @@ int main()
         }
     }
 
+    bool startButtonClicked = false;
 //Load window
     while (window.isOpen())
     {
@@ -443,14 +455,23 @@ int main()
                     sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
                     // Is mouse over the button?
-                    if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
+                    
+                    if (startButton.getGlobalBounds().contains(mousePos)) {
+                        std::cout << "startButton clicked" << std::endl;
+                        startButtonClicked = true;
+                        // Switch to application view
+                        window.setView(applicationView);
+                    }
+                    
+                    if (startButtonClicked) {
+                        if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
                         std::cout << "tank button was clicked." << std::endl;
                         // TODO: When clicking on this button the program should create a new tank instance.
-                    } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
+                        } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
                         std::cout << "plane button was clicked." << std::endl;
                         // TODO: When clicking on this button the program should create a new plane instance.
+                        }
                     }
-
 
                 }
             }
@@ -459,42 +480,51 @@ int main()
             if (event.type == sf::Event::MouseMoved) {
                 // Mouse position in window coordinates.
                 sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                for (int i = 0; i < rows; i++) {
-                    for (int j = 0; j < columns; j++) {
+                
+                if (startButtonClicked) {
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < columns; j++) {
 
-                        if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
-                            // Change opacity of the hovered sprite
-                            sf::Color spriteColor = sprites[i][j].getColor();
-                            spriteColor.a = 128;
-                            sprites[i][j].setColor(spriteColor);
-                        } else {
-                            // Restore opacity
-                            sf::Color spriteColor = sprites[i][j].getColor();
-                            spriteColor.a = 255; // Fully visible
-                            sprites[i][j].setColor(spriteColor);
+                            if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
+                                // Change opacity of the hovered sprite
+                                sf::Color spriteColor = sprites[i][j].getColor();
+                                spriteColor.a = 128;
+                                sprites[i][j].setColor(spriteColor);
+                            } else {
+                                // Restore opacity
+                                sf::Color spriteColor = sprites[i][j].getColor();
+                                spriteColor.a = 255; // Fully visible
+                                sprites[i][j].setColor(spriteColor);
+                            }
+
                         }
-
                     }
                 }
             }
         }
 
         window.clear(sf::Color(200, 200, 200));
-        
-        // Draw the tiles
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                window.draw(sprites[i][j]);
+        if (!startButtonClicked) {
+            window.draw(startButton);
+        } else {
+            // Draw the tiles
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    window.draw(sprites[i][j]);
+                }
             }
+
+            
+            // Draw the toolbar and buttons inside it.
+            window.draw(toolbar);
+            window.draw(tankSprite);
+            window.draw(tankGunSprite);
+            window.draw(planeSprite);
         }
-
         
-        // Draw the toolbar and buttons inside it.
-        window.draw(toolbar);
-        window.draw(tankSprite);
-        window.draw(tankGunSprite);
-        window.draw(planeSprite);
-
+        // if (window.getView().getViewport() == applicationView.getViewport()) {
+            
+        // }
         window.display();
     }
 
