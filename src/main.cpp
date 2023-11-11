@@ -17,10 +17,29 @@ int main()
     window.setView(startView);
 
     // Create startButton
-    sf::RectangleShape startButton(sf::Vector2f(150, 150));
-    startButton.setPosition(100, 100);
+    sf::RectangleShape startButton(sf::Vector2f(100, 60));
+    startButton.setPosition(500, 500);
     startButton.setFillColor(sf::Color::Blue);
 
+    // Create title of the game
+    sf::Font font;
+    if (!font.loadFromFile("../fonts/open-sans/OpenSans-Italic.ttf")) {
+        std::cout << "Error in font loading" << std::endl;
+        return -1; 
+    }
+
+
+    sf::Text title;
+    title.setString("Clash Of Armies");
+    title.setCharacterSize(60);
+    title.setFont(font);
+    title.setFillColor(sf::Color::Red);
+
+    // Center the text horizontally
+    sf::FloatRect titleBounds = title.getLocalBounds();
+    title.setOrigin(titleBounds.left + titleBounds.width / 2.0f, 0);
+    title.setPosition(window.getSize().x / 2.0f, 100);
+    
     // Toolbar parameters
     int toolbarWidth = 200;
     int toolbarHeight = window.getSize().y;
@@ -499,6 +518,17 @@ int main()
 
                         }
                     }
+                } else {
+                    sf::Color color = startButton.getFillColor();
+                    if (startButton.getGlobalBounds().contains(mousePos)) {
+                        // change opacity of the hovered startButton
+                        color.a = 128;
+                        startButton.setFillColor(color);
+                    } else {
+                        // Restore opacity
+                        color.a = 255;
+                        startButton.setFillColor(color);
+                    }
                 }
             }
         }
@@ -506,6 +536,7 @@ int main()
         window.clear(sf::Color(200, 200, 200));
         if (!startButtonClicked) {
             window.draw(startButton);
+            window.draw(title);
         } else {
             // Draw the tiles
             for (int i = 0; i < rows; i++) {
