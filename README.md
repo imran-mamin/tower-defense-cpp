@@ -56,3 +56,6 @@ The recommended format is:
 - Complete class implementation **foo**. Assigned to \<Member 1\>
 - Test ...
 - Build instructions
+
+# TODO
+- [ ] GameWindow class that encapsulates the window / view changing logic.
