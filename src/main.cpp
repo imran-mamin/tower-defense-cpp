@@ -143,7 +143,7 @@ int main()
     tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
-    tilesVector[0].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[0].push_back("../rsrc/tiles/background/buildMenu.png");
 
 
 //Row2
@@ -475,7 +475,6 @@ int main()
         }
     }
 
-    bool startButtonClicked = false;
 //Load window
     while (window.isOpen())
     {
