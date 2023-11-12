@@ -1,12 +1,16 @@
 
+
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <list>
 #include <iostream>
 
 int main()
 {
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64 - 12;
+
+    std::vector<Tower> tower_;
     
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
@@ -526,11 +530,16 @@ int main()
         }
     }
 
+
 bool startButtonClicked = false;
+
+sf::Sprite towerClicked;
+
 //Load window
     while (window.isOpen())
     {
         sf::Event event;
+
         while (window.pollEvent(event))
         {
             switch (event.type)
@@ -559,11 +568,12 @@ bool startButtonClicked = false;
                             // TODO: When clicking on this button the program should create a new tank instance.
                             } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "plane button was clicked." << std::endl;
-                            // TODO: When clicking on this button the program should create a new plane instance.
+                            towerClicked = planeSprite;
                             }
                         }
 
                     }
+                case (sf::Event::MouseButtonReleased):
 
                 // Mouse hover event
                 case (sf::Event::MouseMoved):
