@@ -17,18 +17,34 @@ int main()
     window.setView(startView);
 
     // Create startButton
-    sf::RectangleShape startButton(sf::Vector2f(100, 60));
-    startButton.setPosition(500, 500);
+    sf::RectangleShape startButton(sf::Vector2f(200, 100));
     startButton.setFillColor(sf::Color::Blue);
 
-    // Create title of the game
+    // Center the button horizontally
+    sf::FloatRect startButtonBounds = startButton.getLocalBounds();
+    startButton.setOrigin(startButtonBounds.left + startButtonBounds.width / 2.0f, 0);
+    startButton.setPosition(window.getSize().x / 2.0f, 400);
+    
     sf::Font font;
     if (!font.loadFromFile("../fonts/open-sans/OpenSans-Italic.ttf")) {
         std::cout << "Error in font loading" << std::endl;
         return -1; 
     }
+    /*
+    // Add text for the startButton
+    sf::Text playText;
+    playText.setFont(font);
+    playText.setString("Play");
+    playText.setCharacterSize(20);
+    playText.setFillColor(sf::Color::White);
 
+    // Center the text within the button
+    sf::FloatRect playBounds = playText.getLocalBounds();
+    playText.setOrigin(playBounds.left + playBounds.width / 2.0f, playBounds.top + playBounds.height / 2.0f);
+    playText.setPosition(startButton.getPosition().x + startButton.getSize().x / 2.0f, startButton.getPosition().y + startButton.getSize().y / 2.0f);
+    */
 
+    // Create title for the game.
     sf::Text title;
     title.setString("Clash Of Armies");
     title.setCharacterSize(60);
@@ -536,6 +552,7 @@ int main()
         window.clear(sf::Color(200, 200, 200));
         if (!startButtonClicked) {
             window.draw(startButton);
+            // window.draw(playText);
             window.draw(title);
         } else {
             // Draw the tiles
