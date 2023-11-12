@@ -12,7 +12,13 @@ MapInfo ParseMap(const std::string &path) {
 	nlohmann::json data = nlohmann::json::parse(is);
 
 	try {
-		return MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], data["enemy_path"] };
+		MapInfo mapInfo =  MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], data["enemy_path"] };
+	
+		if (mapInfo.mapWidth * mapInfo.mapHeight != mapInfo.backgroundTiles.size()) {
+			throw MapParserError("Tile count of the map must be equal to tileWidth * mapHeight!");
+		}
+
+		return mapInfo;
 	}
 	catch (const std::exception &e) {
 

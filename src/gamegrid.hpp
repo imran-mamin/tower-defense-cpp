@@ -1,11 +1,13 @@
 
 #pragma once
 
+#include <SFML/Graphics/Sprite.hpp>
 #include <cstdint>
 #include <map>
 #include <string>
 #include <tuple>
 #include <vector>
+#include <map>
 
 #include <SFML/Graphics.hpp>
 
@@ -21,11 +23,11 @@ class GameGrid {
 
 	Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
 
-	void Draw(const sf::RenderWindow& RenderWindow);
+	void DrawBackground(sf::RenderWindow& RenderWindow);
 
    private:
 	std::vector<std::tuple<std::uint32_t>> enemyPath_;
-	std::vector<sf::Texture> textures_;
+	std::map<std::uint16_t, sf::Texture> textures_;
 	std::vector<sf::Sprite> sprites_;
 
 	std::uint8_t tileWidth_;
@@ -33,5 +35,7 @@ class GameGrid {
 	//std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
     std::uint32_t mapWidth_;
 	std::uint32_t mapHeight_;
+
+	bool textureAlreadyLoaded(std::uint16_t textureId) const;
 };
 
