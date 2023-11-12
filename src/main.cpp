@@ -32,7 +32,7 @@ int main()
         std::cout << "Error in font loading" << std::endl;
         return -1; 
     }
-    /*
+    
     // Add text for the startButton
     sf::Text playText;
     playText.setFont(font);
@@ -43,8 +43,7 @@ int main()
     // Center the text within the button
     sf::FloatRect playBounds = playText.getLocalBounds();
     playText.setOrigin(playBounds.left + playBounds.width / 2.0f, playBounds.top + playBounds.height / 2.0f);
-    playText.setPosition(startButton.getPosition().x + startButton.getSize().x / 2.0f, startButton.getPosition().y + startButton.getSize().y / 2.0f);
-    */
+    playText.setPosition(startButton.getPosition().x, startButton.getPosition().y + startButton.getSize().y / 2.0f);
 
     // Create title for the game.
     sf::Text title;
@@ -554,7 +553,7 @@ int main()
         window.clear(sf::Color(200, 200, 200));
         if (!startButtonClicked) {
             window.draw(startButton);
-            // window.draw(playText);
+            window.draw(playText);
             window.draw(title);
         } else {
             // Draw the tiles
