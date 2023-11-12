@@ -6,7 +6,7 @@
 int main()
 {
     int windowWidth = 20 * 64;
-    int windowHeight = 12 * 64;
+    int windowHeight = 12 * 64 - 12;
     
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
@@ -58,13 +58,13 @@ int main()
     title.setPosition(window.getSize().x / 2.0f, 100);
     
     // Toolbar parameters
-    int toolbarWidth = 200;
+    int toolbarWidth = 100;
     int toolbarHeight = window.getSize().y;
     
     // Create a vertical toolbar on the right side using a rectangle
     sf::RectangleShape toolbar(sf::Vector2f(toolbarWidth, toolbarHeight));
     toolbar.setPosition(window.getSize().x - toolbarWidth, 0);
-    toolbar.setFillColor(sf::Color(200, 200, 200));
+    toolbar.setFillColor(sf::Color(128, 128, 128));
 
     // Towers to protect base: Cannon, MissileLauncher and FighterPlane
     std::vector<std::string> towersVec = {
@@ -100,13 +100,14 @@ int main()
     sf::Sprite planeSprite(planeTexture);
 
     // Set positions of the buttons
-    tankSprite.setPosition(window.getSize().x  - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
-    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + 20, 80); // Toolbar x-coordinate + 20
+    tankSprite.setPosition(window.getSize().x  - toolbarWidth + toolbarWidth * 0.2, 60); // Toolbar x-coordinate + 20
+
+    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 60); // Toolbar x-coordinate + 20
     // 20 + tank x-coordinate + tank width + 20
-    planeSprite.setPosition(2 * 20 + tankSprite.getPosition().x + tankTexture.getSize().x, 80);
+    planeSprite.setPosition(window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 140);
     
     // Creating board of tiles
-    int rows = 12;
+    int rows = 14;
     int columns = 20;
 
     float tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
@@ -431,6 +432,56 @@ int main()
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
     tilesVector[11].push_back("../rsrc/tiles/background/grass.png");
 
+//Row13
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[12].push_back("../rsrc/tiles/background/grass.png");
+
+//Row14
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+    tilesVector[13].push_back("../rsrc/tiles/background/grass.png");
+
 //TexturesVector contains the corresponding textures
     std::vector<std::vector<sf::Texture>> texturesVector;
 
@@ -482,70 +533,72 @@ bool startButtonClicked = false;
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (event.type)
+            {
+                case (sf::Event::Closed):
+                    window.close();
+                    break;
 
-            // Button click handling
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                // Button click handling
+                case (sf::Event::MouseButtonPressed):
+                    if (event.mouseButton.button == sf::Mouse::Left) {
+                        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-                    // Is mouse over the button?
-                    
-                    if (startButton.getGlobalBounds().contains(mousePos)) {
-                        std::cout << "startButton clicked" << std::endl;
-                        startButtonClicked = true;
-                        // Switch to application view
-                        window.setView(applicationView);
+                        // Is mouse over the button?
+                        
+                        if (startButton.getGlobalBounds().contains(mousePos)) {
+                            std::cout << "startButton clicked" << std::endl;
+                            startButtonClicked = true;
+                            // Switch to application view
+                            window.setView(applicationView);
+                        }
+                        
+                        if (startButtonClicked) {
+                            if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
+                            std::cout << "tank button was clicked." << std::endl;
+                            // TODO: When clicking on this button the program should create a new tank instance.
+                            } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
+                            std::cout << "plane button was clicked." << std::endl;
+                            // TODO: When clicking on this button the program should create a new plane instance.
+                            }
+                        }
+
                     }
+
+                // Mouse hover event
+                case (sf::Event::MouseMoved):
+                    // Mouse position in window coordinates.
+                    sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                     
                     if (startButtonClicked) {
-                        if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
-                        std::cout << "tank button was clicked." << std::endl;
-                        // TODO: When clicking on this button the program should create a new tank instance.
-                        } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
-                        std::cout << "plane button was clicked." << std::endl;
-                        // TODO: When clicking on this button the program should create a new plane instance.
-                        }
-                    }
+                        for (int i = 0; i < rows; i++) {
+                            for (int j = 0; j < columns; j++) {
 
-                }
-            }
+                                if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
+                                    // Change opacity of the hovered sprite
+                                    sf::Color spriteColor = sprites[i][j].getColor();
+                                    spriteColor.a = 128;
+                                    sprites[i][j].setColor(spriteColor);
+                                } else {
+                                    // Restore opacity
+                                    sf::Color spriteColor = sprites[i][j].getColor();
+                                    spriteColor.a = 255; // Fully visible
+                                    sprites[i][j].setColor(spriteColor);
+                                }
 
-            // Mouse hover event
-            if (event.type == sf::Event::MouseMoved) {
-                // Mouse position in window coordinates.
-                sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                
-                if (startButtonClicked) {
-                    for (int i = 0; i < rows; i++) {
-                        for (int j = 0; j < columns; j++) {
-
-                            if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
-                                // Change opacity of the hovered sprite
-                                sf::Color spriteColor = sprites[i][j].getColor();
-                                spriteColor.a = 128;
-                                sprites[i][j].setColor(spriteColor);
-                            } else {
-                                // Restore opacity
-                                sf::Color spriteColor = sprites[i][j].getColor();
-                                spriteColor.a = 255; // Fully visible
-                                sprites[i][j].setColor(spriteColor);
                             }
-
                         }
-                    }
-                } else {
-                    sf::Color color = startButton.getFillColor();
-                    if (startButton.getGlobalBounds().contains(mousePos)) {
-                        // change opacity of the hovered startButton
-                        color.a = 128;
-                        startButton.setFillColor(color);
                     } else {
-                        // Restore opacity
-                        color.a = 255;
-                        startButton.setFillColor(color);
-                    }
+                        sf::Color color = startButton.getFillColor();
+                        if (startButton.getGlobalBounds().contains(mousePos)) {
+                            // change opacity of the hovered startButton
+                            color.a = 128;
+                            startButton.setFillColor(color);
+                        } else {
+                            // Restore opacity
+                            color.a = 255;
+                            startButton.setFillColor(color);
+                        }
                 }
             }
         }
@@ -575,8 +628,5 @@ bool startButtonClicked = false;
             
         // }
         window.display();
-    }
-
-    return 0;
-}
-
+    };
+    };
