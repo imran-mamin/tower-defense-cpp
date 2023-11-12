@@ -475,6 +475,7 @@ int main()
         }
     }
 
+bool startButtonClicked = false;
 //Load window
     while (window.isOpen())
     {
