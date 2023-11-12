@@ -2,13 +2,17 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 #include "json.hpp"
 #include "map_parser.hpp"
 
 
 MapInfo ParseMap(const std::string &path) {
-	std::ifstream is("rsrc/maps/map1.json");
+	std::ifstream is(path);
+	if (is.fail()) {
+		throw MapParserError(std::string("Failed to open file at '") + path + "'.");
+	}
 	nlohmann::json data = nlohmann::json::parse(is);
 
 	try {
