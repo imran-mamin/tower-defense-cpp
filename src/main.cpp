@@ -18,7 +18,9 @@ int main()
 
     // Create startButton
     sf::RectangleShape startButton(sf::Vector2f(200, 100));
-    startButton.setFillColor(sf::Color::Blue);
+    startButton.setFillColor(sf::Color(252, 213, 38));
+    startButton.setOutlineColor(sf::Color::Black);
+    startButton.setOutlineThickness(4);
 
     // Center the button horizontally
     sf::FloatRect startButtonBounds = startButton.getLocalBounds();
