@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
@@ -11,7 +12,7 @@
 #include <string>
 #include <vector>
 
-#include "directory.hpp"
+#include "path.hpp"
 #include "map_parser.hpp"
 
 bool GameGrid::textureAlreadyLoaded(std::uint16_t textureId) const {
@@ -53,6 +54,7 @@ GameGrid::GameGrid(const std::string &path) {
 		
 			/* Load sprite. */
 			sf::Sprite s;
+			s.setPosition(sf::Vector2f(i, j));
 			s.setTexture(textures_[bgTextureId]);
 			sprites_.push_back(s);
 		}
