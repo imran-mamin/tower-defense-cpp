@@ -1,5 +1,8 @@
 {
     "files.associations": {
+        "*.jsx": "javascriptreact",
+        "*.js": "javascriptreact",
+        "*.arb": "json",
         "iosfwd": "cpp",
         "cstdint": "cpp",
         "__bit_reference": "cpp",
@@ -73,6 +76,19 @@
         "concepts": "cpp",
         "numeric": "cpp",
         "ranges": "cpp",
-        "algorithm": "cpp"
-    }
+        "algorithm": "cpp",
+        "*.tcc": "cpp",
+        "codecvt": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "utility": "cpp",
+        "numbers": "cpp",
+        "cinttypes": "cpp"
+    },
+    "editor.codeActionsOnSave": {
+		"source.fixAll.format":false,
+	},
+    "editor.formatOnSave": true
 }
