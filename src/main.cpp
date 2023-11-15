@@ -1,4 +1,3 @@
-#include "map_parser.hpp"
 #include "tower.hpp"
 #include "fighterplane.hpp"
 #include "gamegrid.hpp"
@@ -532,6 +531,8 @@ bool startButtonClicked = false;
 
 std::optional<GameObject> towerClicked;
 
+std::vector<GameObject> objects;
+
 //Load window
     while (window.isOpen())
     {
@@ -561,10 +562,10 @@ std::optional<GameObject> towerClicked;
                         
                         if (startButtonClicked) {
                             if (cannonSprite.getGlobalBounds().contains(mousePos)) {
-                            std::cout << "tank button was clicked." << std::endl;
+                            std::cout << "cannon button was clicked." << std::endl;
                             // TODO: When clicking on this button the program should create a new tank instance.
                             } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
-                            std::cout << "plane button was clicked." << std::endl;
+                            std::cout << "bigCannon button was clicked." << std::endl;
                             }
                         }
 

@@ -6,9 +6,9 @@
 // TODO: Implement methods
 class Cannon: public Tower {
 private:
-    Bullet pr_;
+    int fireRate_;
 public:
-    Cannon(int radius, Bullet pr): Tower(radius), pr_(pr) {};
+    Cannon(int radius, int fireRate): Tower(radius), fireRate_(fireRate) {};
 
     void fire();
     void onDestroy();
