@@ -11,7 +11,7 @@
 /* The tiles are static since background shouldn't change in the middle of the game. */
 class BackgroundRenderer : public Renderer {
    public:
-    BackgroundRenderer(sf::RenderWindow &renderWindow, const GameGrid &gameGrid);
+    BackgroundRenderer(sf::RenderWindow &renderWindow, GameGrid &gameGrid);
 
 	void Draw() override;
 

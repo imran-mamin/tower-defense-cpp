@@ -3,6 +3,10 @@
 #include "gamegrid.hpp"
 #include "path.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <cstddef>
+#include <vector>
 
 
 bool BackgroundRenderer::textureAlreadyLoaded(std::uint16_t textureId) const {
@@ -16,36 +20,30 @@ bool BackgroundRenderer::textureAlreadyLoaded(std::uint16_t textureId) const {
     return true;
 }
 
-BackgroundRenderer::BackgroundRenderer(sf::RenderWindow &renderWindow, const GameGrid &gameGrid) : Renderer(renderWindow) {
+BackgroundRenderer::BackgroundRenderer(sf::RenderWindow &renderWindow, GameGrid &gameGrid) : Renderer(renderWindow) {
 	/* Load background textures and sprites. */
-	for (auto rows : gameGrid.) {
-
-	}
-
-
-	/* Load background textures and sprites. */
-	for (std::uint16_t j = 0; j < mapInfo.mapHeight; j++) {
-		for (std::uint16_t i = 0; i < mapInfo.mapWidth; i++) {
-			std::size_t bgTextureId = mapInfo.backgroundTiles[j][i];
+	for (std::size_t j = 0; j < gameGrid.Height(); j++) {
+		for (std::size_t i = 0; i < gameGrid.Width(); i++) {
+			std::uint16_t bgTextureId = gameGrid.Tiles()[j][i].Id();
 			
 			/* Load texture if it's not already loaded. */
 			if (!textureAlreadyLoaded(bgTextureId)) {
 				/* TODO: Create a function for getting resource paths. */
-	    		const std::string texturePath = BACKGROUND_TILE_DIRECTORY + std::to_string(bgTextureId) + ".png";
-				
-				sf::Texture t;
-				if (!t.loadFromFile(texturePath)) {
+				const std::string texturePath = BACKGROUND_TILE_DIRECTORY + std::to_string(bgTextureId) + ".png";
+
+				sf::Texture texture;
+				if (!texture.loadFromFile(texturePath)) {
 					/* TODO: Replace with a proper exception type. */
 					throw std::runtime_error(std::string("Failed to load texture from '") + texturePath + "'");
 				}
-				textures_[bgTextureId] = t;
+				textures_[bgTextureId] = texture;
 			}
-		
+
 			/* Load sprite. */
-			sf::Sprite s;
-			s.setPosition(sf::Vector2f(i, j));
-			s.setTexture(textures_[bgTextureId]);
-			sprites_.push_back(s);
+			sf::Sprite sprite;
+			sprite.setPosition(sf::Vector2f(i, j));
+			sprite.setTexture(textures_[bgTextureId]);
+			sprites_.push_back(sprite);
 		}
 	}
 
