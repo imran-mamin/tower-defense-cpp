@@ -1,46 +1,37 @@
 
 #include "gamegrid.hpp"
-#include "map_parser.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Joystick.hpp>
+#include <cassert>
+#include <cstddef>
 #include <cstdint>
 #include <exception>
+#include <stdexcept>
+#include <string>
 #include <vector>
 
+#include "path.hpp"
+#include "map_parser.hpp"
+#include "tile.hpp"
 
+/* Create the gamegrid. */
+GameGrid::GameGrid(const MapInfo &mapInfo) {
+    width_ = mapInfo.mapWidth;
+    height_ = mapInfo.mapHeight;
+    tileWidth_ = mapInfo.tileWidth;
+    //enemyPath_ = mapInfo.enemyPath;
 
-/* TODO: Create the gamegrid. */
-GameGrid::GameGrid(const std::string &path) {
-	try {
-		MapInfo mapInfo = ParseMap(path);
-		mapWidth_ = mapInfo.mapWidth;
-		mapHeight_ = mapInfo.mapHeight;
-		tileWidth_ = mapInfo.tileWidth;
-		enemyPath_ = mapInfo.enemyPath;
-
-		/* TODO: Load background textures by their ID. */
-		for (auto bgTextureId : mapInfo.backgroundTiles) {
-
-		}
-	}
-	/* TODO: Catch (they also need to be created. MapParserError child class objects.)*/
-	catch (const std::exception &e) {
-		
-	}
+	// TODO: Load the tiles.
+//	for (auto row : mapInfo.backgroundTiles) {
+//		for (auto tileId: row) {
+//			// TODO: Add tiles.
+//			tiles_.push_back(Tile(/* TODO: Tile should contain the id and the type. */);
+//		}
+//		tiles_.push_back(row);
+//	}
 }
-
-void GameGrid::Draw(const sf::RenderWindow& /* gameGrid */) {
-
-}
-
-//GameGrid::GameGrid(const MapInfo &mapInfo) {
-//	tileWidth_ = mapInfo.tileWidth;
-//	std::vector<std::vector<std::uint16_t>> backgroundTiles_;
-//    std::uint32_t width_;
-//    std::uint32_t height_;
-//}
-
-//Tile &GameGrid::TileAtCoordinate(std::uint8_t x, std::uint8_t y) const {
-//	return tiles_[y / tileWidth_ + (y % tileWidth_ != 0 ? 1 : 0)][x / tileWidth_ + (x % tileWidth_ != 0 ? 1 : 0)];
-//}
-
 
 
