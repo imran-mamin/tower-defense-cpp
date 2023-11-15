@@ -1,4 +1,5 @@
-
+#include "tower.hpp"
+#include "fighterplane.hpp"
 #include "gamegrid.hpp"
 #include "game.hpp"
 #include "gameobject.hpp"
@@ -534,7 +535,7 @@ int main()
 
 bool startButtonClicked = false;
 
-sf::Sprite towerClicked;
+std::optional<GameObject> towerClicked;
 
 //Load window
     while (window.isOpen())
@@ -569,7 +570,6 @@ sf::Sprite towerClicked;
                             // TODO: When clicking on this button the program should create a new tank instance.
                             } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "plane button was clicked." << std::endl;
-                            towerClicked = planeSprite;
                             }
                         }
 
