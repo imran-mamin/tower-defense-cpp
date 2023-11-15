@@ -121,9 +121,9 @@ int main()
 
 bool startButtonClicked = false;
 
-std::optional<GameObject> towerClicked;
+std::optional<Cannon> towerClicked;
 
-std::vector<GameObject> objects;
+std::vector<sf::Sprite> objects;
 
 //Load window
     while (window.isOpen())
@@ -155,10 +155,22 @@ std::vector<GameObject> objects;
                         if (startButtonClicked) {
                             if (cannonSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "cannon button was clicked." << std::endl;
-                            
+                            towerClicked = Cannon(10, 10);
                             // TODO: When clicking on this button the program should create a new tank instance.
                             } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "bigCannon button was clicked." << std::endl;
+                            } else {
+                                if (towerClicked.has_value()) {
+                                    std::cout << "placing tower" << std::endl;
+                                    Cannon can = towerClicked.value();
+                                    sf::Sprite canSprite;
+
+                                    canSprite.setTexture(cannon);
+                                    canSprite.setPosition(mousePos);
+            
+                                    objects.push_back(canSprite);
+                                    towerClicked.reset();
+                                }
                             }
                         }
 
@@ -198,6 +210,10 @@ std::vector<GameObject> objects;
         } else {
             // Draw the tiles
             ikkuna.Draw();
+
+            for (auto it : objects) {
+                window.draw(it);
+            }
 
             // Draw the toolbar and buttons inside it.
             window.draw(toolbar);

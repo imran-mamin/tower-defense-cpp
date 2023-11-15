@@ -26,9 +26,9 @@ public:
 
     virtual void update() = 0;
     virtual void fire() = 0;
-    virtual bool takeDamage() = 0;
+    //virtual bool takeDamage() = 0;
     virtual void onDestroy() = 0;
-    int fireIntervalCounter() const;
+    //int fireIntervalCounter() const;
     virtual void sell() = 0;
 
 };
