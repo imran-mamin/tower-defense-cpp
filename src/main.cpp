@@ -74,8 +74,8 @@ int main()
 
     // Towers to protect base: Cannon, MissileLauncher and FighterPlane
     std::vector<std::string> towersVec = {
-                                            "../rsrc/tiles/enemies/tile249.png",
-                                            "../rsrc/tiles/enemies/tile250.png"       
+                                            "../rsrc/tiles/weapons/tile249.png",
+                                            "../rsrc/tiles/weapons/tile250.png"       
                                         };
 
     // Add buttons to the toolbar (tower buttons)
