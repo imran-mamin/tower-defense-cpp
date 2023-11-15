@@ -1,6 +1,3 @@
-
-#pragma once
-
 #include <SFML/Graphics.hpp>
 #include "pos.hpp"
 

@@ -7,6 +7,12 @@
 },
 {
   "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
+  "command": "/usr/bin/clang++  -I/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -Wall -Wextra -pedantic -Wno-missing-field-initializers -o CMakeFiles/ClashOfArmies.dir/src/background_renderer.cpp.o -c /Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/background_renderer.cpp",
+  "file": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/background_renderer.cpp",
+  "output": "CMakeFiles/ClashOfArmies.dir/src/background_renderer.cpp.o"
+},
+{
+  "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
   "command": "/usr/bin/clang++  -I/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -Wall -Wextra -pedantic -Wno-missing-field-initializers -o CMakeFiles/ClashOfArmies.dir/src/bullet.cpp.o -c /Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/bullet.cpp",
   "file": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/bullet.cpp",
   "output": "CMakeFiles/ClashOfArmies.dir/src/bullet.cpp.o"

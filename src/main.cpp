@@ -1,3 +1,4 @@
+
 #include "gamegrid.hpp"
 #include "game.hpp"
 #include "gameobject.hpp"
@@ -9,11 +10,9 @@
 int main()
 {
     int windowWidth = 20 * 64;
-    int windowHeight = 12 * 64 - 12;
+    int windowHeight = 12 * 64;
 
-    GameGrid gg();
 
-    
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
     sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
