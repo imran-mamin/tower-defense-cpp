@@ -21,6 +21,9 @@ class GameGrid {
     Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
     std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
+	std::uint32_t Width() const { return width_; }
+	std::uint32_t Height() const { return height_; }
+
    private:
     std::vector<std::vector<Tile>> tiles_;
     // std::vector<std::tuple<std::uint32_t>> enemyPath_;
