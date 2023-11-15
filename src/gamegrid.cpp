@@ -25,7 +25,7 @@ GameGrid::GameGrid(const MapInfo &mapInfo) {
         std::vector<Tile> v = std::vector();
 		for (auto tileId: row) {
 			// FIXME: add correct tile types, currently there are no checks paths or water.
-			tiles_.push_back(Tile(TileType.Grass, tileId));
+			v.push_back(Tile(TileType.Grass, tileId));
 		}
 		tiles_.push_back(v);
 	}
