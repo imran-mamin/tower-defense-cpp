@@ -1,13 +1,15 @@
-# Project Name (replace here!)
+# Clash Of Armies - A tower defense game written in modern C++
 
 This is the template for the projects. Please copy the project description here. 
 You can use Markdown language to render it as formatted **HTML** file.
 
 # Group
-- Member 1
-- Member 2
-- Member 3
-- Member 4
+- Aleksi Kalliomäki
+- Leevi Salonen
+- Mamin Imran
+- Theodora Valerie
+
+# [Project Kanban](https://sharing.clickup.com/9015092499/l/h/8cnet8k-35/9dc72dcb44e0fcf)
 
 # Repository organization
 Your project implementation should follow the skelaton organization in this repository.
