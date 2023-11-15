@@ -75,5 +75,8 @@
         "ranges": "cpp",
         "algorithm": "cpp",
         "list": "cpp"
+    },
+    "files.watcherExclude": {
+        "**/target": true
     }
 }
