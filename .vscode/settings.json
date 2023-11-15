@@ -85,7 +85,13 @@
         "random": "cpp",
         "utility": "cpp",
         "numbers": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "condition_variable": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
     "editor.codeActionsOnSave": {
 		"source.fixAll.format":false,
