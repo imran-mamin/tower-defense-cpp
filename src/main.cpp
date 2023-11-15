@@ -1,18 +1,22 @@
+#include "map_parser.hpp"
 #include "tower.hpp"
 #include "fighterplane.hpp"
 #include "gamegrid.hpp"
 #include "game.hpp"
 #include "gameobject.hpp"
+#include "testmapinfo.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <list>
 #include <iostream>
+
 
 int main()
 {
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64;
 
+	GameGrid gg = GameGrid(testMapInfoObject1());
 
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
