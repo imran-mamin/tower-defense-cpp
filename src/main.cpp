@@ -1,9 +1,11 @@
 #include "tower.hpp"
-#include "fighterplane.hpp"
+#include "cannon.hpp"
+#include <optional>
 #include "gamegrid.hpp"
 #include "game.hpp"
 #include "gameobject.hpp"
 #include "testmapinfo.hpp"
+#include "background_renderer.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <list>
@@ -18,6 +20,8 @@ int main()
 	GameGrid gg = GameGrid(testMapInfoObject1());
 
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
+
+    BackgroundRenderer ikkuna(window, gg);
 
     sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
     sf::View applicationView(sf::FloatRect(0, 0, windowWidth, windowHeight));
@@ -620,11 +624,12 @@ std::vector<GameObject> objects;
             window.draw(title);
         } else {
             // Draw the tiles
-            for (int i = 0; i < rows; i++) {
+            /*for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     window.draw(sprites[i][j]);
                 }
-            }
+            }*/
+            ikkuna.Draw();
 
             
             // Draw the toolbar and buttons inside it.
