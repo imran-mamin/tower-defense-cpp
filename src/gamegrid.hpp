@@ -23,6 +23,7 @@ class GameGrid {
 
 	std::uint32_t Width() const { return width_; }
 	std::uint32_t Height() const { return height_; }
+	std::uint8_t TileWidth() const { return tileWidth_; }
 
    private:
     std::vector<std::vector<Tile>> tiles_;

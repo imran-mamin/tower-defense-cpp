@@ -41,7 +41,7 @@ BackgroundRenderer::BackgroundRenderer(sf::RenderWindow &renderWindow, GameGrid 
 
 			/* Load sprite. */
 			sf::Sprite sprite;
-			sprite.setPosition(sf::Vector2f(i, j));
+			sprite.setPosition(sf::Vector2f(i * gameGrid.TileWidth(), j * gameGrid.TileWidth()));
 			sprite.setTexture(textures_[bgTextureId]);
 			sprites_.push_back(sprite);
 		}
