@@ -74,43 +74,34 @@ int main()
 
     // Towers to protect base: Cannon, MissileLauncher and FighterPlane
     std::vector<std::string> towersVec = {
-                                            "../rsrc/tiles/enemies/tank.png",
-                                            "../rsrc/tiles/enemies/tank-gun.png",
-                                            "../rsrc/tiles/enemies/fighterplane.png"       
+                                            "../rsrc/tiles/enemies/tile249.png",
+                                            "../rsrc/tiles/enemies/tile250.png"       
                                         };
 
     // Add buttons to the toolbar (tower buttons)
-    sf::Texture tankTexture, tankGunTexture, planeTexture;
+    sf::Texture cannon, bigCannon;
 
     // Load tank texture
-    if (!tankTexture.loadFromFile(towersVec[0])) {
-        std::cout << "tankTexture loadFromFile problem." << std::endl;
-        return -1;
-    }
-
-    // Load tank-gun texture
-    if (!tankGunTexture.loadFromFile(towersVec[1])) {
-        std::cout << "tankGunTexture loadFromFile problem." << std:: endl;
+    if (!cannon.loadFromFile(towersVec[0])) {
+        std::cout << "cannon loadFromFile problem." << std::endl;
         return -1;
     }
 
     // Load plane texture
-    if (!planeTexture.loadFromFile(towersVec[2])) {
-        std::cout << "planeTexture loadFromFile problem." << std::endl;
+    if (!bigCannon.loadFromFile(towersVec[1])) {
+        std::cout << "bigCannon loadFromFile problem." << std::endl;
         return -1;
     }
 
     // Creating sprites for the towers.
-    sf::Sprite tankSprite(tankTexture);
-    sf::Sprite tankGunSprite(tankGunTexture);
-    sf::Sprite planeSprite(planeTexture);
+    sf::Sprite cannonSprite(cannon);
+    sf::Sprite bigCannonSprite(bigCannon);
 
     // Set positions of the buttons
-    tankSprite.setPosition(window.getSize().x  - toolbarWidth + toolbarWidth * 0.2, 60); // Toolbar x-coordinate + 20
+    cannonSprite.setPosition(window.getSize().x  - toolbarWidth + toolbarWidth * 0.2, 60); // Toolbar x-coordinate + 20
 
-    tankGunSprite.setPosition(window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 60); // Toolbar x-coordinate + 20
     // 20 + tank x-coordinate + tank width + 20
-    planeSprite.setPosition(window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 140);
+    bigCannonSprite.setPosition(window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 140);
     
     // Creating board of tiles
     int rows = 14;
@@ -565,17 +556,19 @@ std::optional<GameObject> towerClicked;
                         }
                         
                         if (startButtonClicked) {
-                            if (tankGunSprite.getGlobalBounds().contains(mousePos)) {
+                            if (cannonSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "tank button was clicked." << std::endl;
                             // TODO: When clicking on this button the program should create a new tank instance.
-                            } else if (planeSprite.getGlobalBounds().contains(mousePos)) {
+                            } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
                             std::cout << "plane button was clicked." << std::endl;
                             }
                         }
 
                     }
+                    break;
                 case (sf::Event::MouseButtonReleased):
 
+                    break;
                 // Mouse hover event
                 case (sf::Event::MouseMoved):
                     // Mouse position in window coordinates.
@@ -610,7 +603,8 @@ std::optional<GameObject> towerClicked;
                             color.a = 255;
                             startButton.setFillColor(color);
                         }
-                }
+                    }
+                    break;
             }
         }
 
@@ -630,9 +624,8 @@ std::optional<GameObject> towerClicked;
             
             // Draw the toolbar and buttons inside it.
             window.draw(toolbar);
-            window.draw(tankSprite);
-            window.draw(tankGunSprite);
-            window.draw(planeSprite);
+            window.draw(cannonSprite);
+            window.draw(bigCannonSprite);
         }
         
         // if (window.getView().getViewport() == applicationView.getViewport()) {
