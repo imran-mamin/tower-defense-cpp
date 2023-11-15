@@ -24,14 +24,13 @@ GameGrid::GameGrid(const MapInfo &mapInfo) {
     tileWidth_ = mapInfo.tileWidth;
     //enemyPath_ = mapInfo.enemyPath;
 
-	// TODO: Load the tiles.
-//	for (auto row : mapInfo.backgroundTiles) {
-//		for (auto tileId: row) {
-//			// TODO: Add tiles.
-//			tiles_.push_back(Tile(/* TODO: Tile should contain the id and the type. */);
-//		}
-//		tiles_.push_back(row);
-//	}
+	for (auto row : mapInfo.backgroundTiles) {
+		for (auto tileId: row) {
+			// FIXME: add correct tile types, currently there are no checks paths or water.
+			tiles_.push_back(Tile(TileType.Grass, tileId));
+		}
+		tiles_.push_back(row);
+	}
 }
 
 

@@ -16,7 +16,7 @@ private:
 	std::uint16_t id_;
 
 public:
-    Tile(TileType type) : type_(type) {}
+    Tile(TileType type, std::uint16_t id) : type_(type), id_(id) {}
     TileType type() const;
     
 	std::uint16_t Id() const { return id_; }
