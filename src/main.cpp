@@ -10,7 +10,7 @@ int main()
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64 - 12;
 
-    std::vector<GameObject> towers_;
+    
     
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "TestiPiirto");
 
