@@ -4,7 +4,7 @@
 
 class Game {
 public:
-    Game(GameGrid grid);
+    Game(const GameGrid &grid);
 
     void AddObject(GameObject obj);
 

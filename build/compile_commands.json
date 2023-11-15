@@ -37,9 +37,21 @@
 },
 {
   "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
+  "command": "/usr/bin/clang++  -I/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -Wall -Wextra -pedantic -Wno-missing-field-initializers -o CMakeFiles/ClashOfArmies.dir/src/game.cpp.o -c /Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/game.cpp",
+  "file": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/game.cpp",
+  "output": "CMakeFiles/ClashOfArmies.dir/src/game.cpp.o"
+},
+{
+  "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
   "command": "/usr/bin/clang++  -I/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -Wall -Wextra -pedantic -Wno-missing-field-initializers -o CMakeFiles/ClashOfArmies.dir/src/gamegrid.cpp.o -c /Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/gamegrid.cpp",
   "file": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/gamegrid.cpp",
   "output": "CMakeFiles/ClashOfArmies.dir/src/gamegrid.cpp.o"
+},
+{
+  "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
+  "command": "/usr/bin/clang++  -I/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src -isystem /opt/homebrew/include -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.0 -Wall -Wextra -pedantic -Wno-missing-field-initializers -o CMakeFiles/ClashOfArmies.dir/src/gameobject.cpp.o -c /Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/gameobject.cpp",
+  "file": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/src/gameobject.cpp",
+  "output": "CMakeFiles/ClashOfArmies.dir/src/gameobject.cpp.o"
 },
 {
   "directory": "/Users/aleksikalliomaki/Documents/cpp-project/tower-defense-santeri-salmela-1/build",
