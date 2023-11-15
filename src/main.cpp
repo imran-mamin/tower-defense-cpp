@@ -116,7 +116,7 @@ int main()
 
     float tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
     float tileHeight = tileWidth;
-
+/*
 //TilesVector is a vector containing the addresses of the pictures as a string
     std::vector<std::vector<std::string>> tilesVector;
 
@@ -529,7 +529,7 @@ int main()
             sprites[i][j].setTexture(texturesVector[i][j]);
         }
     }
-
+*/
 
 bool startButtonClicked = false;
 
@@ -584,7 +584,7 @@ std::vector<GameObject> objects;
                     sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
                     
                     if (startButtonClicked) {
-                        for (int i = 0; i < rows; i++) {
+                        /*for (int i = 0; i < rows; i++) {
                             for (int j = 0; j < columns; j++) {
 
                                 if (sprites[i][j].getGlobalBounds().contains(mousePos)) {
@@ -600,7 +600,7 @@ std::vector<GameObject> objects;
                                 }
 
                             }
-                        }
+                        }*/
                     } else {
                         sf::Color color = startButton.getFillColor();
                         if (startButton.getGlobalBounds().contains(mousePos)) {
