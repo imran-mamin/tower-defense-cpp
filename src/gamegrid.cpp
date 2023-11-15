@@ -2,9 +2,6 @@
 #include "gamegrid.hpp"
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Joystick.hpp>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
