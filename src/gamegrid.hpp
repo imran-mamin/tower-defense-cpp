@@ -1,41 +1,33 @@
 
 #pragma once
 
+#include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <cstdint>
 #include <map>
 #include <string>
 #include <tuple>
 #include <vector>
-#include <map>
-
-#include <SFML/Graphics.hpp>
 
 #include "map_parser.hpp"
 #include "tile.hpp"
 
 class GameGrid {
    public:
-	/* Create a new GameGrid object from map file. */
+    /* Create a new GameGrid object from map file. */
     GameGrid(const MapInfo &mapInfo);
-	GameGrid(const std::string& path);
-	GameGrid() = delete;
+    GameGrid() = delete;
 
-	Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
-
-	void DrawBackground(sf::RenderWindow& RenderWindow);
+    Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
+    std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
    private:
-	std::vector<std::tuple<std::uint32_t>> enemyPath_;
-	std::map<std::uint16_t, sf::Texture> textures_;
-	std::vector<sf::Sprite> sprites_;
+    std::vector<std::vector<Tile>> tiles_;
+    // std::vector<std::tuple<std::uint32_t>> enemyPath_;
 
-	std::uint8_t tileWidth_;
-	/* Vector of pairs containing tiles associated with a tile sprite. */
-	//std::vector<std::vector<std::pair<Tile, const sf::Sprite&>>> backgroundTilesAndSprites_;
-    std::uint32_t mapWidth_;
-	std::uint32_t mapHeight_;
-
-	bool textureAlreadyLoaded(std::uint16_t textureId) const;
+    // LevelInfo
+    std::uint8_t tileWidth_;
+    std::uint32_t width_;
+    std::uint32_t height_;
 };
 

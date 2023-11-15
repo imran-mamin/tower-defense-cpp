@@ -25,7 +25,8 @@ MapInfo ParseMap(const std::string &path) {
 		return mapInfo;
 	}
 	catch (const std::exception &e) {
-
+		// TODO: Implement new exception throwing besides just rethrowing.
+		throw e;
 	}
 	// TODO: More precise error output.
 	//catch (/* TODO: Catch correct exception (trying to read data field that is incorrect, or type error idk.) */) {
