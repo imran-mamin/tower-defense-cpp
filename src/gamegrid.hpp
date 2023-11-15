@@ -18,7 +18,7 @@ class GameGrid {
     GameGrid(const MapInfo &mapInfo);
     GameGrid() = delete;
 
-    Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
+    Tile &TileAtCoordinate(std::uint32_t x, std::uint32_t y) const;
     std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
 	std::uint32_t Width() const { return width_; }
@@ -26,12 +26,13 @@ class GameGrid {
 	std::uint8_t TileWidth() const { return tileWidth_; }
 
    private:
-    std::vector<std::vector<Tile>> tiles_;
-    // std::vector<std::tuple<std::uint32_t>> enemyPath_;
-
-    // LevelInfo
+	std::vector<std::vector<Tile>> tiles_;
     std::uint8_t tileWidth_;
     std::uint32_t width_;
     std::uint32_t height_;
+    
+    // std::vector<std::tuple<std::uint32_t>> enemyPath_;
+	
+	bool CoordinateIsInsideGrid(std::uint32_t x, std::uint32_t y) const;
 };
 

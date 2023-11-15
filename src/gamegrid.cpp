@@ -31,4 +31,19 @@ GameGrid::GameGrid(const MapInfo &mapInfo) {
 	}
 }
 
+/* Helper. */
+bool GameGrid::CoordinateIsInsideGrid(std::uint32_t x, std::uint32_t y) const {
+	/* Since coordinates consist from unsigned values, there is no need to check negative x and y values. */
+	return x <= (width_ * tileWidth_) && y <= (height_ * tileWidth_);
+}
+
+//Tile &GameGrid::TileAtCoordinate(std::uint32_t x, std::uint32_t y) const {
+//	if (!CoordinateIsInsideGrid(x, y)) {
+//		throw std::runtime_error(std::string("No tile available at invalid coordinate: (") + std::to_string(x) + ", " + std::to_string(y) + ")!");
+//	}
+//
+//	return tiles_[y / tileWidth_ + (y % tileWidth_ != 0 ? 1 : 0)][x /
+//	tileWidth_ + (x % tileWidth_ != 0 ? 1 : 0)];
+//}
+
 
