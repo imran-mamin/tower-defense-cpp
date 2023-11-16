@@ -14,9 +14,7 @@ class Button {
     // Initialize button appearance
     shape.setPosition(position - size / 2.0f);
     shape.setSize(size);
-    shape.setFillColor(sf::Color::Transparent);
-    shape.setOutlineColor(sf::Color::White);
-    shape.setOutlineThickness(2.0f);
+    shape.setFillColor(sf::Color(36, 39, 54, 255));
 
     text.setFont(font);
     text.setString(buttonText);
@@ -37,13 +35,11 @@ class Button {
 
   bool handleHover(sf::Vector2f mousePos) {
     if (isMouseOver(mousePos)) {
-      shape.setFillColor(sf::Color::White);
-      text.setFillColor(sf::Color::Black);
+      shape.setFillColor(sf::Color(49, 55, 81, 255));
       return true;
     }
 
-    shape.setFillColor(sf::Color::Transparent);
-    text.setFillColor(sf::Color::White);
+    shape.setFillColor(sf::Color(36, 39, 54, 255));
     return false;
   }
 

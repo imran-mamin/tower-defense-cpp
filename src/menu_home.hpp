@@ -1,5 +1,4 @@
-#ifndef MENU_HOME_HPP
-#define MENU_HOME_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -9,5 +8,3 @@ class MenuHome {
 
   int run(sf::RenderWindow& window);
 };
-
-#endif

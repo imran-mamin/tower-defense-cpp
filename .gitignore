@@ -50,6 +50,5 @@ CMakeCache.txt
 cmake_install.cmake
 CMakeFiles/
 Makefile
-build/
-
-ClashOfArmies
+build/*
+.metals/

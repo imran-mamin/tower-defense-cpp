@@ -5,10 +5,10 @@
             "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/src/ClashOfArmies",  // Adjust the binary name
+            "program": "${workspaceFolder}/build/ClashOfArmies",  // Adjust the binary name
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/src",
+            "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

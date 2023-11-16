@@ -24,19 +24,10 @@ int MenuHome::run(sf::RenderWindow& window) {
       static_cast<float>(windowHeight) / backgroundTexture.getSize().y);
 
   sf::Font font;
-  if (!font.loadFromFile("../fonts/open-sans/OpenSans-Italic.ttf")) {
+  if (!font.loadFromFile("../fonts/pixieboy.ttf")) {
     std::cout << "Error in font loading" << std::endl;
     return (-1);
   }
-
-  sf::Text title;
-  title.setFont(font);
-  title.setCharacterSize(40);
-  title.setString("Clash of Armies");
-  title.setStyle(sf::Text::Bold);
-  title.setFillColor(sf::Color::White);
-  title.setPosition(windowWidth * 0.5f - title.getGlobalBounds().width * 0.5f,
-                    windowHeight * 0.1f);
 
   // Define a function to be executed when the button is clicked
   int page = 0;
@@ -82,7 +73,6 @@ int MenuHome::run(sf::RenderWindow& window) {
     window.clear();
 
     window.draw(backgroundSprite);
-    window.draw(title);
     playButton.draw(window);
     exitButton.draw(window);
 

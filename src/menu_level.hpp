@@ -1,5 +1,4 @@
-#ifndef MENU_LEVEL_HPP
-#define MENU_LEVEL_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -12,8 +11,6 @@ class MenuLevel {
  private:
   std::vector<std::pair<int, std::string>> levels;
 };
-
-#endif
 
 std::vector<std::pair<int, std::string>> readLevels(
     const std::string& filename);

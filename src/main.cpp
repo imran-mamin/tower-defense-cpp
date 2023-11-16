@@ -1,6 +1,6 @@
-
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <optional>
 #include <vector>
 
 #include "menu_home.hpp"

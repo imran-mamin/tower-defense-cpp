@@ -96,5 +96,8 @@
     "editor.codeActionsOnSave": {
 		"source.fixAll.format":false,
 	},
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }

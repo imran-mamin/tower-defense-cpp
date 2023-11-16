@@ -55,7 +55,7 @@ std::vector<Button> createLevelButtons(
     auto onClick = [callback, level]() { callback(level.first); };
     Button levelButton(
         sf::Vector2f(startX + currentColumn * (buttonWidth + buttonSpacingX),
-                     currentRow * (buttonHeight + buttonSpacingY) + 250),
+                     currentRow * (buttonHeight + buttonSpacingY) + 300),
         sf::Vector2f(buttonWidth, buttonHeight), onClick,
         "Level " + std::to_string(level.first), font);
     buttons.push_back(levelButton);
@@ -91,15 +91,6 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
     std::cout << "Error in font loading" << std::endl;
     return std::make_pair(-1, 0);
   }
-
-  sf::Text title;
-  title.setFont(font);
-  title.setCharacterSize(40);
-  title.setString("Clash of Armies");
-  title.setStyle(sf::Text::Bold);
-  title.setFillColor(sf::Color::White);
-  title.setPosition(windowWidth * 0.5f - title.getGlobalBounds().width * 0.5f,
-                    windowHeight * 0.1f);
 
   int gameLevel = 0;
   auto onLevelSelect = [this, &gameLevel](int selectedLevel) {
@@ -148,7 +139,6 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
     window.clear();
 
     window.draw(backgroundSprite);
-    window.draw(title);
     for (const auto& button : levelButtons) {
       button.draw(window);
     }
