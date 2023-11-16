@@ -6,14 +6,15 @@
 // TODO: Implement methods
 class MissileLauncher: public Tower {
 private:
-    Missile pr_;
+    std::vector<Missile> missiles_ = {};
 
 public:
-    MissileLauncher(int radius, Missile pr): Tower(radius), pr_(pr) {};
+    MissileLauncher(int radius, int fireRate, int price)
+        : Tower(radius, fireRate, price) {};
 
     void fire();
     void onDestroy();
     void update();
-    void sell();
+    int sell();
 
 };

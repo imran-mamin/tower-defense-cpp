@@ -1,11 +1,12 @@
 #pragma once
+#include "gameobject.hpp"
 
-class Projectile {
+class Projectile: public GameObject {
 private:
     int travel_speed_;
     int damage_;
     int radius_;
-
+    
 public:
 
     /**
@@ -15,8 +16,8 @@ public:
      * @param damage damage caused by projectile (int)
      * @param radius radius of damage (int)
     */
-    explicit Projectile(int travel_speed, int damage, int radius)
-            : travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
+    explicit Projectile(sf::Sprite sprite, int travel_speed, int damage, int radius)
+            : travel_speed_(travel_speed), damage_(damage), radius_(radius), GameObject(sprite) {};
     
     int travel_speed() const {
         return travel_speed_;
