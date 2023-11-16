@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "button.hpp"
+#include "button_text.hpp"
 
 MenuLevel::MenuLevel(std::vector<std::pair<int, std::string>> l) { levels = l; }
 
@@ -28,11 +28,11 @@ std::vector<std::pair<int, std::string>> readLevels(
 }
 
 // Function to create buttons based on levels
-std::vector<Button> createLevelButtons(
+std::vector<ButtonText> createLevelButtons(
     const std::vector<std::pair<int, std::string>>& levels,
     std::function<void(int)> callback, sf::Font& font,
     sf::RenderWindow& window) {
-  std::vector<Button> buttons;
+  std::vector<ButtonText> buttons;
   int marginX = 150;
   int gridColumns = 4;
   int buttonHeight = 100;
@@ -53,7 +53,7 @@ std::vector<Button> createLevelButtons(
 
   for (const auto& level : levels) {
     auto onClick = [callback, level]() { callback(level.first); };
-    Button levelButton(
+    ButtonText levelButton(
         sf::Vector2f(startX + currentColumn * (buttonWidth + buttonSpacingX),
                      currentRow * (buttonHeight + buttonSpacingY) + 300),
         sf::Vector2f(buttonWidth, buttonHeight), onClick,
@@ -87,7 +87,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
       static_cast<float>(windowHeight) / backgroundTexture.getSize().y);
 
   sf::Font font;
-  if (!font.loadFromFile("../fonts/open-sans/OpenSans-Italic.ttf")) {
+  if (!font.loadFromFile("../fonts/pixieboy.ttf")) {
     std::cout << "Error in font loading" << std::endl;
     return std::make_pair(-1, 0);
   }
@@ -97,7 +97,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
     std::cout << "Selected level: " << selectedLevel << std::endl;
     gameLevel = selectedLevel;
   };
-  std::vector<Button> levelButtons =
+  std::vector<ButtonText> levelButtons =
       createLevelButtons(levels, onLevelSelect, font, window);
 
   sf::Vector2f mousePos =
@@ -127,9 +127,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
           if (event.mouseButton.button == sf::Mouse::Left) {
             mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             for (const auto& button : levelButtons) {
-              if (button.handleClick(mousePos)) {
-                // Button clicked, do something if needed
-              }
+              button.handleClick(mousePos);
             }
           }
           break;

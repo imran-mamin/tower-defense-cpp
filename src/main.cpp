@@ -1,3 +1,4 @@
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <optional>
@@ -5,6 +6,7 @@
 
 #include "menu_home.hpp"
 #include "menu_level.hpp"
+#include "music_manager.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
@@ -18,21 +20,23 @@ int main() {
 
   int page = 0;
   int gameLevel = 0;
-  MenuHome menuHome;
+  MusicManager musicManager;
   MenuLevel menuLevel(levels);
-  std::pair<int, int> resp;  // Declare resp outside the switch
+  MenuHome menuHome(musicManager);
+
+  std::pair<int, int> resp;
 
   while (window.isOpen()) {
     switch (page) {
       case 1:
-        // Level Selection
+        // Level Selection Screen
         resp = menuLevel.run(window);
         page = resp.first;
         gameLevel = resp.second;
 
         break;
       case 2:
-        // TODO: Game Start
+        // TODO: Game Screen
         if (gameLevel <= 0) {
           std::cerr << "Error: gameLevel is " << gameLevel << std::endl;
           return -1;
@@ -42,6 +46,7 @@ int main() {
         break;
 
       default:
+        // Main Menu Screen
         if (page < 0) {
           return page;
         }

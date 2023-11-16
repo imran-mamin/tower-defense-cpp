@@ -1,5 +1,4 @@
-#ifndef BUTTON_HPP
-#define BUTTON_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <functional>
@@ -7,64 +6,39 @@
 
 class Button {
  public:
+  Button() = default;
+
   Button(const sf::Vector2f& position, const sf::Vector2f& size,
-         const std::function<void()>& callback, const std::string& buttonText,
-         sf::Font& font)
+         const std::function<void()>& callback)
       : callback(callback) {
-    // Initialize button appearance
-    shape.setPosition(position - size / 2.0f);
     shape.setSize(size);
-    shape.setFillColor(sf::Color(36, 39, 54, 255));
-
-    text.setFont(font);
-    text.setString(buttonText);
-    text.setCharacterSize(20);
-    text.setFillColor(sf::Color::White);
-
-    centerText();
+    shape.setPosition(position - size / 2.0f);
   }
 
-  void draw(sf::RenderWindow& window) const {
-    window.draw(shape);
-    window.draw(text);
-  }
+  void draw(sf::RenderWindow& window) const { window.draw(shape); }
 
   bool isMouseOver(sf::Vector2f mousePos) const {
     return shape.getGlobalBounds().contains(mousePos);
   }
 
-  bool handleHover(sf::Vector2f mousePos) {
+  void handleHover(sf::Vector2f mousePos) {
     if (isMouseOver(mousePos)) {
-      shape.setFillColor(sf::Color(49, 55, 81, 255));
-      return true;
     }
-
-    shape.setFillColor(sf::Color(36, 39, 54, 255));
-    return false;
   }
 
-  bool handleClick(sf::Vector2f mousePos) const {
+  void handleClick(sf::Vector2f mousePos) const {
     if (isMouseOver(mousePos)) {
       callback();
-      return true;
     }
-    return false;
+  }
+
+  void setTexture(const sf::Texture& newTexture) {
+    texture = newTexture;
+    shape.setTexture(&texture);
   }
 
  public:
+  sf::Texture texture;
   sf::RectangleShape shape;
-  sf::Text text;
-  sf::Font font;
   std::function<void()> callback;
-
-  void centerText() {
-    // Center the text within the button
-    sf::FloatRect textBounds = text.getLocalBounds();
-    text.setOrigin(textBounds.left + textBounds.width / 2.0f,
-                   textBounds.top + textBounds.height / 2.0f);
-    text.setPosition(shape.getPosition().x + shape.getSize().x / 2.0f,
-                     shape.getPosition().y + shape.getSize().y / 2.0f);
-  }
 };
-
-#endif

@@ -2,10 +2,14 @@
 
 #include <iostream>
 
-#include "button.hpp"
+#include "button_text.hpp"
 #include "menu_level.hpp"
+#include "music_manager.hpp"
 
-MenuHome::MenuHome() {}
+MenuHome::MenuHome(MusicManager& musicManager) : musicManager(musicManager) {
+  textureMusicOn.loadFromFile("../rsrc/icons/music-on.png");
+  textureMusicOff.loadFromFile("../rsrc/icons/music-off.png");
+}
 
 int MenuHome::run(sf::RenderWindow& window) {
   window.clear();
@@ -32,13 +36,23 @@ int MenuHome::run(sf::RenderWindow& window) {
   // Define a function to be executed when the button is clicked
   int page = 0;
   auto onPlay = [&page]() { page = 1; };
-  Button playButton(sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.0f),
-                    sf::Vector2f(200, 50), onPlay, "Play", font);
+  ButtonText playButton(sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
+                        sf::Vector2f(200, 50), onPlay, "Play", font);
 
   auto onExit = [&window]() { window.close(); };
-  Button exitButton(sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.0f + 100),
-                    sf::Vector2f(200, 50), onExit, "Quit", font);
+  ButtonText exitButton(
+      sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f + 100),
+      sf::Vector2f(200, 50), onExit, "Quit", font);
 
+  auto onMute = [this]() {
+    musicManager.toggleMusic();
+    musicButton.setTexture(musicManager.isMusicOn() ? textureMusicOn
+                                                    : textureMusicOff);
+  };
+  musicButton =
+      Button(sf::Vector2f(windowWidth - 60, 60), sf::Vector2f(50, 50), onMute);
+  musicButton.setTexture(musicManager.isMusicOn() ? textureMusicOn
+                                                  : textureMusicOff);
   sf::Vector2f mousePos =
       window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
@@ -59,6 +73,7 @@ int MenuHome::run(sf::RenderWindow& window) {
           mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
           playButton.handleHover(mousePos);
           exitButton.handleHover(mousePos);
+          musicButton.handleHover(mousePos);
           break;
 
         case sf::Event::MouseButtonPressed:
@@ -66,6 +81,7 @@ int MenuHome::run(sf::RenderWindow& window) {
             mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             playButton.handleClick(mousePos);
             exitButton.handleClick(mousePos);
+            musicButton.handleClick(mousePos);
           }
           break;
       };
@@ -73,6 +89,7 @@ int MenuHome::run(sf::RenderWindow& window) {
     window.clear();
 
     window.draw(backgroundSprite);
+    musicButton.draw(window);
     playButton.draw(window);
     exitButton.draw(window);
 
