@@ -21,6 +21,7 @@ Game class is in progress by Aleksi.
 
 - Leevi is currently adding the code to load map and render the level background
 - Valerie is doing main menu and level selection.
+- Valerie add music theme.
 - Imran is working on implementing methods for the Tower class and its subclasses.
 
 Trivial change: We plan to rename Game class to Level class as it is more suitable according to the content.
