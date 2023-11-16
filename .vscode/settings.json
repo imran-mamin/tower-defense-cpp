@@ -1,5 +1,8 @@
 {
     "files.associations": {
+        "*.jsx": "javascriptreact",
+        "*.js": "javascriptreact",
+        "*.arb": "json",
         "iosfwd": "cpp",
         "cstdint": "cpp",
         "__bit_reference": "cpp",
@@ -74,8 +77,26 @@
         "numeric": "cpp",
         "ranges": "cpp",
         "algorithm": "cpp",
-        "list": "cpp"
+        "*.tcc": "cpp",
+        "codecvt": "cpp",
+        "functional": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "utility": "cpp",
+        "numbers": "cpp",
+        "cinttypes": "cpp",
+        "condition_variable": "cpp",
+        "list": "cpp",
+        "set": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
+    "editor.codeActionsOnSave": {
+		"source.fixAll.format":false,
+	},
+    "editor.formatOnSave": true,
     "files.watcherExclude": {
         "**/target": true
     }

@@ -2,11 +2,16 @@
 #include "projectile.hpp"
 
 // TODO: Implement methods
-class Bullet: public Projectile {
-public:
-    
-    Bullet(int travel_speed, int damage, int radius): Projectile(travel_speed, damage, radius) {};
-    // Vec2D speed_vec;
-    void update();
+class Bullet : public Projectile {
+ public:
+  Bullet(int travel_speed, int damage, int radius)
+      : Projectile(travel_speed, damage, radius){};
 
+  // Destructor implementation
+  ~Bullet() override {}
+
+  // Implement the update function
+  void update() override {
+    // Add your implementation for updating the bullet here
+  }
 };
