@@ -5,7 +5,7 @@
 // TODO: Implement methods
 class Missile: public Projectile {
 private:
-    Enemy target_;
+    Enemy& target_;
     double explosionRadius_;
     
 public:
