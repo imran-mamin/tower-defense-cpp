@@ -8,6 +8,7 @@ class Cannon: public Tower {
 public:
     Cannon(int radius, int fireRate, int price): Tower(radius, fireRate, price) {};
 
+    ~Cannon();
     void fire();
     void onDestroy();
     void update();

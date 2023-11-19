@@ -12,6 +12,6 @@ void FighterPlane::update() {
 
 };
 
-void FighterPlane::sell() {
+int FighterPlane::sell() {
 
 };

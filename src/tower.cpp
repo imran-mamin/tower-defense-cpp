@@ -6,3 +6,7 @@
 const std::vector<Enemy> Tower::getEnemiesWithinRadius() {
 
 }
+
+Tower::~Tower() {
+
+}

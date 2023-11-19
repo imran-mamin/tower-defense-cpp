@@ -14,7 +14,7 @@
  * */ 
 
 void Missile::update() {
-    if (target_.isAlive()) {
+   /*if (target_.isAlive()) {
         Vec2D pathToTarget;
         pathToTarget.a = this->position_;
         pathToTarget.b = target_.position_;
@@ -38,6 +38,6 @@ void Missile::update() {
             target_.health_ -= this->damage();
             this->~Missile(); // Call the destructor for missile object.
         }
-    }
+    }*/
     // TODO: Corner cases.
 }

@@ -6,7 +6,8 @@ class Tank: public Enemy {
 private:
 
 public:
-    Tank(int speed, int value, int price, int hp) : Enemy(speed, value, price, hp) {};
+    Tank(int speed, int value, int price, int hp, sf::Sprite sprite)
+        : Enemy(speed, value, price, hp, sprite) {};
 
     void update();
     void onDestroy();

@@ -13,8 +13,8 @@ public:
         : Tower(radius, fireRate, price) {};
 
     void fire();
-    void onDestroy();
+    void onDestroy() {};
     void update();
-    int sell();
+    int sell() {};
 
 };

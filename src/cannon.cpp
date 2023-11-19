@@ -1,11 +1,12 @@
 #include "cannon.hpp"
+#include "bullet.hpp"
 
 void Cannon::fire() {
-    
+
 };
 
 void Cannon::onDestroy() {
-
+    
 };
 
 void Cannon::update() {
@@ -23,6 +24,10 @@ void Cannon::update() {
 int Cannon::sell() {
     int p = this->price_;
     // Destroy the object, when it's sold out.
-    this->~Cannon();
+    // this->~Cannon();
     return p;
 };
+
+Cannon::~Cannon() {
+    
+}
