@@ -17,7 +17,7 @@ public:
      * @param radius radius of damage (int)
     */
     explicit Projectile(sf::Sprite sprite, int travel_speed, int damage, int radius)
-            : travel_speed_(travel_speed), damage_(damage), radius_(radius), GameObject(sprite) {};
+            : GameObject(sprite), travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
     
     int travel_speed() const {
         return travel_speed_;
