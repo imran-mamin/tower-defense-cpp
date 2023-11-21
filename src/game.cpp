@@ -1,4 +1,6 @@
+#pragma once
 #include "game.hpp"
+#include "gameobject.hpp"
 
 Game::Game(const GameGrid& grid) : grid_(grid){};
 
