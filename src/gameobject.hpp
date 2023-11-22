@@ -13,11 +13,11 @@ public:
     Pos getPosition() const {
         return position_;
     }
-    
+
 protected:
     sf::Sprite sprite_;
     int health_;
-    Game& game_;
+    Game game_;
     Pos position_;
     void addPlayerMoney(int money) {
         game_.playerMoney_ += money;
