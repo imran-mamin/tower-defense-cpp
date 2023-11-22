@@ -14,8 +14,8 @@ public:
     ~MissileLauncher() {};
 
     void fire();
-    void onDestroy() {};
+    void onDestroy();
     void update();
-    int sell() {};
+    int sell();
 
 };

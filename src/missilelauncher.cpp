@@ -2,29 +2,30 @@
 #include "missilelauncher.hpp"
 
 void MissileLauncher::fire() {
+    assert(!this->getEnemiesWithinRadius().empty());
     Enemy e = this->getEnemiesWithinRadius().at(0);
 
-    // Missile(int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
+    // Missile(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
     // Create a missile object.
     sf::Sprite sprite;
-    //Missile m = Missile(sprite, 6, 6, 4, e, 4); // TODO: Make sure that radius != exp_radius.
+    Missile m = Missile(sprite, this->game_, 6, 6, 4, e, 4); 
     
     // Add missile to vector.
-    // missiles_.push_back(m);    
+    this->getObjects().push_back(m); 
 }
 
 void MissileLauncher::update() {
     assert(this->fireIntervalCounter_ >= 0);
 
     if (this->fireIntervalCounter_ == 0) {
-        // Fire the first enemy in the radius.
-        this->fire();
+        // Check if there are enemies within the radius.
+        if (!this->getEnemiesWithinRadius().empty()) {
+            // Fire the first enemy in the radius.
+            this->fire();
 
-        // Remove missile if it explodes.
-        
-
-        // Start projectile reloading.
-        fireIntervalCounter_ = fireRate_;
+            // Start projectile reloading.
+            fireIntervalCounter_ = fireRate_;
+        }
     } else {
         fireIntervalCounter_--;
     }
@@ -33,6 +34,10 @@ void MissileLauncher::update() {
 int MissileLauncher::sell() {
     int p = this->price_;
     this->addPlayerMoney(p);
-    this->~MissileLauncher();
+    this->onDestroy();
     return p;
+}
+
+void MissileLauncher::onDestroy() {
+    this->~MissileLauncher();
 }
