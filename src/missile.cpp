@@ -14,12 +14,12 @@
  * */ 
 
 void Missile::update() {
-   /*if (target_.isAlive()) {
+    if (target_.isAlive()) {
         Vec2D pathToTarget;
         pathToTarget.a = this->position_;
-        pathToTarget.b = target_.position_;
+        pathToTarget.b = target_.getPosition();
         
-        // Find the direction using two positions.
+        // Find the direction using two positions. (Vector in e.g. 4i + 2j format).
         uint32_t pathToTargetX = pathToTarget.b.x - pathToTarget.a.x;
         uint32_t pathToTargetY = pathToTarget.b.y - pathToTarget.a.y;
 
@@ -29,15 +29,15 @@ void Missile::update() {
 
         // Calculate the distance between missile and target.
         // Formula sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
-        double dist = sqrt((target_.position_.x - this->position_.x) * (target_.position_.x - this->position_.x) +
-                           (target_.position_.y - this->position_.y) * (target_.position_.y - this->position_.y));
+        double dist = sqrt((target_.getPosition().x - this->position_.x) * (target_.getPosition().x - this->position_.x) +
+                           (target_.getPosition().y - this->position_.y) * (target_.getPosition().y - this->position_.y));
 
         // TODO: Missile should hit all the enemies within the explosion radius.
         // Is target in the explosion radius of missile?
         if (this->explosionRadius_ > dist) {
-            target_.health_ -= this->damage();
+            // target_.health_ -= this->damage(); // TODO: This line should be included.
             this->~Missile(); // Call the destructor for missile object.
         }
-    }*/
+    }
     // TODO: Corner cases.
 }

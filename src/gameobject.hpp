@@ -10,6 +10,10 @@ public:
     GameObject(sf::Sprite sprite, Game& game, int health = 0) 
         :   sprite_(sprite), health_(health), game_(game) {};
 
+    Pos getPosition() const {
+        return position_;
+    }
+    
 protected:
     sf::Sprite sprite_;
     int health_;
