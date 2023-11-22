@@ -15,6 +15,10 @@ void FootSoldier::update() {
             }
             it++;
         }
+        
+        // Add profit to player.
+        this->addPlayerMoney(this->value_);
+        
         // Destroy the Enemy object.
         this->onDestroy();
     }

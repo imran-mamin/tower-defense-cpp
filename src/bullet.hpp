@@ -1,11 +1,15 @@
 #pragma once
 #include "projectile.hpp"
+#include "enemy.hpp"
 
 // TODO: Implement methods
 class Bullet : public Projectile {
- public:
-  Bullet(sf::Sprite sprite, Game& game, int travel_speed, int damage, int radius)
-      : Projectile(sprite, game, travel_speed, damage, radius) {};
+private:
+  Enemy target_;
+
+public:
+  Bullet(sf::Sprite sprite, Game& game, Enemy& target, int travel_speed, int damage, int radius)
+      : Projectile(sprite, game, travel_speed, damage, radius), target_(target) {};
 
   // Destructor implementation
   ~Bullet() override {}
@@ -13,5 +17,6 @@ class Bullet : public Projectile {
   // Implement the update function
   void update() override {
     // Add your implementation for updating the bullet here
+
   }
 };

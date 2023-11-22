@@ -14,6 +14,10 @@ public:
         return position_;
     }
 
+    void takeDamage(int damage) {
+        this->health_ -= damage;
+    }
+    
 protected:
     sf::Sprite sprite_;
     int health_;
