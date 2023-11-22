@@ -1,21 +1,23 @@
+#pragma once
+
 #include <vector>
 
 #include "gamegrid.hpp"
 #include "gameobject.hpp"
 
 class Game {
-   public:
-    Game(const GameGrid& grid);
+ public:
+  Game(const GameGrid& grid);
 
-    void AddObject(GameObject obj);
+  void AddObject(GameObject obj);
 
-    std::vector<GameObject> Objects() const;
+  std::vector<GameObject> Objects() const;
 
-    GameGrid& GetGrid();
+  GameGrid& GetGrid();
 
-   protected:
-    std::size_t playerMoney_;
-    std::size_t enemyMoney_;
-    GameGrid grid_;
-    std::vector<GameObject> objects_;
+ protected:
+  std::size_t playerMoney_;
+  std::size_t enemyMoney_;
+  GameGrid grid_;
+  std::vector<GameObject> objects_;
 };

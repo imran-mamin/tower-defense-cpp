@@ -30,3 +30,7 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
     tiles_.push_back(v);
   }
 }
+
+Tile &GameGrid::TileAtCoordinate(std::uint8_t x, std::uint8_t y) {
+  return tiles_[y][x];
+}

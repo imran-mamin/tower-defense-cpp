@@ -19,7 +19,7 @@ class GameGrid {
   GameGrid(const MapInfo &mapInfo);
   GameGrid() = delete;
 
-  Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
+  Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
   std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
   const std::vector<Vec2D>&EnemyPath() { return enemyPath_; }
