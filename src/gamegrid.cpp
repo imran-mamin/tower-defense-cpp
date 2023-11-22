@@ -19,7 +19,7 @@ GameGrid::GameGrid(const MapInfo &mapInfo) {
   width_ = mapInfo.mapWidth;
   height_ = mapInfo.mapHeight;
   tileWidth_ = mapInfo.tileWidth;
-  // enemyPath_ = mapInfo.enemyPath;
+  enemyPath_ = mapInfo.enemyPath;
 
   for (auto row : mapInfo.backgroundTiles) {
     std::vector<Tile> v;

@@ -11,6 +11,7 @@
 
 #include "map_parser.hpp"
 #include "tile.hpp"
+#include "vec2d.hpp"
 
 class GameGrid {
  public:
@@ -27,7 +28,7 @@ class GameGrid {
 
  private:
   std::vector<std::vector<Tile>> tiles_;
-  // std::vector<std::tuple<std::uint32_t>> enemyPath_;
+  std::vector<Vec2D> enemyPath_;
 
   // LevelInfo
   std::uint8_t tileWidth_;
