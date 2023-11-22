@@ -77,7 +77,7 @@ int main() {
   title.setPosition(window.getSize().x / 2.0f, 100);
 
   // Toolbar parameters
-  int toolbarWidth = 100;
+  int toolbarWidth = 68;
   int toolbarHeight = window.getSize().y;
 
   // Create a vertical toolbar on the right side using a rectangle
@@ -109,13 +109,11 @@ int main() {
   sf::Sprite bigCannonSprite(bigCannon);
 
   // Set positions of the buttons
-  cannonSprite.setPosition(
-      window.getSize().x - toolbarWidth + toolbarWidth * 0.2,
-      60);  // Toolbar x-coordinate + 20
+  cannonSprite.setPosition(window.getSize().x - toolbarWidth + 3,
+                           60);  // Toolbar x-coordinate + 20
 
   // 20 + tank x-coordinate + tank width + 20
-  bigCannonSprite.setPosition(
-      window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 140);
+  bigCannonSprite.setPosition(window.getSize().x - toolbarWidth + 3, 140);
 
   // Creating board of tiles
   int rows = 14;
@@ -127,6 +125,7 @@ int main() {
   bool startButtonClicked = false;
 
   std::optional<Cannon> towerClicked;
+  std::optional<int> towerType;
 
   // Load window
   while (window.isOpen()) {
@@ -157,23 +156,30 @@ int main() {
               if (cannonSprite.getGlobalBounds().contains(mousePos)) {
                 std::cout << "cannon button was clicked." << std::endl;
                 towerClicked = Cannon(10, 10);
+                towerType = 1;
                 // TODO: When clicking on this button the program should create
                 // a new tank instance.
               } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
                 std::cout << "bigCannon button was clicked." << std::endl;
+                towerClicked = Cannon(10, 10);
+                towerType = 2;
               } else {
                 if (towerClicked.has_value()) {
                   std::cout << "placing tower" << std::endl;
                   Cannon can = towerClicked.value();
                   sf::Sprite canSprite;
-
-                  canSprite.setTexture(cannon);
+                  if (towerType.value() == 1) {
+                    canSprite.setTexture(cannon);
+                  } else if (towerType.value() == 2) {
+                    canSprite.setTexture(bigCannon);
+                  }
                   int posX = mousePos.x / 64;
                   int posY = mousePos.y / 64;
                   canSprite.setPosition(posX * 64, posY * 64);
 
                   game.AddObject(canSprite);
                   towerClicked.reset();
+                  towerType.reset();
                 }
               }
             }
