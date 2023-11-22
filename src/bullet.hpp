@@ -4,7 +4,7 @@
 // TODO: Implement methods
 class Bullet : public Projectile {
  public:
-  Bullet(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius)
+  Bullet(sf::Sprite sprite, Game& game, int travel_speed, int damage, int radius)
       : Projectile(sprite, game, travel_speed, damage, radius) {};
 
   // Destructor implementation
