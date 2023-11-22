@@ -7,8 +7,7 @@ void MissileLauncher::fire() {
 
     // Missile(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
     // Create a missile object.
-    sf::Sprite sprite;
-    Missile m = Missile(sprite, this->game_, 6, 6, 4, e, 4); 
+    Missile m = Missile(this->game_, 6, 6, 4, e, 4); 
     
     // Add missile to vector.
     this->getObjects().push_back(m); 
