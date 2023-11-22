@@ -25,3 +25,10 @@ Game class is in progress by Aleksi.
 - Imran is working on implementing methods for the Tower class and its subclasses.
 
 Trivial change: We plan to rename Game class to Level class as it is more suitable according to the content.
+
+
+## Meeting 22.11.2023
+ All members participated in Achitecture and UML planning.
+ - Leevi created map selector renderer, enemy path renderer and game loop skeleton. He also participated in bug fixing.
+ - Aleksi was working on game loop, tower placement, bug fixing and overall improved the GUI of the application.
+ - Imran was working on classes and their method implementations and fixed bugs.
