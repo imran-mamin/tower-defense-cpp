@@ -19,6 +19,7 @@ int main() {
 
     GameGrid gg = GameGrid(testMapInfoObject1());
 
+    Game game = Game(gg);
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
 			    "TestiPiirto");
 	window.setFramerateLimit(60);
@@ -219,6 +220,9 @@ int main() {
       } else {
         // Draw the tiles
         ikkuna.Draw();
+
+        // Draw the tile selector.
+        tileSelector.Draw();
 
         for (auto it : game.Objects()) {
           window.draw(it.GetSprite());
