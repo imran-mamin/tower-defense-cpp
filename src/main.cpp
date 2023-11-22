@@ -5,11 +5,11 @@
 #include <vector>
 
 #include "background_renderer.hpp"
+#include "map_tile_selector_renderer.hpp"
 #include "cannon.hpp"
 #include "game.hpp"
 #include "gamegrid.hpp"
 #include "gameobject.hpp"
-#include "map_tile_selector_renderer.hpp"
 #include "testmapinfo.hpp"
 #include "tower.hpp"
 
@@ -17,19 +17,14 @@ int main() {
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64;
 
-    /* The map object needs to be stored locally (reference parameter). */
-    MapInfo m = testMapInfoObject1();
-    GameGrid gg = GameGrid(m);
+    GameGrid gg = GameGrid(testMapInfoObject1());
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
 			    "TestiPiirto");
+	window.setFramerateLimit(60);
 
-    /* Note: New renderers need to get created as per level. */
-    /* Note: Renders are naturally layered, so going through them in some
-     * ordered loop with the parent type Renderer is something that is wanted in
-     * future. */
     BackgroundRenderer ikkuna(window, gg);
-    MapTileSelectorRenderer tileSelector(window, gg);
+	MapTileSelectorRenderer tileSelector(window, gg);
 
     sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
     sf::View applicationView(sf::FloatRect(0, 0, windowWidth, windowHeight));
@@ -124,17 +119,17 @@ int main() {
 	window.getSize().x - toolbarWidth + toolbarWidth * 0.2, 140);
 
     // Creating board of tiles
-    // int rows = 14;
-    // int columns = 20;
+    int rows = 14;
+    int columns = 20;
 
-    // float tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
-    // float tileHeight = tileWidth;
+    float tileWidth = (window.getSize().x - toolbarWidth) / (1.0 * columns);
+    float tileHeight = tileWidth;
 
     bool startButtonClicked = false;
 
-    std::optional<GameObject> towerClicked;
+    std::optional<Cannon> towerClicked;
 
-    std::vector<GameObject> objects;
+    std::vector<sf::Sprite> objects;
 
     // Load window
     while (window.isOpen()) {
@@ -145,6 +140,7 @@ int main() {
 		case (sf::Event::Closed):
 		    window.close();
 		    break;
+
 		// Button click handling
 		case (sf::Event::MouseButtonPressed):
 		    if (event.mouseButton.button == sf::Mouse::Left) {
@@ -165,13 +161,25 @@ int main() {
 				    mousePos)) {
 				std::cout << "cannon button was clicked."
 					  << std::endl;
-
+				towerClicked = Cannon(10, 10);
 				// TODO: When clicking on this button the
 				// program should create a new tank instance.
 			    } else if (bigCannonSprite.getGlobalBounds()
 					   .contains(mousePos)) {
 				std::cout << "bigCannon button was clicked."
 					  << std::endl;
+			    } else {
+				if (towerClicked.has_value()) {
+				    std::cout << "placing tower" << std::endl;
+				    Cannon can = towerClicked.value();
+				    sf::Sprite canSprite;
+
+				    canSprite.setTexture(cannon);
+				    canSprite.setPosition(mousePos);
+
+				    objects.push_back(canSprite);
+				    towerClicked.reset();
+				}
 			    }
 			}
 		    }
@@ -181,8 +189,6 @@ int main() {
 		    break;
 		// Mouse hover event
 		case (sf::Event::MouseMoved):
-			// TODO
-			tileSelector.Draw();
 		    // Mouse position in window coordinates.
 		    sf::Vector2f mousePos =
 			window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -213,8 +219,13 @@ int main() {
 	    // Draw the tiles
 	    ikkuna.Draw();
 
-	    // Draw the selected tiles.
-	    //tileSelector.Draw();
+		/* Draw the selected tile. */
+		// TODO
+		tileSelector.Draw();
+
+	    for (auto it : objects) {
+		window.draw(it);
+	    }
 
 	    // Draw the toolbar and buttons inside it.
 	    window.draw(toolbar);
@@ -228,4 +239,4 @@ int main() {
 	// }
 	window.display();
     };
-}
+};
