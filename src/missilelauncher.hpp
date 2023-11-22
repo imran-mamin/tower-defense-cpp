@@ -8,7 +8,7 @@ class MissileLauncher: public Tower {
 private:
 
 public:
-    MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
+    MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game)
         : Tower(radius, fireRate, price, sprite, game) {};
 
     ~MissileLauncher() {};

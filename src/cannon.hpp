@@ -6,7 +6,7 @@
 // TODO: Implement methods
 class Cannon: public Tower {
 public:
-    Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
+    Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game)
             : Tower(radius, fireRate, price, sprite, game) {};
 
     ~Cannon() {};

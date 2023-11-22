@@ -28,7 +28,7 @@ public:
     */
     explicit Tower(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
             : GameObject(sprite, game), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), artilleryAngleDegrees_(0) {};
-    
+
     const std::vector<Enemy> getEnemiesWithinRadius();
 
     const std::vector<Enemy&> getEnemiesWithinRadius();
