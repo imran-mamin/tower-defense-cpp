@@ -8,13 +8,21 @@
  * should be closer to the target object.
  * 
  * Corner cases:
- * 1. Other projectile kills the enemy, then the target should change to another
- *    Enemy object.
+ * 1. Other projectile kills the enemy, then the missile just finds kills the closest enemy, or
+ *    goes out of the window.
  * 2. Target goes out of the window. Then the missile should follow it.
  * */ 
 
 void Missile::update() {
-    if (target_.isAlive()) {
+    bool isAlive = false;
+    for (auto it = this->getObjects().begin(); it != this->getObjects().end(); it++) {
+        /*if ((Enemy&)(*it) == target_) { // TODO: Uncomment this block of code.
+            isAlive = true;
+            break;
+        }*/
+    }
+
+    if (isAlive) {
         Vec2D pathToTarget;
         pathToTarget.a = this->position_;
         pathToTarget.b = target_.getPosition();
@@ -32,12 +40,55 @@ void Missile::update() {
         double dist = sqrt((target_.getPosition().x - this->position_.x) * (target_.getPosition().x - this->position_.x) +
                            (target_.getPosition().y - this->position_.y) * (target_.getPosition().y - this->position_.y));
 
-        // TODO: Missile should hit all the enemies within the explosion radius.
         // Is target in the explosion radius of missile?
         if (this->explosionRadius_ > dist) {
-            // target_.health_ -= this->damage(); // TODO: This line should be included.
-            this->~Missile(); // Call the destructor for missile object.
+            this->target_.takeDamage(this->damage());
+            
+            // The missile will cause damage to all enemies within the given missile radius.
+            std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
+            auto it = enemiesWithinRadius.begin();
+            while (it != enemiesWithinRadius.end()) {
+                (*it).takeDamage(this->damage());
+                it++;
+            }
+            
+            // Remove missile object from the vector objects_.
+            auto gameObjIt = this->getObjects().begin();
+            while (gameObjIt != this->getObjects().end()) {
+                if (&(*gameObjIt) == this) {
+                    this->getObjects().erase(gameObjIt);
+                    break;
+                }
+                gameObjIt++;
+            }
         }
+    } else {
+        // TODO: Corner cases
+        // Collide with the enemies on the way out of the window if there are some.
+        if (!this->getEnemiesWithinRadius().empty()) {
+            // The missile will cause damage to all enemies within the given missile radius.
+            std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
+            auto it = enemiesWithinRadius.begin();
+            while (it != enemiesWithinRadius.end()) {
+                (*it).takeDamage(this->damage());
+                it++;
+            }
+            
+            // Remove missile object from the vector objects_.
+            auto gameObjIt = this->getObjects().begin();
+            while (gameObjIt != this->getObjects().end()) {
+                if (&(*gameObjIt) == this) {
+                    this->getObjects().erase(gameObjIt);
+                    break;
+                }
+                gameObjIt++;
+            }
+        } else {
+            // Else just advance the position of the missile.
+            this->position_.x += this->travel_speed();
+            this->position_.y += this->travel_speed();
+        }
+        
     }
-    // TODO: Corner cases.
+    
 }
