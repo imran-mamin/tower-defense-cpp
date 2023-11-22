@@ -22,13 +22,15 @@ class GameGrid {
   Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
   std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
+  const std::vector<Vec2D>&EnemyPath() { return enemyPath_; }
+
   std::uint32_t Width() const { return width_; }
   std::uint32_t Height() const { return height_; }
   std::uint8_t TileWidth() const { return tileWidth_; }
 
  private:
   std::vector<std::vector<Tile>> tiles_;
-  std::vector<Vec2D> enemyPath_;
+  const std::vector<Vec2D> enemyPath_;
 
   // LevelInfo
   std::uint8_t tileWidth_;
