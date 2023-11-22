@@ -15,14 +15,22 @@ protected:
     int health_;
     Game& game_;
     Pos position_;
-    std::size_t getPlayerMoney() {
-        return game_.playerMoney_;
+    void addPlayerMoney(int money) {
+        game_.playerMoney_ += money;
     }
 
-    std::size_t getEnemyMoney() {
-        return game_.enemyMoney_;
+    void removePlayerMoney(int money) {
+        game_.playerMoney_ -= money;
     }
-   
+
+    void addEnemyMoney(int money) {
+        game_.enemyMoney_ += money;
+    }
+    
+    void removeEnemyMoney(int money) {
+        game_.enemyMoney_ -= money;
+    }
+
     GameGrid getGrid() {
         return game_.grid_;
     }

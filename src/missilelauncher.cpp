@@ -29,3 +29,10 @@ void MissileLauncher::update() {
         fireIntervalCounter_--;
     }
 }
+
+int MissileLauncher::sell() {
+    int p = this->price_;
+    this->addPlayerMoney(p);
+    this->~MissileLauncher();
+    return p;
+}
