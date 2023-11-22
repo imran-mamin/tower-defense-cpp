@@ -13,6 +13,7 @@
 #include "map_tile_selector_renderer.hpp"
 #include "testmapinfo.hpp"
 #include "tower.hpp"
+#include "enemy_path_renderer.hpp"
 
 int GameLoop::Play() {
   int windowWidth = 20 * 64;
@@ -20,9 +21,12 @@ int GameLoop::Play() {
 
   GameGrid &grid = game_.GetGrid();
 
+  /* Renderers. */
   BackgroundRenderer ikkuna(window_, grid);
-
   MapTileSelectorRenderer tileSelector(window_, grid);
+  /* For debug purposes. */
+  EnemyPathRenderer enemyPathRenderer(window_, grid);
+  
 
   sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
   sf::View applicationView(sf::FloatRect(0, 0, windowWidth, windowHeight));
@@ -135,7 +139,6 @@ int GameLoop::Play() {
                 window_.mapPixelToCoords(sf::Mouse::getPosition(window_));
 
             if (startButton.getGlobalBounds().contains(mousePos)) {
-              std::cout << "startButton clicked" << std::endl;
               startButtonClicked = true;
               // Switch to application view
               window_.setView(applicationView);
@@ -215,6 +218,9 @@ int GameLoop::Play() {
 
         // Draw the tile selector.
         tileSelector.Draw();
+
+		// Debug: draw the enemy path.
+		enemyPathRenderer.Draw();
 
         for (auto it : game_.Objects()) {
           window_.draw(it.GetSprite());
