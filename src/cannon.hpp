@@ -14,5 +14,4 @@ public:
     void onDestroy();
     void update();
     void sell();
-
 };
