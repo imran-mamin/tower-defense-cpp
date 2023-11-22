@@ -1,5 +1,6 @@
 #pragma once
 #include "gameobject.hpp"
+#include "enemy.hpp"
 
 class Projectile: public GameObject {
 private:
@@ -19,6 +20,13 @@ public:
     explicit Projectile(sf::Sprite sprite, Game& game, int travel_speed, int damage, int radius)
             : GameObject(sprite, game), travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
     
+
+    /**
+     * @brief Returns all the enemies within the given radius (projectile radius).
+     * Does not take any parameters.
+    */
+    const std::vector<Enemy> getEnemiesWithinRadius();
+
     int travel_speed() const {
         return travel_speed_;
     }
