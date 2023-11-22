@@ -1,7 +1,9 @@
 
 #include "testmapinfo.hpp"
-
 #include "map_parser.hpp"
+#include "pos.hpp"
+
+#include "vec2d.hpp"
 #include <cstdint>
 #include <tuple>
 #include <vector>
@@ -21,8 +23,9 @@ MapInfo testMapInfoObject1() {
 		backgroundTiles.push_back(row);
 	}
 
-	/* TODO: Create enemy path. */
-	std::vector<std::tuple<std::uint32_t>> enemyPath;
+	/* TODO: Create better enemy path. */
+	std::vector<Vec2D> enemyPath;
+	enemyPath.push_back(Vec2D{ Pos{ 0, 224 }, Pos{ 1280, 224 } });
 
 	return MapInfo{ 64, 20, 12, backgroundTiles, enemyPath };
 }

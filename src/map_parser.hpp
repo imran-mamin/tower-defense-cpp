@@ -7,6 +7,7 @@
 #include <tuple>
 #include <vector>
 
+#include "vec2d.hpp"
 
 struct MapInfo {
     /* tileWidth = tileHeight */
@@ -15,7 +16,7 @@ struct MapInfo {
     const std::uint8_t mapHeight;
     std::vector<std::vector<std::uint16_t>> backgroundTiles;
     /* Enemy path consisting from vectors. */
-    std::vector<std::tuple<std::uint32_t>> enemyPath;
+    std::vector<Vec2D> enemyPath;
 };
 
 class MapParserError : public std::exception {

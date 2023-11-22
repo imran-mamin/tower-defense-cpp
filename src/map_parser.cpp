@@ -6,6 +6,7 @@
 
 #include "json.hpp"
 #include "map_parser.hpp"
+#include "vec2d.hpp"
 
 
 MapInfo ParseMap(const std::string &path) {
@@ -16,7 +17,9 @@ MapInfo ParseMap(const std::string &path) {
 	nlohmann::json data = nlohmann::json::parse(is);
 
 	try {
-		MapInfo mapInfo =  MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], data["enemy_path"] };
+		/* TODO: Read the enemy_path */
+		std::vector<Vec2D> enemy_path;
+		MapInfo mapInfo =  MapInfo{ data["tile_width"], data["map_width"], data["map_height"], data["background"], enemy_path };
 	
 		if (mapInfo.mapWidth * mapInfo.mapHeight != mapInfo.backgroundTiles.size()) {
 			throw MapParserError("Tile count of the map must be equal to tileWidth * mapHeight!");
