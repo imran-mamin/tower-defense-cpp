@@ -29,7 +29,7 @@ BackgroundRenderer::BackgroundRenderer(sf::RenderWindow &renderWindow, GameGrid 
 			/* Load texture if it's not already loaded. */
 			if (!textureAlreadyLoaded(bgTextureId)) {
 				/* TODO: Create a function for getting resource paths. */
-				const std::string texturePath = BACKGROUND_TILE_DIRECTORY + std::to_string(bgTextureId) + ".png";
+				const std::string texturePath = BACKGROUND_TILE_DIRECTORY + std::to_string(bgTextureId) + "" + ".png";
 
 				sf::Texture texture;
 				if (!texture.loadFromFile(texturePath)) {

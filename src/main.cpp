@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "background_renderer.hpp"
+#include "map_tile_selector_renderer.hpp"
 #include "cannon.hpp"
 #include "game.hpp"
 #include "gamegrid.hpp"
@@ -13,17 +14,17 @@
 #include "tower.hpp"
 
 int main() {
-  int windowWidth = 20 * 64;
-  int windowHeight = 12 * 64;
+    int windowWidth = 20 * 64;
+    int windowHeight = 12 * 64;
 
-  GameGrid gg = GameGrid(testMapInfoObject1());
+    GameGrid gg = GameGrid(testMapInfoObject1());
 
-  Game game = Game(gg);
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
+			    "TestiPiirto");
+	window.setFramerateLimit(60);
 
-  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
-                          "TestiPiirto");
-
-  BackgroundRenderer ikkuna(window, gg);
+    BackgroundRenderer ikkuna(window, gg);
+	MapTileSelectorRenderer tileSelector(window, gg);
 
   sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
   sf::View applicationView(sf::FloatRect(0, 0, windowWidth, windowHeight));

@@ -12,6 +12,7 @@
 class BackgroundRenderer : public Renderer {
    public:
     BackgroundRenderer(sf::RenderWindow &renderWindow, GameGrid &gameGrid);
+	~BackgroundRenderer() = default;
 
 	void Draw() override;
 
