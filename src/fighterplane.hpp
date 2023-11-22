@@ -11,6 +11,7 @@ public:
     FighterPlane(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
             : Tower(radius, fireRate, price, sprite, game) {};
 
+    ~FighterPlane() {};
     void fire();
     void onDestroy();
     void update();
