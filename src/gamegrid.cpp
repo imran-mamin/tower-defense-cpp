@@ -15,11 +15,10 @@
 #include "tile.hpp"
 
 /* Create the gamegrid. */
-GameGrid::GameGrid(const MapInfo &mapInfo) {
+GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
   width_ = mapInfo.mapWidth;
   height_ = mapInfo.mapHeight;
   tileWidth_ = mapInfo.tileWidth;
-  enemyPath_ = mapInfo.enemyPath;
 
   for (auto row : mapInfo.backgroundTiles) {
     std::vector<Tile> v;
