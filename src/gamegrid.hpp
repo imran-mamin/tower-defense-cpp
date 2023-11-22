@@ -13,26 +13,24 @@
 #include "tile.hpp"
 
 class GameGrid {
-   public:
-    /* Create a new GameGrid object from map file. */
-    GameGrid(const MapInfo &mapInfo);
-    GameGrid() = delete;
+ public:
+  /* Create a new GameGrid object from map file. */
+  GameGrid(const MapInfo &mapInfo);
+  GameGrid() = delete;
 
-    Tile &TileAtCoordinate(std::uint32_t x, std::uint32_t y) const;
-    std::vector<std::vector<Tile>> Tiles() { return tiles_; }
+  Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y) const;
+  std::vector<std::vector<Tile>> Tiles() { return tiles_; }
 
-	std::uint32_t Width() const { return width_; }
-	std::uint32_t Height() const { return height_; }
-	std::uint8_t TileWidth() const { return tileWidth_; }
+  std::uint32_t Width() const { return width_; }
+  std::uint32_t Height() const { return height_; }
+  std::uint8_t TileWidth() const { return tileWidth_; }
 
-   private:
-	std::vector<std::vector<Tile>> tiles_;
-    std::uint8_t tileWidth_;
-    std::uint32_t width_;
-    std::uint32_t height_;
-    
-    // std::vector<std::tuple<std::uint32_t>> enemyPath_;
-	
-	bool CoordinateIsInsideGrid(std::uint32_t x, std::uint32_t y) const;
+ private:
+  std::vector<std::vector<Tile>> tiles_;
+  // std::vector<std::tuple<std::uint32_t>> enemyPath_;
+
+  // LevelInfo
+  std::uint8_t tileWidth_;
+  std::uint32_t width_;
+  std::uint32_t height_;
 };
-

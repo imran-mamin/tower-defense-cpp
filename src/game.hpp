@@ -11,6 +11,8 @@ class Game {
 
   std::vector<GameObject> Objects() const;
 
+  GameGrid& GetGrid();
+
  protected:
   std::size_t playerMoney_;
   std::size_t enemyMoney_;
