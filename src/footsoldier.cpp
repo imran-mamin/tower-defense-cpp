@@ -10,7 +10,7 @@ void FootSoldier::update() {
         // Remove enemy object from vector of objects.
         while (it != this->getObjects().end()) {
             if (&(*it) == this) {
-                this->getObjects().erase(it);
+                // this->getObjects().erase(it);
                 break;
             }
             it++;

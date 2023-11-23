@@ -12,6 +12,9 @@ class Game {
 
   void AddObject(GameObject obj);
 
+  std::vector<GameObject> Objects() const;
+  GameGrid& GetGrid();
+  
 protected:
     friend class GameObject;
     std::size_t playerMoney_;
