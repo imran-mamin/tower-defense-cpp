@@ -56,7 +56,7 @@ void Missile::update() {
             auto gameObjIt = this->getObjects().begin();
             while (gameObjIt != this->getObjects().end()) {
                 if (&(*gameObjIt) == this) {
-                    this->getObjects().erase(gameObjIt);
+                    // this->getObjects().erase(gameObjIt);
                     break;
                 }
                 gameObjIt++;
@@ -78,7 +78,7 @@ void Missile::update() {
             auto gameObjIt = this->getObjects().begin();
             while (gameObjIt != this->getObjects().end()) {
                 if (&(*gameObjIt) == this) {
-                    this->getObjects().erase(gameObjIt);
+                    // this->getObjects().erase(gameObjIt);
                     break;
                 }
                 gameObjIt++;
