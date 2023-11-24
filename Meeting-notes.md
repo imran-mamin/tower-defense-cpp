@@ -32,3 +32,18 @@ Trivial change: We plan to rename Game class to Level class as it is more suitab
  - Leevi created map selector renderer, enemy path renderer and game loop skeleton. He also participated in bug fixing.
  - Aleksi was working on game loop, tower placement, bug fixing and overall improved the GUI of the application.
  - Imran was working on classes and their method implementations and fixed bugs.
+
+ ## 23.11.2023 - 24.11.2023
+ I (Leevi) made a branch called leesalon/feature/path-deduction-features-and-more-painting-stuff. Currently already merged to master.
+
+ This branch contained following updates in short (more on these updates can be found from the commits):
+ - Changed the names of all the tiles to logical ordering that is based on the original tile layout. When making a map editor the layout can rendered as it was intended.
+ - Add new class TextureManager. It loads all the textures from rsrc/tiles and its subdirectories. Its purpose is to avoid loading duplicate textures.
+ - Update the test map.
+ - Add a setter function to the (tile) interface.
+ - Add enemy path deduction to the GameGrid constructor.
+ - Add functionality to check whether the tile where placing an artillery is empty and isn't a path tile. According to this render the selection on green / red when artillery is being placed and is selected.
+ - Debug: Draw light blue overlay on the enemy path tiles.
+
+
+
