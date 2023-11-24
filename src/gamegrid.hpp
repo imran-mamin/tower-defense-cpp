@@ -14,26 +14,28 @@
 #include "vec2d.hpp"
 
 class GameGrid {
- public:
-  /* Create a new GameGrid object from map file. */
-  GameGrid(const MapInfo &mapInfo);
-  GameGrid() = delete;
+   public:
+    /* Create a new GameGrid object from map file. */
+    GameGrid(const MapInfo &mapInfo);
+    GameGrid() = delete;
 
-  Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
-  std::vector<std::vector<Tile>> Tiles() { return tiles_; }
+    Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
+    Tile &TileAtAbsoluteCoordinate(std::uint32_t x, std::uint32_t y);
+    std::vector<std::vector<Tile>> &Tiles() { return tiles_; }
 
-  const std::vector<Vec2D>&EnemyPath() { return enemyPath_; }
+    const std::vector<Vec2D> &EnemyPath() { return enemyPath_; }
 
-  std::uint32_t Width() const { return width_; }
-  std::uint32_t Height() const { return height_; }
-  std::uint8_t TileWidth() const { return tileWidth_; }
+    std::uint32_t Width() const { return width_; }
+    std::uint32_t Height() const { return height_; }
+    std::uint8_t TileWidth() const { return tileWidth_; }
 
- private:
-  std::vector<std::vector<Tile>> tiles_;
-  const std::vector<Vec2D> enemyPath_;
+   private:
+    std::vector<std::vector<Tile>> tiles_;
+    const std::vector<Vec2D> enemyPath_;
 
-  // LevelInfo
-  std::uint8_t tileWidth_;
-  std::uint32_t width_;
-  std::uint32_t height_;
+    // LevelInfo
+    std::uint8_t tileWidth_;
+	// FIXME: Should be uint8_t since these are the sizes in TILES not absolutes.
+    std::uint32_t width_;
+    std::uint32_t height_;
 };

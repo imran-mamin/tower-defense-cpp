@@ -19,6 +19,7 @@ private:
 public:
     Tile(TileType type, std::uint16_t id) : type_(type), id_(id) {}
     TileType type() const;
+	void SetType(TileType t) { type_ = t; }
     
 	std::uint16_t Id() const { return id_; }
 
