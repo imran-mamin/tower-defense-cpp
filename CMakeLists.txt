@@ -14,6 +14,9 @@ set(CMAKE_BUILD_TYPE Debug)
 add_executable(${PROJECT_NAME} ${MAIN_SOURCES})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_lib)
 
+# Set the include directories for the main project
+target_include_directories(${PROJECT_NAME} PRIVATE src)
+
 # get a lot of warnings
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /Wall)
@@ -57,6 +60,9 @@ target_link_libraries(unit_tests PRIVATE ${PROJECT_NAME}_lib gtest gtest_main ${
 # Set the working directory for tests
 set_target_properties(unit_tests PROPERTIES
                       RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests)
+
+# Set the include directories for the tests
+target_include_directories(unit_tests PRIVATE src)
 
 # Add a test
 add_test(NAME MyTest COMMAND unit_tests)
