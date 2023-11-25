@@ -88,12 +88,14 @@ void FootSoldier::update() {
                             pathVec.y = pathPoints.b.y - pathPoints.a.y;
                             
                             // If it goes also out of pathPoints vec2D then continue.
-                            if ((pathVec.x < out) || (pathVec.y < out)) {
+                            bool isOut = (std::max(pathVec.x, pathVec.y) < out);
+                            if (isOut) {
                                 out -= std::max(pathVec.x, pathVec.y);
                                 j++;
                                 continue;
                             }
 
+                            // Update enemy's position according to the path vector.
                             if (pathVec.x == 0) {
                                 this->position_ = pathPoints.a;
                                 this->position_.y += out;
@@ -110,8 +112,11 @@ void FootSoldier::update() {
                         }
                         
                     } else {
-                        int out = this->position_.y  - currVec.b.y;
-                        int overSpeed = out / vec1.y;
+                        int out = this->position_.y - currVec.b.y;
+                        // Restore enemy's position to end point of the vec1.
+                        this->position_.y -= out;
+                        
+                        /*
                         if ((i + 1) != (int)path.size()) {
                             const Vec2D& pathPoints = path.at(i + 1);
                             Pos pathVec;
@@ -122,7 +127,7 @@ void FootSoldier::update() {
                             this->position_.y += overSpeed * pathVec.y;
                         } else {
                             assert(false); // This is for TODO above.
-                        }
+                        }*/
                     }
                 }
                 
