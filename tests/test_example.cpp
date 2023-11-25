@@ -17,5 +17,7 @@
 
 
 TEST(MyClassTest, TestConstructor) {
+    GameGrid gg = GameGrid(testMapInfoObject1());
+    Game game = Game(gg);
     EXPECT_EQ(1, 1);
 }

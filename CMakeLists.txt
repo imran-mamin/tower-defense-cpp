@@ -29,8 +29,6 @@ endif()
 find_package(SFML 2.5 COMPONENTS network audio graphics window system REQUIRED)
 if(SFML_FOUND)
   target_include_directories(${PROJECT_NAME} PRIVATE ${SFML_INCLUDE_DIR})
-  # SFML version >= 2.5
-  #In SFML Version 2.5 or later, ${SFML_LIBRARIES}, ${SFML_DEPENDENCIES}, ${SFML_INCLUDE_DIR} no longer exist. Specify libraries individually.
   target_link_libraries(${PROJECT_NAME} PRIVATE sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
 endif()
 
@@ -55,7 +53,7 @@ enable_testing()
 # Add a target for running the tests
 file(GLOB_RECURSE TEST_SOURCES tests/*.cpp)
 add_executable(unit_tests ${TEST_SOURCES})
-target_link_libraries(unit_tests PRIVATE ${PROJECT_NAME}_lib gtest gtest_main ${SFML_LIBRARIES})
+target_link_libraries(unit_tests PRIVATE ${PROJECT_NAME}_lib gtest gtest_main sfml-graphics sfml-system)
 
 # Set the working directory for tests
 set_target_properties(unit_tests PROPERTIES
