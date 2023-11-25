@@ -2,19 +2,21 @@
 
 void FootSoldier::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
-    std::cout << this->isAlive() << std::endl;
     if (this->isAlive()) {
-        const std::vector<Vec2D>& path = this->getGrid().EnemyPath();
+        const std::vector<Vec2D> path = this->getGrid().EnemyPath();
         int i = 0;
 
-        // Find the vector that contains enemy's current position.
+        // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
-            const Vec2D& currVec = path.at(i);
-            // start position of the current vector to current position of the enemy.
-            Vec2D sPosToCurrPos;
-            sPosToCurrPos.a = currVec.a;
-            sPosToCurrPos.b = this->position_;
+            const Vec2D currVec = path.at(i);
+            std::cout << "currVecA: (x, y) = (" << currVec.a.x << ", " << currVec.a.y << ")" << std::endl;
 
+            // start position of the current vector to current position of the enemy.
+            Vec2D sPosToEnemPos;
+            sPosToEnemPos.a = currVec.a;
+            sPosToEnemPos.b = this->position_;
+            std::cout << "sPosStart: (x, y) = (" << sPosToEnemPos.a.x << ", " << sPosToEnemPos.a.y << ")" << std::endl;
+            std::cout << "sPosEnem: (x, y) = (" << sPosToEnemPos.b.x << ", " << sPosToEnemPos.b.y << ")" << std::endl;
             // Find a current vector in form of (4i + 2j) for example, which is a point.
             Pos vec1;
             vec1.x = currVec.b.x - currVec.a.x;
@@ -22,9 +24,10 @@ void FootSoldier::update() {
 
             // Find a vector between start position and enemy's position.
             Pos vec2;
-            vec2.x = sPosToCurrPos.b.x - sPosToCurrPos.a.x;
-            vec2.y = sPosToCurrPos.b.y - sPosToCurrPos.a.y;
-
+            vec2.x = sPosToEnemPos.b.x - sPosToEnemPos.a.x;
+            vec2.y = sPosToEnemPos.b.y - sPosToEnemPos.a.y;
+            
+            std::cout << "vec2: (x, y) = (" << vec2.x << ", " << vec2.y << ")" << std::endl;
             // Calculate the dot product between vec1 and vec2.
             // If enemy's position is on current vector, then the dotproduct between the vectors should be 0.
             int dotP = (vec1.x * vec2.x) + (vec1.y * vec2.y);
@@ -36,6 +39,9 @@ void FootSoldier::update() {
             // Calculate the length of the vectors vec1 and vec2.
             double vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
             double vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
+
+            std::cout << "vec1Length: " << vec1Length << std::endl;
+            std::cout << "vec2Length: " << vec2Length << std::endl;
 
             // TODO: Check for the end of the path, enemy wins
             // The length of the vec2 should be smaller than vec1, if the enemy's position is
@@ -59,7 +65,10 @@ void FootSoldier::update() {
             } else {
                 // Check that the enemy doesn't go further than the end point of a path vector.
                 this->position_.x += this->speed_ * vec1.x;
-                this->position_.y += this->speed_ * vec2.y;
+                this->position_.y += this->speed_ * vec1.y;
+
+                std::cout << "Enemy updated position" << std::endl;
+                std::cout << "(x, y) = (" << this->position_.x << ", " << this->position_.y << ")" << std::endl;
 
                 if ((this->position_.x > currVec.b.x) || (this->position_.y  > currVec.b.y)) {
                     if (this->position_.x > currVec.b.x) {
