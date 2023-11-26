@@ -21,7 +21,7 @@ void Missile::update() {
             break;
         }
     }*/
-
+    /*
     if (isAlive) {
         Vec2D pathToTarget;
         pathToTarget.a = this->position_;
@@ -80,5 +80,5 @@ void Missile::update() {
         }
         
     }
-    
+    */
 }

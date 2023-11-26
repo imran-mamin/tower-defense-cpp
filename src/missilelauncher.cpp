@@ -3,15 +3,16 @@
 
 void MissileLauncher::fire() {
     assert(!this->getEnemiesWithinRadius().empty());
-    // Enemy e = this->getEnemiesWithinRadius().at(0);
+    Enemy* e = this->getEnemiesWithinRadius().at(0);
 
-    // Missile(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
+    // Missile(sf::Sprite sprite, Game& game, int travel_speed, int damage, int radius, Enemy target, Pos position, double exp_radius = 0)
     // Create a missile object.
     sf::Sprite sp;
-    // Missile m = Missile(sp, this->game_, 6, 6, 4, e, 4); 
+    Pos p = this->getPosition();
+    Missile* m = new Missile(sp, this->game_, 6, 6, 4, e, p, 4); 
     
     // Add missile to vector.
-    // this->getObjects().push_back(m); 
+    this->game_.AddObject(m); 
 }
 
 void MissileLauncher::update() {

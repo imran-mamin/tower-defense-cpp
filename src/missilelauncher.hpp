@@ -3,7 +3,6 @@
 #include "missile.hpp"
 
 
-// TODO: Implement methods
 class MissileLauncher: public Tower {
 private:
 
@@ -17,5 +16,4 @@ public:
     void onDestroy();
     void update();
     int sell();
-
 };
