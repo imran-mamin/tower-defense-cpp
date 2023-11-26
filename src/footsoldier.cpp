@@ -53,10 +53,10 @@ void FootSoldier::update() {
                 i++;
                 continue;
             }
-            // Check that the enemy doesn't go further than the end point of a path vector.
-            this->position_.x += (vec1.x == 0) ? 0 : this->speed_; // this->speed_ * vec1.x;
-            this->position_.y += (vec1.y == 0) ? 0 : this->speed_; // this->speed_ * vec1.y;
+            this->position_.x += (vec1.x == 0) ? 0 : this->speed_;
+            this->position_.y += (vec1.y == 0) ? 0 : this->speed_;
 
+            // Check that the enemy doesn't go further than the end point of a path vector.
             if ((this->position_.x > currVec.b.x) || (this->position_.y > currVec.b.y)) {
                 int out = std::max((this->position_.x - currVec.b.x), (this->position_.y - currVec.b.y));
                 // Restore enemy's position to end point of the currVec.
