@@ -55,7 +55,7 @@ void Missile::update() {
             // Remove missile object from the vector objects_.
             auto gameObjIt = this->getObjects().begin();
             while (gameObjIt != this->getObjects().end()) {
-                if (&(*gameObjIt) == this) {
+                if ((*gameObjIt) == static_cast<GameObject*>(this)) {
                     // this->getObjects().erase(gameObjIt);
                     break;
                 }
@@ -77,7 +77,7 @@ void Missile::update() {
             // Remove missile object from the vector objects_.
             auto gameObjIt = this->getObjects().begin();
             while (gameObjIt != this->getObjects().end()) {
-                if (&(*gameObjIt) == this) {
+                if ((*gameObjIt) == static_cast<GameObject*>(this)) {
                     // this->getObjects().erase(gameObjIt);
                     break;
                 }

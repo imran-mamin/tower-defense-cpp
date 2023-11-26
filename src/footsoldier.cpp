@@ -182,7 +182,7 @@ void FootSoldier::update() {
 
         // Remove enemy object from vector of objects.
         while (it != this->getObjects().end()) {
-            if (&(*it) == this) {
+            if ((*it) == static_cast<GameObject*>(this)) {
                 // TODO: Uncomment this line.
                 // this->getObjects().erase(it);
                 break;

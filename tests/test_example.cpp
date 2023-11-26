@@ -27,7 +27,7 @@ TEST(FootSoldierClass, Update) {
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
     FootSoldier fs = FootSoldier(18, 6, 6, 18, sp, game, p);
-    game.AddObject(fs);
+    game.AddObject(&fs);
     
     for (int i = 0; i < 2; i++) {
         fs.update();
@@ -48,7 +48,7 @@ TEST(FootSoldierClass, Update2) {
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
     FootSoldier fs = FootSoldier(20, 6, 6, 18, sp, game, p);
-    game.AddObject(fs);
+    game.AddObject(&fs);
 
     for (int i = 0; i < 4; i++) {
         fs.update();
@@ -77,7 +77,7 @@ TEST(FootSoldierClass, Update3) {
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
     FootSoldier fs = FootSoldier(7, 6, 6, 18, sp, game, p);
-    game.AddObject(fs);
+    game.AddObject(&fs);
 
     std::cout << "Enemy position at the start" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
@@ -114,7 +114,7 @@ TEST(FootSoldierClass, Update4) {
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
     FootSoldier fs = FootSoldier(7, 6, 6, 18, sp, game, p);
-    game.AddObject(fs);
+    game.AddObject(&fs);
 
     std::cout << "Enemy position at the start" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
