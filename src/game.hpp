@@ -11,6 +11,7 @@ class Game {
   Game(const GameGrid& grid);
 
   void AddObject(GameObject* obj);
+  void DeleteObject(GameObject* obj);
 
   const std::vector<GameObject*>& Objects();
   GameGrid& GetGrid();

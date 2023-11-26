@@ -15,12 +15,12 @@
 
 void Missile::update() {
     bool isAlive = false;
-    for (auto it = this->getObjects().begin(); it != this->getObjects().end(); it++) {
-        /*if ((Enemy&)(*it) == target_) { // TODO: Uncomment this block of code.
+    /*for (auto it = this->getObjects().begin(); it != this->getObjects().end(); it++) {
+        if ((Enemy&)(*it) == target_) { // TODO: Uncomment this block of code.
             isAlive = true;
             break;
-        }*/
-    }
+        }
+    }*/
 
     if (isAlive) {
         Vec2D pathToTarget;
@@ -53,14 +53,9 @@ void Missile::update() {
             }
             
             // Remove missile object from the vector objects_.
-            auto gameObjIt = this->getObjects().begin();
-            while (gameObjIt != this->getObjects().end()) {
-                if ((*gameObjIt) == static_cast<GameObject*>(this)) {
-                    // this->getObjects().erase(gameObjIt);
-                    break;
-                }
-                gameObjIt++;
-            }
+            this->game_.DeleteObject(this);
+            delete this;
+            
         }
     } else {
         // TODO: Corner cases
@@ -75,14 +70,9 @@ void Missile::update() {
             }
             
             // Remove missile object from the vector objects_.
-            auto gameObjIt = this->getObjects().begin();
-            while (gameObjIt != this->getObjects().end()) {
-                if ((*gameObjIt) == static_cast<GameObject*>(this)) {
-                    // this->getObjects().erase(gameObjIt);
-                    break;
-                }
-                gameObjIt++;
-            }
+            this->game_.DeleteObject(this);
+            delete this;
+
         } else {
             // Else just advance the position of the missile.
             this->position_.x += this->travel_speed();

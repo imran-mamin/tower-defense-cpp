@@ -44,5 +44,5 @@ int Cannon::sell() {
 }
 
 void Cannon::onDestroy() {
-    this->~Cannon();
+
 }

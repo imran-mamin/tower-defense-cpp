@@ -48,7 +48,4 @@ protected:
         return game_.grid_;
     }
 
-    std::vector<GameObject*>& getObjects() {
-        return game_.objects_; 
-    }
 };

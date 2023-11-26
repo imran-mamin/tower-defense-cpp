@@ -178,18 +178,9 @@ void FootSoldier::update() {
             break;
         }
     } else {
-        auto it = this->getObjects().begin();
-
         // Remove enemy object from vector of objects.
-        while (it != this->getObjects().end()) {
-            if ((*it) == static_cast<GameObject*>(this)) {
-                // TODO: Uncomment this line.
-                // this->getObjects().erase(it);
-                break;
-            }
-            it++;
-        }
-        
+        this->game_.DeleteObject(static_cast<GameObject*>(this));// this->getObjects().begin();
+
         // Add profit to player.
         this->addPlayerMoney(this->value_);
         
