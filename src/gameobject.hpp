@@ -20,6 +20,9 @@ public:
         this->health_ -= damage;
     }
 
+    // virtual void update() = 0;
+    // virtual void onDestroy() = 0;
+
 protected:
     int health_;
     sf::Sprite sprite_;
@@ -41,11 +44,11 @@ protected:
         game_.enemyMoney_ -= money;
     }
 
-    GameGrid getGrid() {
+    GameGrid& getGrid() {
         return game_.grid_;
     }
 
-    std::vector<GameObject> getObjects() {
-        return game_.Objects(); 
+    std::vector<GameObject>& getObjects() {
+        return game_.objects_; 
     }
 };
