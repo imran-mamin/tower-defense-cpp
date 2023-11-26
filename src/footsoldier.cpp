@@ -82,9 +82,9 @@ void FootSoldier::update() {
                         pathVec.y = pathPoints.b.y - pathPoints.a.y;
                         
                         // If it goes also out of pathPoints vec2D then continue.
-                        bool isOut = (std::max(abs(pathVec.x), abs(pathVec.y)) < out);
+                        bool isOut = (std::max(std::abs(pathVec.x), std::abs(pathVec.y)) < out);
                         if (isOut) {
-                            out -= std::max(abs(pathVec.x), abs(pathVec.y));
+                            out -= std::max(std::abs(pathVec.x), std::abs(pathVec.y));
                             j++;
                             continue;
                         }
@@ -116,14 +116,12 @@ void FootSoldier::update() {
                         }
                     }
 
-                    if (out > 0) {
-                        assert(false); // This is for TODO above.
-                    }
+                    assert(out <= 0); // This is for TODO above.
                         
                 }
             } else {
                 if ((this->position_.x < currVec.b.x) || (this->position_.y < currVec.b.y)) {
-                    int out = std::max(abs(this->position_.x - currVec.b.x), abs(this->position_.y - currVec.b.y));
+                    int out = std::max(std::abs(this->position_.x - currVec.b.x), std::abs(this->position_.y - currVec.b.y));
                     // Restore enemy's position to end point of the currVec.
                     this->position_ = currVec.b;
 
@@ -136,9 +134,9 @@ void FootSoldier::update() {
                         pathVec.y = pathPoints.b.y - pathPoints.a.y;
                         
                         // If it goes also out of pathPoints vec2D then continue.
-                        bool isOut = (std::max(abs(pathVec.x), abs(pathVec.y)) < out);
+                        bool isOut = (std::max(std::abs(pathVec.x), std::abs(pathVec.y)) < out);
                         if (isOut) {
-                            out -= std::max(abs(pathVec.x), abs(pathVec.y));
+                            out -= std::max(std::abs(pathVec.x), std::abs(pathVec.y));
                             j++;
                             continue;
                         }
@@ -170,9 +168,7 @@ void FootSoldier::update() {
                         }
                     }
 
-                    if (out > 0) {
-                        assert(false); // This is for TODO above.
-                    }
+                    assert(out <= 0); // This is for TODO above.
                 }
             }
             std::cout << std::endl;
