@@ -26,7 +26,7 @@ public:
 protected:
     int health_;
     sf::Sprite sprite_;
-    Game game_;
+    Game& game_;
     Pos position_;
     void addPlayerMoney(int money) {
         game_.playerMoney_ += money;
