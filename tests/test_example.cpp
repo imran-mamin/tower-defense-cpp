@@ -15,7 +15,7 @@
 #include "testmapinfo.hpp"
 #include "tower.hpp"
 #include "footsoldier.hpp"
-/*
+
 // Enemy should be on the first vec2D in enemyPath.
 TEST(FootSoldierClass, Update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
@@ -26,12 +26,14 @@ TEST(FootSoldierClass, Update) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(0.05 / 60.0, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(18, 6, 6, 18, sp, game, p);
     game.AddObject(fs);
+    
+    for (int i = 0; i < 2; i++) {
+        fs.update();
+    }
 
-    fs.update();
-
-    EXPECT_EQ(fs.getPosition().x, 1);
+    EXPECT_EQ(fs.getPosition().x, 36);
     EXPECT_EQ(fs.getPosition().y, 224);
 }
 
@@ -44,15 +46,17 @@ TEST(FootSoldierClass, Update2) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(2.0 / 60.0, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(20, 6, 6, 18, sp, game, p);
     game.AddObject(fs);
 
-    fs.update();
+    for (int i = 0; i < 4; i++) {
+        fs.update();
+    }
 
-    EXPECT_EQ(fs.getPosition().x, 42);
-    EXPECT_EQ(fs.getPosition().y, 224);
+    EXPECT_EQ(fs.getPosition().x, 60);
+    EXPECT_EQ(fs.getPosition().y, 244);
 }
-*/
+
 // Enemy should be on the second vec2D in enemyPath.
 TEST(FootSoldierClass, Update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
@@ -75,9 +79,8 @@ TEST(FootSoldierClass, Update3) {
 
     std::cout << "Enemy position at the start" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
-    // First vec2D is (1280, 224), enemy starting position is (0, 224).
-    // So 1280 / (speed * 1280) is approximately 30.48, thus 31 iteration.
-    for (int i = 0; i < 31; i++) {
+    
+    for (int i = 0; i < 19; i++) {
         fs.update();
 
         std::cout << "iteration " << i << "done" << std::endl;
@@ -86,7 +89,7 @@ TEST(FootSoldierClass, Update3) {
     std::cout << "Enemy position at the end" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
   
-
-    EXPECT_EQ(fs.getPosition().x, -1);
-    EXPECT_EQ(fs.getPosition().y, 224);
+    //(97, 260)
+    EXPECT_EQ(fs.getPosition().x, 97);
+    EXPECT_EQ(fs.getPosition().y, 260);
 }
