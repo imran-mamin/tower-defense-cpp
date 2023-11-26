@@ -15,17 +15,18 @@
 
 void Missile::update() {
     bool isAlive = false;
-    /*for (auto it = this->getObjects().begin(); it != this->getObjects().end(); it++) {
-        if ((Enemy&)(*it) == target_) { // TODO: Uncomment this block of code.
-            isAlive = true;
-            break;
+    for (GameObject* obj : this->game_.Objects()) {
+        // Attempt to cast to Enemy*
+        if (Enemy* enemy = dynamic_cast<Enemy*>(obj)) {
+            if (enemy == this->target_) {
+                isAlive = true;
+                break;
+            }
         }
-    }*/
-    /*
+    }
+    
     if (isAlive) {
-        Vec2D pathToTarget;
-        pathToTarget.a = this->position_;
-        pathToTarget.b = target_.getPosition();
+        Vec2D pathToTarget = Vec2D{ this->position_, this->target_->getPosition() };
         
         // Find the direction using two positions. (Vector in e.g. 4i + 2j format).
         uint32_t pathToTargetX = pathToTarget.b.x - pathToTarget.a.x;
@@ -37,12 +38,12 @@ void Missile::update() {
 
         // Calculate the distance between missile and target.
         // Formula sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
-        double dist = sqrt((target_.getPosition().x - this->position_.x) * (target_.getPosition().x - this->position_.x) +
-                           (target_.getPosition().y - this->position_.y) * (target_.getPosition().y - this->position_.y));
+        double dist = sqrt((target_->getPosition().x - this->position_.x) * (target_->getPosition().x - this->position_.x) +
+                           (target_->getPosition().y - this->position_.y) * (target_->getPosition().y - this->position_.y));
 
         // Is target in the explosion radius of missile?
         if (this->explosionRadius_ > dist) {
-            this->target_.takeDamage(this->damage());
+            // this->target_.takeDamage(this->damage());
             
             // The missile will cause damage to all enemies within the given missile radius.
             std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
@@ -80,5 +81,5 @@ void Missile::update() {
         }
         
     }
-    */
+    
 }
