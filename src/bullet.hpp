@@ -5,7 +5,7 @@
 // TODO: Implement methods
 class Bullet : public Projectile {
 private:
-  Enemy target_;
+  Enemy& target_;
 
 public:
   Bullet(sf::Sprite sprite, Game& game, Enemy& target, int travel_speed, int damage, int radius, Pos position)
