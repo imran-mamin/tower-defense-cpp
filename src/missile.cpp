@@ -50,10 +50,10 @@ void Missile::update() {
             // Is target in the explosion radius of missile?
             if (this->explosionRadius_ > dist) {
                 // The missile will cause damage to all enemies within the given missile radius.
-                std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
+                std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
                 auto it = enemiesWithinRadius.begin();
                 while (it != enemiesWithinRadius.end()) {
-                    (*it).takeDamage(this->damage());
+                    (*it)->takeDamage(this->damage());
                     it++;
                 }
                 
@@ -70,10 +70,10 @@ void Missile::update() {
         // Collide with the enemies on the way out of the window if there are some.
         if (!this->getEnemiesWithinRadius().empty()) {
             // The missile will cause damage to all enemies within the given missile radius.
-            std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
+            std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
             auto it = enemiesWithinRadius.begin();
             while (it != enemiesWithinRadius.end()) {
-                (*it).takeDamage(this->damage());
+                (*it)->takeDamage(this->damage());
                 it++;
             }
             

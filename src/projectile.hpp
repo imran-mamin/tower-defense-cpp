@@ -1,4 +1,6 @@
 #pragma once
+#include <cmath>
+
 #include "gameobject.hpp"
 #include "enemy.hpp"
 
@@ -25,7 +27,7 @@ public:
      * @brief Returns all the enemies within the given radius (projectile radius).
      * Does not take any parameters.
     */
-    const std::vector<Enemy> getEnemiesWithinRadius();
+    const std::vector<Enemy*> getEnemiesWithinRadius();
 
     int travel_speed() const {
         return travel_speed_;
