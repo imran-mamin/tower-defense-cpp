@@ -203,3 +203,40 @@ TEST(MissileClass, update) {
     // After hitting the enemy, the Missile-instance should be removed from game->objects_.
     EXPECT_EQ(game.Objects().size(), 2);
 }
+
+
+TEST(MissileClass, update2) {
+    GameGrid gg = GameGrid(testMapInfoObject1());
+    Game game = Game(gg);
+
+    sf::Sprite spM; // For MissileLauncher
+    sf::Sprite spF; // For FootSoldier
+    
+    Pos p1 = Pos{ 2, 220 };
+
+    Pos p2;
+    p2.x = gg.EnemyPath().at(0).a.x;
+    p2.y = gg.EnemyPath().at(0).a.y;
+    // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+    MissileLauncher ml = MissileLauncher(100, 2, 100, spM, game, p1);
+    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    FootSoldier fs = FootSoldier(18, 6, 6, 6, spF, game, p2);
+    game.AddObject(&fs);
+    game.AddObject(&ml);
+
+    for (int i = 0; i < 2; i++) {
+        int j = 0;
+    
+        while (j < (int)game.Objects().size()) {
+            game.Objects().at(j)->update();
+            j++;
+        }
+    }
+    
+
+    // Enemy health 6 should be reduced by 6 (missile's damage is 6) --> Enemy-instance should be
+    // removed from game->objects_.
+
+    // After hitting the enemy, the Missile-instance should be removed from game->objects_.
+    EXPECT_EQ(game.Objects().size(), 1);
+}
