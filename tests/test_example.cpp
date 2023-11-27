@@ -195,13 +195,11 @@ TEST(MissileClass, update) {
     
     while (i < (int)game.Objects().size()) {
         game.Objects().at(i)->update();
-        std::cout << "i = " << i << std::endl;
         i++;
     }
 
-    // Enemy health 6 should be reduced by 6 (missile's damage is 6) --> Enemy-object should be
-    // deleted.
+    // Enemy health 18 should be reduced by 6 (missile's damage is 6)
 
     // After hitting the enemy, the Missile-instance should be removed from game->objects_.
-    EXPECT_EQ(game.Objects().size(), 1);
+    EXPECT_EQ(game.Objects().size(), 2);
 }
