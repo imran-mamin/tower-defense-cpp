@@ -9,7 +9,7 @@ void MissileLauncher::fire() {
     // Create a missile object.
     sf::Sprite sp;
     Pos p = this->getPosition();
-    Missile* m = new Missile(sp, this->game_, 6, 6, 4, e, p, 4); 
+    Missile* m = new Missile(sp, this->game_, 18, 6, 18, e, p, 4); 
     
     // Add missile to vector.
     this->game_.AddObject(m); 
