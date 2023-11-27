@@ -62,6 +62,10 @@ void Missile::update() {
                 delete this;
                 break;
             }
+            // Update missile's position.
+            this->position_.x += unitVec.x;
+            this->position_.y += unitVec.y;
+
             i++;
         }
         

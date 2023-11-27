@@ -17,6 +17,8 @@
 #include "footsoldier.hpp"
 #include "missilelauncher.hpp"
 
+// --------------- TEST TOWERCLASS -----------------
+
 // Enemy should be on the first vec2D in enemyPath.
 TEST(TowerClass, getEnemiesWithinRadius) {
     GameGrid gg = GameGrid(testMapInfoObject1());
@@ -47,6 +49,8 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     EXPECT_EQ(v.size(), 1);
 }
 
+
+// --------------------- TEST FOOTSOLDIER CLASS --------------------------
 
 // Enemy should be on the first vec2D in enemyPath.
 TEST(FootSoldierClass, Update) {
@@ -163,4 +167,41 @@ TEST(FootSoldierClass, Update4) {
     // (0, 255)
     EXPECT_EQ(fs.getPosition().x, 0);
     EXPECT_EQ(fs.getPosition().y, 255);
+}
+
+
+// ----------------- TEST MISSILE CLASS --------------------
+
+TEST(MissileClass, update) {
+    GameGrid gg = GameGrid(testMapInfoObject1());
+    Game game = Game(gg);
+
+    sf::Sprite spM; // For MissileLauncher
+    sf::Sprite spF; // For FootSoldier
+    
+    Pos p1 = Pos{ 2, 220 };
+
+    Pos p2;
+    p2.x = gg.EnemyPath().at(0).a.x;
+    p2.y = gg.EnemyPath().at(0).a.y;
+    // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+    MissileLauncher ml = MissileLauncher(100, 2, 100, spM, game, p1);
+    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    FootSoldier fs = FootSoldier(18, 6, 6, 18, spF, game, p2);
+    game.AddObject(&fs);
+    game.AddObject(&ml);
+
+    int i = 0;
+    
+    while (i < (int)game.Objects().size()) {
+        game.Objects().at(i)->update();
+        std::cout << "i = " << i << std::endl;
+        i++;
+    }
+
+    // Enemy health 6 should be reduced by 6 (missile's damage is 6) --> Enemy-object should be
+    // deleted.
+
+    // After hitting the enemy, the Missile-instance should be removed from game->objects_.
+    EXPECT_EQ(game.Objects().size(), 1);
 }

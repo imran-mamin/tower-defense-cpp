@@ -11,8 +11,10 @@ void Game::DeleteObject(GameObject* obj) {
     auto it = this->objects_.begin();
 
     while (it != this->objects_.end()) {
+        std::cout << "b" << std::endl;
         if ((*it) == obj) {
             this->objects_.erase(it);
+            break;
         }
         it++;
     }
