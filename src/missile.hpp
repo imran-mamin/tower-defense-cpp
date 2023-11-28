@@ -15,5 +15,5 @@ public:
         : Projectile(sprite, game, travel_speed, damage, radius, position), target_(target), explosionRadius_(exp_radius) {};
     // Vec2D speed_vec;
     void update();
-
+    void onDestroy() {};
 };
