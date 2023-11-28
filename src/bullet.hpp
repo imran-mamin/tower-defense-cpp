@@ -6,10 +6,11 @@
 class Bullet : public Projectile {
 private:
   Enemy* target_;
+  Pos endPos_;
 
 public:
-  Bullet(sf::Sprite sprite, Game& game, Enemy* target, int travel_speed, int damage, int radius, Pos position)
-      : Projectile(sprite, game, travel_speed, damage, radius, position), target_(target) {};
+  Bullet(sf::Sprite sprite, Game& game, Enemy* target, int travel_speed, int damage, int radius, Pos position, Pos endPos)
+      : Projectile(sprite, game, travel_speed, damage, radius, position), target_(target), endPos_(endPos) {};
 
   // Destructor implementation
   ~Bullet() override {}

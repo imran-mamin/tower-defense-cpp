@@ -3,16 +3,17 @@
 #include "cannon.hpp"
 #include "bullet.hpp"
 
+// TODO: Cannon should set the direction for the Bullet-instance.
 void Cannon::fire() {
     Enemy* e = this->getEnemiesWithinRadius().at(0);
 
-    // Bullet(sf::Sprite sprite, Game& game, Enemy* target, int travel_speed, int damage, int radius, Pos position)
+    // Bullet(sf::Sprite sprite, Game& game, Enemy* target, int travel_speed, int damage, int radius, Pos position, Pos endPos)
     // Create a Bullet-class instance.
     sf::Sprite sp;
-    Bullet* b = new Bullet(sp, this->game_, e, 20, 20, 2, this->position_);
+    // Bullet* b = new Bullet(sp, this->game_, e, 20, 20, 2, this->position_);
 
     // Add bullet to vector of objects.
-    this->game_.AddObject(b);
+    // this->game_.AddObject(b);
 };
 
 void Cannon::update() {
