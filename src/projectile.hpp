@@ -46,6 +46,7 @@ public:
      **/
     virtual ~Projectile() {};
     
+    virtual void onDestroy() {};
     /**
      * @brief updates all the objects in the game that are affected by projectile.
     */

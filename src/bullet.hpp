@@ -16,7 +16,13 @@ public:
 
   // Implement the update function
   void update() override {
-    // Add your implementation for updating the bullet here
+    // TODO: Add your implementation for updating the bullet here
 
   }
+
+  void onDestroy() override {
+
+  }
+
+  
 };
