@@ -49,7 +49,6 @@ void FootSoldier::update() {
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
             
-            std::cout << "enemyPos (x, y) = (" << this->position_.x << ", " << this->position_.y << ")" << std::endl;
             // Check that the enemy doesn't go further than the end point of a path vector.
             bool outX = (unitVec1.x > 0) ? (this->position_.x > currVec.b.x) : (this->position_.x < currVec.b.x);
             bool outY = (unitVec1.y > 0) ? (this->position_.y > currVec.b.y) : (this->position_.y < currVec.b.y);
@@ -59,10 +58,7 @@ void FootSoldier::update() {
                 double outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
                 // Restore enemy's position to end point of the currVec.
                 this->position_ = currVec.b;
-                std::cout << "unitVec1.x = " << unitVec1.x << std::endl;
-                std::cout << "unitVec1.y = " << unitVec1.y << std::endl;
-                std::cout << "outInSpeed = " << outInSpeed << std::endl;
-                std::cout << "new position = (" << this->position_.x << ", " << this->position_.y << ")" << std::endl;
+
                 int j = i + 1;
 
                 while ((j < (int)path.size()) && (outInSpeed > 0)) {
@@ -70,9 +66,7 @@ void FootSoldier::update() {
                     Pos pathVec = Pos{ (pathPoints.b.x - pathPoints.a.x), (pathPoints.b.y - pathPoints.a.y) };
                     double pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
                     Pos unitPathVec = Pos{ (pathVec.x / pathVecLength), (pathVec.y / pathVecLength) };
-                    
-                    std::cout << "unitPathVec.x = " << unitPathVec.x << std::endl;
-                    std::cout << "unitPathVec.y = " << unitPathVec.y << std::endl;
+
                     // Update enemy's position.
                     this->position_.x += outInSpeed * unitPathVec.x;
                     this->position_.y += outInSpeed * unitPathVec.y;
@@ -82,7 +76,6 @@ void FootSoldier::update() {
                     bool isOutY = (unitPathVec.y > 0) ? (this->position_.y > pathPoints.b.y) : (this->position_.y < pathPoints.b.y);
                     
                     if (isOutX || isOutY) {
-                        std::cout << "a" << std::endl;
                         // Remove the length of pathVec from the outInSpeed.
                         outInSpeed -= (unitPathVec.x != 0) ? std::abs((this->position_.x - pathPoints.b.x) / unitPathVec.x) : std::abs((this->position_.y - pathPoints.b.y) / unitPathVec.y);
                         j++;
@@ -94,124 +87,6 @@ void FootSoldier::update() {
                 
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
-            /*
-            // Tells, whether the enemy goes backward or forward.
-            bool goesLeftOrUp = false;
-            
-            // Advance enemy's position depending on the vec1 direction.
-            if (vec1.x != 0) {
-                this->position_.x += (vec1.x > 0) ? this->speed_ : -this->speed_;
-                goesLeftOrUp = (vec1.x > 0) ? false : true;
-            } else {
-                this->position_.y += (vec1.y > 0) ? this->speed_ : -this->speed_;
-                goesLeftOrUp = (vec1.y > 0) ? false : true;
-            }
-
-            if (!goesLeftOrUp) {
-                // Check that the enemy doesn't go further than the end point of a path vector.
-                if ((this->position_.x > currVec.b.x) || (this->position_.y > currVec.b.y)) {
-                    int out = std::max((this->position_.x - currVec.b.x), (this->position_.y - currVec.b.y));
-                    // Restore enemy's position to end point of the currVec.
-                    this->position_ = currVec.b;
-                
-                    int j = i + 1;
-   
-                    while ((j < (int)path.size()) && (out > 0)) {
-                        const Vec2D pathPoints = path.at(j);
-                        Pos pathVec;
-                        pathVec.x = pathPoints.b.x - pathPoints.a.x;
-                        pathVec.y = pathPoints.b.y - pathPoints.a.y;
-                        
-                        // If it goes also out of pathPoints vec2D then continue.
-                        bool isOut = (std::max(std::abs(pathVec.x), std::abs(pathVec.y)) < out);
-                        if (isOut) {
-                            out -= std::max(std::abs(pathVec.x), std::abs(pathVec.y));
-                            j++;
-                            continue;
-                        }
-
-                        // Update enemy's position according to the path vector.
-                        if (pathVec.x == 0) {
-                            this->position_ = pathPoints.a;
-                            
-                            // Check, whether enemy is going (left or up) or (down or right).
-                            if (pathVec.y > 0) {
-                                this->position_.y += out;
-                                out = 0;
-                            } else {
-                                this->position_.y -= out;
-                                out = 0;
-                            }
-                            
-                        } else {
-                            this->position_ = pathPoints.a;
-
-                            // Check, whether enemy is going (left or up) or (down or right).
-                            if (pathVec.x > 0) {
-                                this->position_.x += out;
-                                out = 0;
-                            } else {
-                                this->position_.x -= out;
-                                out = 0;
-                            }
-                        }
-                    }
-
-                    assert(out <= 0); // This is for TODO above.
-                        
-                }
-            } else {
-                if ((this->position_.x < currVec.b.x) || (this->position_.y < currVec.b.y)) {
-                    int out = std::max(std::abs(this->position_.x - currVec.b.x), std::abs(this->position_.y - currVec.b.y));
-                    // Restore enemy's position to end point of the currVec.
-                    this->position_ = currVec.b;
-
-                    int j = i + 1;
-
-                    while ((j < (int)path.size()) && (out > 0)) {
-                        const Vec2D pathPoints = path.at(j);
-                        Pos pathVec;
-                        pathVec.x = pathPoints.b.x - pathPoints.a.x;
-                        pathVec.y = pathPoints.b.y - pathPoints.a.y;
-                        
-                        // If it goes also out of pathPoints vec2D then continue.
-                        bool isOut = (std::max(std::abs(pathVec.x), std::abs(pathVec.y)) < out);
-                        if (isOut) {
-                            out -= std::max(std::abs(pathVec.x), std::abs(pathVec.y));
-                            j++;
-                            continue;
-                        }
-
-                        // Update enemy's position according to the path vector.
-                        if (pathVec.x == 0) {
-                            this->position_ = pathPoints.a;
-                            
-                            // Check, whether enemy is going (left or up) or (down or right).
-                            if (pathVec.y > 0) {
-                                this->position_.y += out;
-                                out = 0;
-                            } else {
-                                this->position_.y -= out;
-                                out = 0;
-                            }
-                            
-                        } else {
-                            this->position_ = pathPoints.a;
-
-                            // Check, whether enemy is going (left or up) or (down or right).
-                            if (pathVec.x > 0) {
-                                this->position_.x += out;
-                                out = 0;
-                            } else {
-                                this->position_.x -= out;
-                                out = 0;
-                            }
-                        }
-                    }
-
-                    assert(out <= 0); // This is for TODO above.
-                }
-            }   */
             break;
         }
     } else {
