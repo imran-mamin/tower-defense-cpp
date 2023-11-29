@@ -15,17 +15,11 @@
 #include "testmapinfo.hpp"
 #include "tower.hpp"
 #include "footsoldier.hpp"
-
+/*
+// Enemy should be on the first vec2D in enemyPath.
 TEST(FootSoldierClass, Update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
-
-    std::cout << "EnemyPath()" << std::endl;
-    for (int i = 0; i < gg.EnemyPath().size(); i++) {
-        std::cout << "Start (x, y): (" << gg.EnemyPath().at(0).a.x << ", " << gg.EnemyPath().at(0).a.y << ")" << std::endl;
-        std::cout << "End (x, y): (" << gg.EnemyPath().at(0).b.x << ", " << gg.EnemyPath().at(0).b.y << ")" << std::endl;
-    }
-    
 
     sf::Sprite sp;
     Pos p;
@@ -35,27 +29,15 @@ TEST(FootSoldierClass, Update) {
     FootSoldier fs = FootSoldier(0.05 / 60.0, 6, 6, 18, sp, game, p);
     game.AddObject(fs);
 
-    std::cout << "Enemy position at the start" << std::endl;
-    std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
     fs.update();
-    std::cout << "Enemy position at the end" << std::endl;
-    std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
-  
 
     EXPECT_EQ(fs.getPosition().x, 1);
     EXPECT_EQ(fs.getPosition().y, 224);
 }
 
 TEST(FootSoldierClass, Update2) {
-     GameGrid gg = GameGrid(testMapInfoObject1());
+    GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
-
-    std::cout << "EnemyPath()" << std::endl;
-    for (int i = 0; i < gg.EnemyPath().size(); i++) {
-        std::cout << "Start (x, y): (" << gg.EnemyPath().at(0).a.x << ", " << gg.EnemyPath().at(0).a.y << ")" << std::endl;
-        std::cout << "End (x, y): (" << gg.EnemyPath().at(0).b.x << ", " << gg.EnemyPath().at(0).b.y << ")" << std::endl;
-    }
-    
 
     sf::Sprite sp;
     Pos p;
@@ -65,13 +47,46 @@ TEST(FootSoldierClass, Update2) {
     FootSoldier fs = FootSoldier(2.0 / 60.0, 6, 6, 18, sp, game, p);
     game.AddObject(fs);
 
+    fs.update();
+
+    EXPECT_EQ(fs.getPosition().x, 42);
+    EXPECT_EQ(fs.getPosition().y, 224);
+}
+*/
+// Enemy should be on the second vec2D in enemyPath.
+TEST(FootSoldierClass, Update3) {
+    GameGrid gg = GameGrid(testMapInfoObject1());
+    Game game = Game(gg);
+
+    std::cout << "EnemyPath()" << std::endl;
+    for (int i = 0; i < gg.EnemyPath().size(); i++) {
+        std::cout << "Start (x, y): (" << gg.EnemyPath().at(i).a.x << ", " << gg.EnemyPath().at(i).a.y << ")" << std::endl;
+        std::cout << "End (x, y): (" << gg.EnemyPath().at(i).b.x << ", " << gg.EnemyPath().at(i).b.y << ")" << std::endl;
+    }
+    
+    std::cout << "EnemPath() ended" << std::endl;
+    sf::Sprite sp;
+    Pos p;
+    p.x = gg.EnemyPath().at(0).a.x;
+    p.y = gg.EnemyPath().at(0).a.y;
+    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    FootSoldier fs = FootSoldier(7, 6, 6, 18, sp, game, p);
+    game.AddObject(fs);
+
     std::cout << "Enemy position at the start" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
-    fs.update();
+    // First vec2D is (1280, 224), enemy starting position is (0, 224).
+    // So 1280 / (speed * 1280) is approximately 30.48, thus 31 iteration.
+    for (int i = 0; i < 31; i++) {
+        fs.update();
+
+        std::cout << "iteration " << i << "done" << std::endl;
+        std::cout << std::endl;
+    }
     std::cout << "Enemy position at the end" << std::endl;
     std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
   
 
-    EXPECT_EQ(fs.getPosition().x, 42);
+    EXPECT_EQ(fs.getPosition().x, -1);
     EXPECT_EQ(fs.getPosition().y, 224);
 }
