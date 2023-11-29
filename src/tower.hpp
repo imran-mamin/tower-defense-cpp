@@ -30,7 +30,7 @@ public:
     */
 
     explicit Tower(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-            : GameObject(sprite, game, position), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), artilleryAngleDegrees_(0) {};
+            : GameObject(sprite, game, position), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price), artilleryAngleDegrees_(0) {};
 
     /**
      * @brief Returns all the enemies within the given radius (tower radius).
