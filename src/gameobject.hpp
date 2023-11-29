@@ -7,8 +7,8 @@
 
 class GameObject {
 public:
-    GameObject(sf::Sprite sprite, Game& game, int health = 0) 
-        :   sprite_(sprite), health_(health), game_(game) {};
+    GameObject(Game& game, int health = 0) 
+        :   health_(health), game_(game) {};
 
     Pos getPosition() const {
         return position_;
@@ -17,9 +17,8 @@ public:
     void takeDamage(int damage) {
         this->health_ -= damage;
     }
-    
+
 protected:
-    sf::Sprite sprite_;
     int health_;
     Game game_;
     Pos position_;
