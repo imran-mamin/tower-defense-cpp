@@ -62,6 +62,8 @@ void FootSoldier::update() {
                 int j = i + 1;
 
                 while ((j < (int)path.size()) && (outInSpeed > 0)) {
+                    // If enemy switches to another Vec2D, then rotate the enemy by 90 degrees.
+                    this->RotateArtillery(90);
                     const Vec2D pathPoints = path.at(j);
                     Pos pathVec = Pos{ (pathPoints.b.x - pathPoints.a.x), (pathPoints.b.y - pathPoints.a.y) };
                     double pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
