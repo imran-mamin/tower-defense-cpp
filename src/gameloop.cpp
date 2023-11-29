@@ -209,26 +209,26 @@ int GameLoop::Play() {
 							selectedTower = weaponNameIdMapping["redcannon"];
 						}	
 					} else {
-					if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
-						std::cout << "placing tower" << std::endl;
-						Cannon* can = dynamic_cast<Cannon*>(towerClicked.value());
-						sf::Sprite canSprite;
-						if (towerType.value() == 1) {
-							canSprite.setTexture(cannon);
-						} else if (towerType.value() == 2) {
-							canSprite.setTexture(bigCannon);
-						}
-						int posX = mousePos.x / 64;
-						int posY = mousePos.y / 64;
-						canSprite.setPosition(posX * 64, posY * 64);
+						if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
+							std::cout << "placing tower" << std::endl;
+							Cannon* can = dynamic_cast<Cannon*>(towerClicked.value());
+							sf::Sprite canSprite;
+							if (towerType.value() == 1) {
+								canSprite.setTexture(cannon);
+							} else if (towerType.value() == 2) {
+								canSprite.setTexture(bigCannon);
+							}
+							int posX = mousePos.x / 64;
+							int posY = mousePos.y / 64;
+							canSprite.setPosition(posX * 64, posY * 64);
 
-						grid.TileAtCoordinate(posX, posY).occupy();
+							grid.TileAtCoordinate(posX, posY).occupy();
 
-						game_.AddObject(can); // game_.AddObject(canSprite);
-						towerClicked.reset();
-						selectedTower.reset();
-						towerType.reset();
-					} 
+							game_.AddObject(can); // game_.AddObject(canSprite);
+							towerClicked.reset();
+							selectedTower.reset();
+							towerType.reset();
+						} 
 					}
 				}
 				}
@@ -274,6 +274,7 @@ int GameLoop::Play() {
 
 				// Debug: draw the enemy path.
 				enemyPathRenderer.Draw();
+				
 				for (auto it : game_.Objects()) {
 					window_.draw(it->GetSprite());
 				}
@@ -282,6 +283,15 @@ int GameLoop::Play() {
 				window_.draw(toolbar);
 				window_.draw(cannonSprite);
 				window_.draw(bigCannonSprite);
+
+				// Update all the objects on the screen.
+				if (!game_.Objects().empty()) {
+					int i = 0;
+					while (i < game_.Objects().size()) {
+						game_.Objects().at(i)->update();
+						i++;
+					}
+				}
 			}
 
 			window_.display();
