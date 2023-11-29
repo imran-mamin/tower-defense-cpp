@@ -5,13 +5,13 @@
 
 // TODO: Implement methods
 class Cannon: public Tower {
-private:
-    int fireRate_;
 public:
-    Cannon(int radius, int fireRate): Tower(radius), fireRate_(fireRate) {};
+    Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+            : Tower(radius, fireRate, price, sprite, game, position) {};
 
+    ~Cannon() {};
     void fire();
     void onDestroy();
     void update();
-    void sell();
+    int sell();
 };

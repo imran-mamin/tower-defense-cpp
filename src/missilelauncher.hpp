@@ -3,17 +3,17 @@
 #include "missile.hpp"
 
 
-// TODO: Implement methods
 class MissileLauncher: public Tower {
 private:
-    Missile pr_;
 
 public:
-    MissileLauncher(int radius, Missile pr): Tower(radius), pr_(pr) {};
+    MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+        : Tower(radius, fireRate, price, sprite, game, position) {};
+
+    ~MissileLauncher() {};
 
     void fire();
     void onDestroy();
     void update();
-    void sell();
-
+    int sell();
 };

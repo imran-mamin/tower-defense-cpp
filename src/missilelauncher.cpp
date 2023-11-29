@@ -1,24 +1,23 @@
 #include <assert.h>
+#include "missilelauncher.hpp"
 
-#include "cannon.hpp"
-#include "bullet.hpp"
-
-// TODO: Cannon should set the direction for the Bullet-instance.
-void Cannon::fire() {
+void MissileLauncher::fire() {
+    assert(!this->getEnemiesWithinRadius().empty());
     Enemy* e = this->getEnemiesWithinRadius().at(0);
 
-    // Bullet(sf::Sprite sprite, Game& game, Enemy* target, int travel_speed, int damage, int radius, Pos position, Pos endPos)
-    // Create a Bullet-class instance.
+    // Missile(sf::Sprite sprite, Game& game, int travel_speed, int damage, int radius, Enemy target, Pos position, double exp_radius = 0)
+    // Create a missile object.
     sf::Sprite sp;
-    // Bullet* b = new Bullet(sp, this->game_, e, 20, 20, 2, this->position_);
-
-    // Add bullet to vector of objects.
-    // this->game_.AddObject(b);
-};
-
-void Cannon::update() {
-    assert(this->fireIntervalCounter_ >= 0);
+    Pos p = this->getPosition();
+    Missile* m = new Missile(sp, this->game_, 18, 6, 18, e, p, 4); 
     
+    // Add missile to vector.
+    this->game_.AddObject(m); 
+}
+
+void MissileLauncher::update() {
+    assert(this->fireIntervalCounter_ >= 0);
+
     if (this->fireIntervalCounter_ == 0) {
         // Check if there are enemies within the radius.
         if (!this->getEnemiesWithinRadius().empty()) {
@@ -33,14 +32,13 @@ void Cannon::update() {
     }
 }
 
-int Cannon::sell() {
+int MissileLauncher::sell() {
     int p = this->price_;
     this->addPlayerMoney(p);
-    // Destroy the object, when it's sold out.
     this->onDestroy();
     return p;
 }
 
-void Cannon::onDestroy() {
-
+void MissileLauncher::onDestroy() {
+    this->~MissileLauncher();
 }

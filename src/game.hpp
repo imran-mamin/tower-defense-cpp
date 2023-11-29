@@ -1,23 +1,26 @@
 #pragma once
-
 #include <vector>
 
 #include "gamegrid.hpp"
-#include "gameobject.hpp"
+// #include "gameobject.hpp"
+
+class GameObject;  // Forward declaration
 
 class Game {
  public:
   Game(const GameGrid& grid);
 
-  void AddObject(GameObject obj);
+  void AddObject(GameObject* obj);
+  void DeleteObject(GameObject* obj);
 
-  std::vector<GameObject> Objects() const;
-
+  const std::vector<GameObject*>& Objects();
   GameGrid& GetGrid();
-
- protected:
-  std::size_t playerMoney_;
-  std::size_t enemyMoney_;
-  GameGrid grid_;
-  std::vector<GameObject> objects_;
+  
+protected:
+    friend class GameObject;
+    std::size_t playerMoney_;
+    std::size_t enemyMoney_;
+    GameGrid grid_;
+    std::vector<GameObject*> objects_;
 };
+

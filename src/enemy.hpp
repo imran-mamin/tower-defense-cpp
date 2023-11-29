@@ -1,15 +1,16 @@
 #pragma once
+#include "gameobject.hpp"
 
-// TODO: Implement methods
-class Enemy {
-private:
-    int speed_;
+
+class Enemy: public GameObject {
+protected:
+    double speed_;
     int value_;
     int price_;
-    int maxHP_;
+    // int maxHP_;
 public:
-    explicit Enemy(int speed, int value, int price, int maxHP)
-            : speed_(speed), value_(value), price_(price), maxHP_(maxHP) {};
+    explicit Enemy(int speed, int value, int price, int maxHP, sf::Sprite sprite, Game& game, Pos position)
+            : GameObject(sprite, game, position, maxHP), speed_(speed), value_(value), price_(price) {};
     
     virtual ~Enemy() {};
 

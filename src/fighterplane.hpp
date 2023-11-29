@@ -6,13 +6,15 @@
 // TODO: Implement methods
 class FighterPlane: public Tower {
 private:
-    Bullet pr_;
-public:
-    FighterPlane(int radius, Bullet pr): Tower(radius), pr_(pr) {};
 
+public:
+    FighterPlane(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+            : Tower(radius, fireRate, price, sprite, game, position) {};
+
+    ~FighterPlane() {};
     void fire();
     void onDestroy();
     void update();
-    void sell();
+    int sell();
 
 };
