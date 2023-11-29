@@ -22,7 +22,7 @@ public:
 
     // virtual void update() = 0;
     // virtual void onDestroy() = 0;
-
+    virtual ~GameObject() {};
 protected:
     int health_;
     sf::Sprite sprite_;

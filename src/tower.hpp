@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <vector>
+#include <cmath>
 
 #include "enemy.hpp"
 #include "gameobject.hpp"
@@ -35,11 +36,9 @@ public:
      * Does not take any parameters.
     */
 
-    const std::vector<Enemy> getEnemiesWithinRadius();
-
-    const std::vector<Enemy&> getEnemiesWithinRadius();
-
-    /**
+    const std::vector<Enemy*> getEnemiesWithinRadius();
+    
+   /**
      * @brief Destructor of Tower object.
      */
     virtual ~Tower() = 0;

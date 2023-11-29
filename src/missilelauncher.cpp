@@ -3,7 +3,7 @@
 
 void MissileLauncher::fire() {
     assert(!this->getEnemiesWithinRadius().empty());
-    Enemy e = this->getEnemiesWithinRadius().at(0);
+    // Enemy e = this->getEnemiesWithinRadius().at(0);
 
     // Missile(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
     // Create a missile object.
