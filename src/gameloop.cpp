@@ -34,7 +34,6 @@ int GameLoop::Play() {
 	weaponNameIdMapping["greencannon"] = 248;
 	weaponNameIdMapping["redcannon"] = 249;
 
-
 	GameGrid &grid = game_.GetGrid();
 	/*
   // Renderers.
@@ -156,6 +155,16 @@ int GameLoop::Play() {
 		while (window_.pollEvent(event)) {
 			switch (event.type) {
 			case (sf::Event::Closed):
+				if (!game_.Objects().empty()) {
+					// Release dynamically allocated memory
+					int i = 0;
+					while (i < game_.Objects().size()) {
+						GameObject* curr = game_.Objects().at(i);
+						game_.DeleteObject(curr);
+						delete curr;
+						i++;
+					}
+				}
 				window_.close();
 				break;
 
