@@ -1,9 +1,6 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <cstdint>
 
-
-/*
->>>>>>> 44a6b6b (Replace main()-function with easier implementation to get rid of errors.)
 #include "gameloop.hpp"
 
 #include <iostream>
@@ -22,7 +19,7 @@
 #include "map_tile_selector_renderer.hpp"
 #include "testmapinfo.hpp"
 #include "tower.hpp"
-
+/*
 int GameLoop::Play() {
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64;
@@ -45,10 +42,11 @@ int GameLoop::Play() {
   MapTileSelectorRenderer tileSelector(window_, grid);
   // For debug purposes. 
   EnemyPathRenderer enemyPathRenderer(window_, grid);
-  
+	
     /* Renderers. */
-    BackgroundRenderer ikkuna(window_, grid);
-    /* For debug purposes. */
+    /*
+	BackgroundRenderer ikkuna(window_, grid);
+    /* For debug purposes.
     EnemyPathRenderer enemyPathRenderer(window_, grid);
 
     sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
@@ -143,11 +141,11 @@ int GameLoop::Play() {
 
     /* TODO: Use std::unique. */
     // std::optional<Tower *> towerClicked;
-
-    std::optional<Cannon> towerClicked;
+	
+    // std::optional<Cannon> towerClicked;
     /* Tower id. */
     /* TODO: Create mapping from tower id's to towers and vice versa. */
-    std::optional<std::uint16_t> selectedTower;
+    /*std::optional<std::uint16_t> selectedTower;
     MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
     std::optional<int> towerType;
 
@@ -172,7 +170,7 @@ int GameLoop::Play() {
 			    // Switch to application view
 			    window_.setView(applicationView);
 			}
-
+			
 			if (startButtonClicked) {
 			    if (cannonSprite.getGlobalBounds().contains(
 				    mousePos)) {
@@ -193,7 +191,8 @@ int GameLoop::Play() {
 					   .contains(mousePos)) {
 				std::cout << "bigCannon button was clicked."
 					  << std::endl;
-				towerClicked = Cannon(10, 10);
+				// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+				towerClicked = Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
 				towerType = 2;
 				if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["rednannon"]) {
 					selectedTower.reset();
@@ -220,11 +219,11 @@ int GameLoop::Play() {
 
 				    grid.TileAtCoordinate(posX, posY).occupy();
 
-				    game_.AddObject(canSprite);
+					game_.AddObject(canSprite);
 				    towerClicked.reset();
 					selectedTower.reset();
 				    towerType.reset();
-				}
+				} 
 			    }
 			}
 		    }
@@ -269,9 +268,8 @@ int GameLoop::Play() {
 
 		// Debug: draw the enemy path.
 		enemyPathRenderer.Draw();
-
 		for (auto it : game_.Objects()) {
-		    window_.draw(it.GetSprite());
+		    window_.draw(it->GetSprite());
 		}
 
 		// Draw the toolbar and buttons inside it.
@@ -285,5 +283,4 @@ int GameLoop::Play() {
     }
     return 0;
 }
-
 */

@@ -1,4 +1,3 @@
-/*
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -18,4 +17,3 @@ class GameLoop {
   sf::RenderWindow &window_;
   Game &game_;
 };
-*/

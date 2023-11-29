@@ -34,6 +34,7 @@ int main() {
       }
     }
   }
+  
   return 0;
   // GameLoop loop(window, game);
 
