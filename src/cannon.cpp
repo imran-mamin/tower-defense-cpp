@@ -29,6 +29,16 @@ int Cannon::sell() {
     int p = this->price_;
     this->addPlayerMoney(p);
     // Destroy the object, when it's sold out.
+    /*auto it = this->getObjects().begin();
+
+    while (it != this->getObjects().end()) {
+        if (&(*it) == this) {
+            this->getObjects().erase(it);
+            break;
+        }
+        it++;
+    }
+    */
     this->onDestroy();
     return p;
 }

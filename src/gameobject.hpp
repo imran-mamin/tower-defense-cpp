@@ -46,6 +46,6 @@ protected:
     }
 
     std::vector<GameObject> getObjects() {
-        return game_.objects_;   
+        return game_.Objects(); 
     }
 };
