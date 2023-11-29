@@ -29,6 +29,11 @@ public:
     explicit Tower(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
             : GameObject(sprite, game), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), artilleryAngleDegrees_(0) {};
 
+    /**
+     * @brief Returns all the enemies within the given radius (tower radius).
+     * Does not take any parameters.
+    */
+
     const std::vector<Enemy> getEnemiesWithinRadius();
 
     const std::vector<Enemy&> getEnemiesWithinRadius();
