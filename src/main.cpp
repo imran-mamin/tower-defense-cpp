@@ -24,7 +24,18 @@ int main() {
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
                           "TestiPiirto");
 
-  GameLoop loop(window, game);
+  while (window.isOpen()) {
+    sf::Event event;
 
-  loop.Play();
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::Closed) {
+          window.close();
+          break;
+      }
+    }
+  }
+  return 0;
+  // GameLoop loop(window, game);
+
+  // loop.Play();
 };

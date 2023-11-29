@@ -8,8 +8,8 @@ private:
   Enemy target_;
 
 public:
-  Bullet(Game& game, Enemy& target, int travel_speed, int damage, int radius)
-      : Projectile(game, travel_speed, damage, radius), target_(target) {};
+  Bullet(sf::Sprite sprite, Game& game, Enemy& target, int travel_speed, int damage, int radius)
+      : Projectile(sprite, game, travel_speed, damage, radius), target_(target) {};
 
   // Destructor implementation
   ~Bullet() override {}

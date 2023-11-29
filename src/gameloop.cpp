@@ -1,7 +1,9 @@
-
 #include <SFML/Graphics/Sprite.hpp>
 #include <cstdint>
 
+
+/*
+>>>>>>> 44a6b6b (Replace main()-function with easier implementation to get rid of errors.)
 #include "gameloop.hpp"
 
 #include <iostream>
@@ -35,8 +37,15 @@ int GameLoop::Play() {
 	weaponNameIdMapping["greencannon"] = 248;
 	weaponNameIdMapping["redcannon"] = 249;
 
+
 	GameGrid &grid = game_.GetGrid();
 
+  // Renderers.
+  BackgroundRenderer ikkuna(window_, grid);
+  MapTileSelectorRenderer tileSelector(window_, grid);
+  // For debug purposes. 
+  EnemyPathRenderer enemyPathRenderer(window_, grid);
+  
     /* Renderers. */
     BackgroundRenderer ikkuna(window_, grid);
     /* For debug purposes. */
@@ -277,3 +286,4 @@ int GameLoop::Play() {
     return 0;
 }
 
+*/
