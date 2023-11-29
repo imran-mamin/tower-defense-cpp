@@ -1,7 +1,9 @@
-#include "gameloop.hpp"
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <cstdint>
+
+#include "gameloop.hpp"
+
 #include <iostream>
 #include <list>
 #include <map>
@@ -274,3 +276,4 @@ int GameLoop::Play() {
     }
     return 0;
 }
+
