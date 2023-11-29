@@ -27,7 +27,7 @@ public:
      * @param radius the radius of damage caused by projectile (int)
     */
     explicit Tower(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
-            : radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), GameObject(sprite, game), artilleryAngleDegrees_(0) {};
+            : GameObject(sprite, game), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), artilleryAngleDegrees_(0) {};
     
     const std::vector<Enemy> getEnemiesWithinRadius();
 
