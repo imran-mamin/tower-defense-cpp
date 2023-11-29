@@ -35,8 +35,8 @@ int main() {
     }
   }
   
-  return 0;
-  // GameLoop loop(window, game);
 
-  // loop.Play();
+  GameLoop loop(window, game);
+
+  loop.Play();
 };

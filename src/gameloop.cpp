@@ -19,7 +19,7 @@
 #include "map_tile_selector_renderer.hpp"
 #include "testmapinfo.hpp"
 #include "tower.hpp"
-/*
+
 int GameLoop::Play() {
     int windowWidth = 20 * 64;
     int windowHeight = 12 * 64;
@@ -36,17 +36,17 @@ int GameLoop::Play() {
 
 
 	GameGrid &grid = game_.GetGrid();
-
+	/*
   // Renderers.
-  BackgroundRenderer ikkuna(window_, grid);
-  MapTileSelectorRenderer tileSelector(window_, grid);
-  // For debug purposes. 
-  EnemyPathRenderer enemyPathRenderer(window_, grid);
-	
-    /* Renderers. */
-    /*
 	BackgroundRenderer ikkuna(window_, grid);
-    /* For debug purposes.
+	MapTileSelectorRenderer tileSelector(window_, grid);
+	// For debug purposes. 
+  	EnemyPathRenderer enemyPathRenderer(window_, grid);
+	*/
+    /* Renderers. */
+    
+	BackgroundRenderer ikkuna(window_, grid);
+    /* For debug purposes.*/
     EnemyPathRenderer enemyPathRenderer(window_, grid);
 
     sf::View startView(sf::FloatRect(0, 0, windowWidth, windowHeight));
@@ -140,12 +140,12 @@ int GameLoop::Play() {
 	
 
     /* TODO: Use std::unique. */
-    // std::optional<Tower *> towerClicked;
+    std::optional<Tower *> towerClicked;
 	
     // std::optional<Cannon> towerClicked;
     /* Tower id. */
     /* TODO: Create mapping from tower id's to towers and vice versa. */
-    /*std::optional<std::uint16_t> selectedTower;
+    std::optional<std::uint16_t> selectedTower;
     MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
     std::optional<int> towerType;
 
@@ -162,8 +162,8 @@ int GameLoop::Play() {
 		// Button click handling
 		case (sf::Event::MouseButtonPressed):
 		    if (event.mouseButton.button == sf::Mouse::Left) {
-			sf::Vector2f mousePos = window_.mapPixelToCoords(
-			    sf::Mouse::getPosition(window_));
+				sf::Vector2f mousePos = window_.mapPixelToCoords(
+					sf::Mouse::getPosition(window_));
 
 			if (startButton.getGlobalBounds().contains(mousePos)) {
 			    startButtonClicked = true;
@@ -172,46 +172,42 @@ int GameLoop::Play() {
 			}
 			
 			if (startButtonClicked) {
-			    if (cannonSprite.getGlobalBounds().contains(
-				    mousePos)) {
-				std::cout << "cannon button was clicked."
-					  << std::endl;
-				towerClicked = Cannon(10, 10);
-				towerType = 1;
-				if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["greencannon"]) {
-					selectedTower.reset();
-				}
-				else {
+			    if (cannonSprite.getGlobalBounds().contains(mousePos)) {
+					std::cout << "cannon button was clicked." << std::endl;
+					
+					// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+					// TODO: Check the position of the Cannon-instance.
+					towerClicked = new Cannon(10, 10, 18, cannonSprite, game_, Pos{ 100, 100 });
+					towerType = 1;
+					if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["greencannon"])) {
+						selectedTower.reset();
+					} else {
+						selectedTower = weaponNameIdMapping["greencannon"];
+					}
+
 					selectedTower = weaponNameIdMapping["greencannon"];
-				}
-				selectedTower = weaponNameIdMapping["greencannon"];
 				// TODO: When clicking on this button the
 				// program should create a new tank instance.
-			    } else if (bigCannonSprite.getGlobalBounds()
-					   .contains(mousePos)) {
-				std::cout << "bigCannon button was clicked."
-					  << std::endl;
-				// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-				towerClicked = Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
-				towerType = 2;
-				if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["rednannon"]) {
-					selectedTower.reset();
-				}
-				else {
-					selectedTower = weaponNameIdMapping["redcannon"];
-				}	
+			    } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
+					std::cout << "bigCannon button was clicked." << std::endl;
+					// TODO: Check the position of the Cannon-instance.
+					// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+					towerClicked = new Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
+					towerType = 2;
+					if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["rednannon"])) {
+						selectedTower.reset();
+					} else {
+						selectedTower = weaponNameIdMapping["redcannon"];
+					}	
 			    } else {
-				if (towerClicked.has_value() &&
-				    grid.TileAtCoordinate(mousePos.x / 64,
-							  mousePos.y / 64)
-					.isEmpty()) {
+				if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
 				    std::cout << "placing tower" << std::endl;
-				    Cannon can = towerClicked.value();
+				    Cannon* can = dynamic_cast<Cannon*>(towerClicked.value());
 				    sf::Sprite canSprite;
 				    if (towerType.value() == 1) {
-					canSprite.setTexture(cannon);
+						canSprite.setTexture(cannon);
 				    } else if (towerType.value() == 2) {
-					canSprite.setTexture(bigCannon);
+						canSprite.setTexture(bigCannon);
 				    }
 				    int posX = mousePos.x / 64;
 				    int posY = mousePos.y / 64;
@@ -219,7 +215,7 @@ int GameLoop::Play() {
 
 				    grid.TileAtCoordinate(posX, posY).occupy();
 
-					game_.AddObject(canSprite);
+					game_.AddObject(can); // game_.AddObject(canSprite);
 				    towerClicked.reset();
 					selectedTower.reset();
 				    towerType.reset();
@@ -283,4 +279,3 @@ int GameLoop::Play() {
     }
     return 0;
 }
-*/
