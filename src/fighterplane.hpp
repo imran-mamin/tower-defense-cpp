@@ -8,8 +8,8 @@ class FighterPlane: public Tower {
 private:
 
 public:
-    FighterPlane(int radius, int fireRate, int price, sf::Sprite sprite, Game& game)
-            : Tower(radius, fireRate, price, sprite, game) {};
+    FighterPlane(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+            : Tower(radius, fireRate, price, sprite, game, position) {};
 
     ~FighterPlane() {};
     void fire();

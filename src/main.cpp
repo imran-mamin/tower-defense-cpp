@@ -14,12 +14,28 @@
 #include "testmapinfo.hpp"
 #include "tower.hpp"
 
+// Imran includes
+#include "footsoldier.hpp"
+
+
 int main() {
   int windowWidth = 20 * 64;
   int windowHeight = 12 * 64;
 
   GameGrid gg = GameGrid(testMapInfoObject1());
   Game game = Game(gg);
+
+  sf::Sprite sp;
+  Pos p;
+  p.x = gg.EnemyPath().at(0).a.x;
+  p.y = gg.EnemyPath().at(0).a.y;
+  // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+  FootSoldier fs = FootSoldier(1, 6, 6, 18, sp, game, p);
+  game.AddObject(fs);
+  
+  std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
+  fs.update();
+  std::cout << "(x, y) = (" << fs.getPosition().x << ", " << fs.getPosition().y << ")" << std::endl;
 
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
                           "TestiPiirto");

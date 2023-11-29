@@ -7,8 +7,8 @@
 
 class GameObject {
 public:
-    GameObject(sf::Sprite sprite, Game& game, int health = 0) 
-        :   health_(health), sprite_(sprite), game_(game) {};
+    GameObject(sf::Sprite sprite, Game& game, Pos position, int health = 2) 
+        :   health_(health), sprite_(sprite), game_(game), position_(position) {};
 
     sf::Sprite GetSprite() const;
 

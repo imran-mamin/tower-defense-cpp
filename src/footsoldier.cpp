@@ -2,6 +2,7 @@
 
 void FootSoldier::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
+    std::cout << this->isAlive() << std::endl;
     if (this->isAlive()) {
         const std::vector<Vec2D>& path = this->getGrid().EnemyPath();
         int i = 0;
