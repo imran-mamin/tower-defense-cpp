@@ -34,7 +34,7 @@ MapInfo testMapInfoObject1() {
 	std::vector<Vec2D> enemyPath;
 	enemyPath.push_back(Vec2D{ Pos{ 0, 4 * 64 }, Pos{ 1280, 4 * 64 } });
 
-	return MapInfo{ 64, 20, 12, backgroundTiles, enemyPath };
+	return MapInfo{ 64, 20, 12, backgroundTiles, enemyPath, 10000, 25.0 };
 }
 
 
