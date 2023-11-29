@@ -36,7 +36,7 @@ public:
      * @brief Returns all the enemies within the given radius (tower radius).
      * Does not take any parameters.
     */
-
+    /* Comment: Shouldn't this belong to Game / Level class? This doesn't seem to be Tower's responsibility. */
     const std::vector<Enemy*> getEnemiesWithinRadius();
     
    /**
@@ -44,8 +44,7 @@ public:
      */
     virtual ~Tower() = 0;
 
-	/* Comment: Shouldn't this belong to Game / Level class? This doesn't seem to be Tower's responsibility. */
-    const std::vector<Enemy> getEnemiesWithinRadius();
+	
     
 	void RotateArtillery(float degree) { artilleryAngleDegrees_ = std::fmod(artilleryAngleDegrees_ + degree, 360); }
 	float ArtilleryAngle() { return artilleryAngleDegrees_; }
