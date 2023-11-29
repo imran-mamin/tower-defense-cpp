@@ -1,7 +1,6 @@
 #include "missile.hpp"
 #include "vec2d.hpp"
 
-#include <cmath>
 
 /**
  * Every time update()-method is called, the position of the Missile object,
@@ -28,36 +27,44 @@ void Missile::update() {
     if (isAlive) {
         Vec2D pathToTarget = Vec2D{ this->position_, this->target_->getPosition() };
         
-        // Find the direction using two positions. (Vector in e.g. 4i + 2j format).
-        uint32_t pathToTargetX = pathToTarget.b.x - pathToTarget.a.x;
-        uint32_t pathToTargetY = pathToTarget.b.y - pathToTarget.a.y;
+        // Find the vector (type Pos) using two positions. (Vector in e.g. 4i + 2j format).
+        Pos vectorToTarget = Pos{ (pathToTarget.b.x - pathToTarget.a.x), (pathToTarget.b.y - pathToTarget.a.y) };
 
-        // this->position_ += this->travel_speed() * pathToTarget
-        this->position_.x += this->travel_speed() * pathToTargetX;
-        this->position_.y += this->travel_speed() * pathToTargetY;
+        // Find the length of the vectorToTarget.
+        double vectorToTargetLength = sqrt((vectorToTarget.x * vectorToTarget.x) + (vectorToTarget.y * vectorToTarget.y));
 
-        // Calculate the distance between missile and target.
-        // Formula sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
-        double dist = sqrt((target_->getPosition().x - this->position_.x) * (target_->getPosition().x - this->position_.x) +
-                           (target_->getPosition().y - this->position_.y) * (target_->getPosition().y - this->position_.y));
+        // Find unit vector of vectorToTarget.
+        Pos unitVec = Pos{ (vectorToTarget.x / vectorToTargetLength), (vectorToTarget.y / vectorToTargetLength) };
+        
+        // Check, whether the enemy is within missile radius on every position update.
+        int i = 0;
 
-        // Is target in the explosion radius of missile?
-        if (this->explosionRadius_ > dist) {
-            // this->target_.takeDamage(this->damage());
-            
-            // The missile will cause damage to all enemies within the given missile radius.
-            std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
-            auto it = enemiesWithinRadius.begin();
-            while (it != enemiesWithinRadius.end()) {
-                (*it).takeDamage(this->damage());
-                it++;
+        while (i < this->travel_speed()) {
+            // Calculate the distance between missile and target.
+            // Formula sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
+            Pos currPos = this->getPosition();
+            double xPow2 = std::pow((this->target_->getPosition().x - currPos.x), 2);
+            double yPow2 = std::pow((this->target_->getPosition().y - currPos.y), 2);
+            double dist = sqrt(xPow2 + yPow2);
+
+            // Is target in the explosion radius of missile?
+            if (this->explosionRadius_ > dist) {
+                // The missile will cause damage to all enemies within the given missile radius.
+                std::vector<Enemy> enemiesWithinRadius = this->getEnemiesWithinRadius();
+                auto it = enemiesWithinRadius.begin();
+                while (it != enemiesWithinRadius.end()) {
+                    (*it).takeDamage(this->damage());
+                    it++;
+                }
+                
+                // Remove missile object from the vector objects_ and from heap.
+                this->game_.DeleteObject(this);
+                delete this;
+                break;
             }
-            
-            // Remove missile object from the vector objects_.
-            this->game_.DeleteObject(this);
-            delete this;
-            
+            i++;
         }
+        
     } else {
         // TODO: Corner cases
         // Collide with the enemies on the way out of the window if there are some.
@@ -75,9 +82,20 @@ void Missile::update() {
             delete this;
 
         } else {
+            // TODO: Improve this, so that missile goes straight.
             // Else just advance the position of the missile.
             this->position_.x += this->travel_speed();
             this->position_.y += this->travel_speed();
+            
+            // Is missile still on the screen?
+            bool isOutHeight = ((this->getPosition().y > this->game_.GetGrid().Height()) || (this->getPosition().y < 0));
+            bool isOutWidth = ((this->getPosition().x > this->game_.GetGrid().Width()) || (this->getPosition().x < 0));
+
+            if (isOutWidth || isOutHeight) {
+                // Remove missile object from the vector objects_.
+                this->game_.DeleteObject(this);
+                delete this;
+            }
         }
         
     }

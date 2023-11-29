@@ -1,4 +1,6 @@
 #pragma once
+#include <cmath>
+
 #include "projectile.hpp"
 #include "enemy.hpp"
 
