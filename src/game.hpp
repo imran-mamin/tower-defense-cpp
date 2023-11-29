@@ -1,9 +1,10 @@
 #pragma once
-
 #include <vector>
 
 #include "gamegrid.hpp"
-#include "gameobject.hpp"
+
+class GameObject;  // Forward declaration
+
 
 class Game {
  public:

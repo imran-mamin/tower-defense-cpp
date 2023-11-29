@@ -1,12 +1,13 @@
 #pragma once
 
-#include "enemy.hpp"
 #include <cmath>
 #include <vector>
 
+#include "enemy.hpp"
+#include "gameobject.hpp"
 
 // TODO: Implement methods
-class Tower {
+class Tower: public GameObject {
 private:
     int radius_;
 	/* Current rotation (in degrees) angle of the artillery. */
@@ -25,10 +26,11 @@ public:
      * 
      * @param radius the radius of damage caused by projectile (int)
     */
-
-    explicit Tower(int radius, int fireRate, int price)
-            : radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), artilleryAngleDegrees_(0) {};
+    explicit Tower(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
+            : radius_(radius), fireRate_(fireRate), fireIntervalCounter_(fireRate), price_(price), GameObject(sprite, game), artilleryAngleDegrees_(0) {};
     
+    const std::vector<Enemy> getEnemiesWithinRadius();
+
     const std::vector<Enemy&> getEnemiesWithinRadius();
 
     /**

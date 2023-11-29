@@ -9,8 +9,8 @@ private:
     std::vector<Missile> missiles_ = {};
 
 public:
-    MissileLauncher(int radius, int fireRate, int price)
-        : Tower(radius, fireRate, price) {};
+    MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game game)
+        : Tower(radius, fireRate, price, sprite, game) {};
 
     void fire();
     void onDestroy() {};

@@ -3,16 +3,16 @@
 #include <SFML/Graphics.hpp>
 
 #include "pos.hpp"
+#include "game.hpp"
 
 class GameObject {
- public:
-  GameObject(sf::Sprite sprite, int health = 0)
-      : sprite_(sprite), health_(health){};
+public:
+    GameObject(sf::Sprite sprite, Game game, int health = 0) 
+        :   sprite_(sprite), game_(game), health_(health) {};
 
-  sf::Sprite GetSprite() const;
-
- protected:
-  sf::Sprite sprite_;
-  int health_;
-  Pos position_;
+protected:
+    sf::Sprite sprite_;
+    int health_;
+    Game& game_;
+    Pos position_;
 };

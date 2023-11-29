@@ -10,8 +10,8 @@ private:
     
 public:
     
-    Missile(sf::Sprite sprite, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
-        : target_(target), explosionRadius_(exp_radius), Projectile(sprite, travel_speed, damage, radius) {};
+    Missile(sf::Sprite sprite, Game game, int travel_speed, int damage, int radius, Enemy target, double exp_radius = 0)
+        : target_(target), explosionRadius_(exp_radius), Projectile(sprite, game, travel_speed, damage, radius) {};
     // Vec2D speed_vec;
     void update();
 
