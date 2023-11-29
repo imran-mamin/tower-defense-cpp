@@ -68,8 +68,8 @@ int GameLoop::Play() {
 
     sf::Font font;
     if (!font.loadFromFile("../fonts/open-sans/OpenSans-Italic.ttf")) {
-	std::cout << "Error in font loading" << std::endl;
-	return -1;
+		std::cout << "Error in font loading" << std::endl;
+		return -1;
     }
 
     // Add text for the startButton
@@ -113,14 +113,14 @@ int GameLoop::Play() {
 
     // Load tank texture
     if (!cannon.loadFromFile(towersVec[0])) {
-	std::cout << "cannon loadFromFile problem." << std::endl;
-	return -1;
+		std::cout << "cannon loadFromFile problem." << std::endl;
+		return -1;
     }
 
     // Load plane texture
     if (!bigCannon.loadFromFile(towersVec[1])) {
-	std::cout << "bigCannon loadFromFile problem." << std::endl;
-	return -1;
+		std::cout << "bigCannon loadFromFile problem." << std::endl;
+		return -1;
     }
 
     // Creating sprites for the towers.
@@ -151,131 +151,132 @@ int GameLoop::Play() {
 
     // Load window
     while (window_.isOpen()) {
-	sf::Event event;
+		sf::Event event;
 
-	while (window_.pollEvent(event)) {
-	    switch (event.type) {
-		case (sf::Event::Closed):
-		    window_.close();
-		    break;
+		while (window_.pollEvent(event)) {
+			switch (event.type) {
+			case (sf::Event::Closed):
+				window_.close();
+				break;
 
-		// Button click handling
-		case (sf::Event::MouseButtonPressed):
-		    if (event.mouseButton.button == sf::Mouse::Left) {
-				sf::Vector2f mousePos = window_.mapPixelToCoords(
-					sf::Mouse::getPosition(window_));
+			// Button click handling
+			case (sf::Event::MouseButtonPressed):
+				if (event.mouseButton.button == sf::Mouse::Left) {
+					sf::Vector2f mousePos = window_.mapPixelToCoords(
+						sf::Mouse::getPosition(window_));
 
-			if (startButton.getGlobalBounds().contains(mousePos)) {
-			    startButtonClicked = true;
-			    // Switch to application view
-			    window_.setView(applicationView);
-			}
-			
-			if (startButtonClicked) {
-			    if (cannonSprite.getGlobalBounds().contains(mousePos)) {
-					std::cout << "cannon button was clicked." << std::endl;
-					
-					// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-					// TODO: Check the position of the Cannon-instance.
-					towerClicked = new Cannon(10, 10, 18, cannonSprite, game_, Pos{ 100, 100 });
-					towerType = 1;
-					if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["greencannon"])) {
-						selectedTower.reset();
-					} else {
+				if (startButton.getGlobalBounds().contains(mousePos)) {
+					startButtonClicked = true;
+					// Switch to application view
+					window_.setView(applicationView);
+				}
+				
+				if (startButtonClicked) {
+					if (cannonSprite.getGlobalBounds().contains(mousePos)) {
+						std::cout << "cannon button was clicked." << std::endl;
+						
+						// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+						// TODO: Check the position of the Cannon-instance.
+						towerClicked = new Cannon(10, 10, 18, cannonSprite, game_, Pos{ 100, 100 });
+						towerType = 1;
+						if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["greencannon"])) {
+							selectedTower.reset();
+						} else {
+							selectedTower = weaponNameIdMapping["greencannon"];
+						}
+
 						selectedTower = weaponNameIdMapping["greencannon"];
-					}
-
-					selectedTower = weaponNameIdMapping["greencannon"];
-				// TODO: When clicking on this button the
-				// program should create a new tank instance.
-			    } else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
-					std::cout << "bigCannon button was clicked." << std::endl;
-					// TODO: Check the position of the Cannon-instance.
-					// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-					towerClicked = new Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
-					towerType = 2;
-					if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["rednannon"])) {
-						selectedTower.reset();
+					// TODO: When clicking on this button the
+					// program should create a new tank instance.
+					} else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
+						std::cout << "bigCannon button was clicked." << std::endl;
+						// TODO: Check the position of the Cannon-instance.
+						// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+						towerClicked = new Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
+						towerType = 2;
+						if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["rednannon"])) {
+							selectedTower.reset();
+						} else {
+							selectedTower = weaponNameIdMapping["redcannon"];
+						}	
 					} else {
-						selectedTower = weaponNameIdMapping["redcannon"];
-					}	
-			    } else {
-				if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
-				    std::cout << "placing tower" << std::endl;
-				    Cannon* can = dynamic_cast<Cannon*>(towerClicked.value());
-				    sf::Sprite canSprite;
-				    if (towerType.value() == 1) {
-						canSprite.setTexture(cannon);
-				    } else if (towerType.value() == 2) {
-						canSprite.setTexture(bigCannon);
-				    }
-				    int posX = mousePos.x / 64;
-				    int posY = mousePos.y / 64;
-				    canSprite.setPosition(posX * 64, posY * 64);
+					if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
+						std::cout << "placing tower" << std::endl;
+						Cannon* can = dynamic_cast<Cannon*>(towerClicked.value());
+						sf::Sprite canSprite;
+						if (towerType.value() == 1) {
+							canSprite.setTexture(cannon);
+						} else if (towerType.value() == 2) {
+							canSprite.setTexture(bigCannon);
+						}
+						int posX = mousePos.x / 64;
+						int posY = mousePos.y / 64;
+						canSprite.setPosition(posX * 64, posY * 64);
 
-				    grid.TileAtCoordinate(posX, posY).occupy();
+						grid.TileAtCoordinate(posX, posY).occupy();
 
-					game_.AddObject(can); // game_.AddObject(canSprite);
-				    towerClicked.reset();
-					selectedTower.reset();
-				    towerType.reset();
-				} 
-			    }
+						game_.AddObject(can); // game_.AddObject(canSprite);
+						towerClicked.reset();
+						selectedTower.reset();
+						towerType.reset();
+					} 
+					}
+				}
+				}
+				break;
+
+			case (sf::Event::MouseButtonReleased):
+				break;
+
+			// Mouse hover event
+			case (sf::Event::MouseMoved):
+				// Mouse position in window coordinates.
+				sf::Vector2f mousePos = window_.mapPixelToCoords(
+				sf::Mouse::getPosition(window_));
+
+				if (startButtonClicked) {
+				} else {
+				sf::Color color = startButton.getFillColor();
+				if (startButton.getGlobalBounds().contains(mousePos)) {
+					// change opacity of the hovered startButton
+					color.a = 128;
+					startButton.setFillColor(color);
+				} else {
+					// Restore opacity
+					color.a = 255;
+					startButton.setFillColor(color);
+				}
+				}
+				break;
 			}
-		    }
-		    break;
 
-		case (sf::Event::MouseButtonReleased):
-		    break;
-
-		// Mouse hover event
-		case (sf::Event::MouseMoved):
-		    // Mouse position in window coordinates.
-		    sf::Vector2f mousePos = window_.mapPixelToCoords(
-			sf::Mouse::getPosition(window_));
-
-		    if (startButtonClicked) {
-		    } else {
-			sf::Color color = startButton.getFillColor();
-			if (startButton.getGlobalBounds().contains(mousePos)) {
-			    // change opacity of the hovered startButton
-			    color.a = 128;
-			    startButton.setFillColor(color);
+			window_.clear(sf::Color(200, 200, 200));
+			
+			if (!startButtonClicked) {
+				window_.draw(startButton);
+				window_.draw(playText);
+				window_.draw(title);
 			} else {
-			    // Restore opacity
-			    color.a = 255;
-			    startButton.setFillColor(color);
+				// Draw the tiles
+				ikkuna.Draw();
+
+				// Draw the tile selector.
+				tileSelector.Draw();
+
+				// Debug: draw the enemy path.
+				enemyPathRenderer.Draw();
+				for (auto it : game_.Objects()) {
+					window_.draw(it->GetSprite());
+				}
+
+				// Draw the toolbar and buttons inside it.
+				window_.draw(toolbar);
+				window_.draw(cannonSprite);
+				window_.draw(bigCannonSprite);
 			}
-		    }
-		    break;
-	    }
 
-	    window_.clear(sf::Color(200, 200, 200));
-	    if (!startButtonClicked) {
-		window_.draw(startButton);
-		window_.draw(playText);
-		window_.draw(title);
-	    } else {
-		// Draw the tiles
-		ikkuna.Draw();
-
-		// Draw the tile selector.
-		tileSelector.Draw();
-
-		// Debug: draw the enemy path.
-		enemyPathRenderer.Draw();
-		for (auto it : game_.Objects()) {
-		    window_.draw(it->GetSprite());
+			window_.display();
 		}
-
-		// Draw the toolbar and buttons inside it.
-		window_.draw(toolbar);
-		window_.draw(cannonSprite);
-		window_.draw(bigCannonSprite);
-	    }
-
-	    window_.display();
-	};
     }
     return 0;
 }
