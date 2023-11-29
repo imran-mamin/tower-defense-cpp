@@ -1,5 +1,10 @@
 #pragma once
+#include <cmath>
+#include <assert.h>
+#include <algorithm>
+
 #include "enemy.hpp"
+
 
 // TODO: Implement methods
 class FootSoldier: public Enemy {
