@@ -21,7 +21,7 @@ void FootSoldier::update() {
             Pos vec1;
             vec1.x = currVec.b.x - currVec.a.x;
             vec1.y = currVec.b.y - currVec.a.y;
-
+            std::cout << "vec1: (x, y) = (" << vec1.x << ", " << vec1.y << ")" << std::endl;
             // Find a vector between start position and enemy's position.
             Pos vec2;
             vec2.x = sPosToEnemPos.b.x - sPosToEnemPos.a.x;
@@ -29,19 +29,22 @@ void FootSoldier::update() {
             
             std::cout << "vec2: (x, y) = (" << vec2.x << ", " << vec2.y << ")" << std::endl;
             // Calculate the dot product between vec1 and vec2.
-            // If enemy's position is on current vector, then the dotproduct between the vectors should be 0.
-            int dotP = (vec1.x * vec2.x) + (vec1.y * vec2.y);
-            if (dotP != 0) {
-                i++;
-                continue;
-            }
-            
+            // If enemy's position is on current vector, then the angle between the vectors should be 0.
+            // This means that the cosine should equal 1.
+            const int dotP = (vec1.x * vec2.x) + (vec1.y * vec2.y);
             // Calculate the length of the vectors vec1 and vec2.
-            double vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
-            double vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
+            const double vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
+            const double vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
 
             std::cout << "vec1Length: " << vec1Length << std::endl;
             std::cout << "vec2Length: " << vec2Length << std::endl;
+
+            const double cos12 = dotP / (1.0 * vec1Length * vec2Length);
+            // Check the angle and the vec2 should not be null vector.
+            if ((cos12 != 1.0) && ((vec2.x != 0) && (vec2.y != 0))) {
+                i++;
+                continue;
+            }
 
             // TODO: Check for the end of the path, enemy wins
             // The length of the vec2 should be smaller than vec1, if the enemy's position is
@@ -51,7 +54,7 @@ void FootSoldier::update() {
                 continue;
             } else if (vec2Length == vec1Length) {
                 if ((i + 1) != (int)path.size()) {
-                    const Vec2D& pathPoints = path.at(i + 1);
+                    const Vec2D pathPoints = path.at(i + 1);
                     Pos pathVec;
                     pathVec.x = pathPoints.b.x - pathPoints.a.x;
                     pathVec.y = pathPoints.b.y - pathPoints.a.y;
@@ -70,21 +73,42 @@ void FootSoldier::update() {
                 std::cout << "Enemy updated position" << std::endl;
                 std::cout << "(x, y) = (" << this->position_.x << ", " << this->position_.y << ")" << std::endl;
 
-                if ((this->position_.x > currVec.b.x) || (this->position_.y  > currVec.b.y)) {
+                if ((this->position_.x > currVec.b.x) || (this->position_.y > currVec.b.y)) {
                     if (this->position_.x > currVec.b.x) {
                         int out = this->position_.x - currVec.b.x;
-                        int overSpeed = out / vec1.x;
-                        if ((i + 1) != (int)path.size()) {
-                            const Vec2D& pathPoints = path.at(i + 1);
+                        // Restore enemy's position to end point of the vec1.
+                        this->position_.x -= out;
+
+                        int j = i + 1;
+                        
+                        while ((j < (int)path.size()) && out > 0) {
+                            const Vec2D pathPoints = path.at(j);
                             Pos pathVec;
                             pathVec.x = pathPoints.b.x - pathPoints.a.x;
                             pathVec.y = pathPoints.b.y - pathPoints.a.y;
                             
-                            this->position_.x += overSpeed * pathVec.x;
-                            this->position_.y += overSpeed * pathVec.y;
-                        } else {
+                            // If it goes also out of pathPoints vec2D then continue.
+                            if ((pathVec.x < out) || (pathVec.y < out)) {
+                                out -= std::max(pathVec.x, pathVec.y);
+                                j++;
+                                continue;
+                            }
+
+                            if (pathVec.x == 0) {
+                                this->position_ = pathPoints.a;
+                                this->position_.y += out;
+                                out = 0;
+                            } else {
+                                this->position_ = pathPoints.a;
+                                this->position_.x += out;
+                                out = 0;
+                            }
+                        }
+
+                        if (out > 0) {
                             assert(false); // This is for TODO above.
                         }
+                        
                     } else {
                         int out = this->position_.y  - currVec.b.y;
                         int overSpeed = out / vec1.y;
