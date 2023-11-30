@@ -271,7 +271,8 @@ int GameLoop::Play() {
 					}
 					break;
 			}
-		// TODO: }
+		}
+		
 		window_.clear(sf::Color(200, 200, 200));
 		
 		if (!startButtonClicked) {
@@ -304,7 +305,7 @@ int GameLoop::Play() {
 		}
 
 		window_.display();
-		}
+		
     }
     return 0;
 }
