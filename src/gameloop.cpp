@@ -152,6 +152,8 @@ int GameLoop::Play() {
 
 
 	// TODO: Replace with proper solution.
+	// Store all the sprites for the GameObjects in this std::vector.
+	// The order should be the same with the game_.Objects().
 	std::vector<sf::Sprite> gameSprites;
 
     // Load window
