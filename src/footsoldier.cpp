@@ -44,9 +44,23 @@ void FootSoldier::update() {
                 }
             }
 
+            // Tells the direction of the enemy (North - 'N', East - 'E', South - 'S', West - 'W').
+            char direction;
+
             // Find unit vector of vec1.
             Pos unitVec1 = Pos{ (vec1.x / vec1Length), (vec1.y / vec1Length) };
             
+            // Set the direction of the enemy.
+            if (unitVec1.y < 0) {
+                direction = 'N';
+            } else if (unitVec1.x > 0) {
+                direction = 'E';
+            } else if (unitVec1.y > 0) {
+                direction = 'S';
+            } else {
+                direction = 'W';
+            }
+
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
@@ -65,12 +79,21 @@ void FootSoldier::update() {
                 int j = i + 1;
 
                 while ((j < (int)path.size()) && (outInSpeed > 0)) {
-                    // If enemy switches to another Vec2D, then rotate the enemy by 90 degrees.
-                    this->RotateArtillery(90);
                     const Vec2D pathPoints = path.at(j);
                     Pos pathVec = Pos{ (pathPoints.b.x - pathPoints.a.x), (pathPoints.b.y - pathPoints.a.y) };
                     double pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
                     Pos unitPathVec = Pos{ (pathVec.x / pathVecLength), (pathVec.y / pathVecLength) };
+                    
+                    // Update the direction of the enemy.
+                    if (unitPathVec.y < 0) {
+                        direction = 'N';
+                    } else if (unitPathVec.x > 0) {
+                        direction = 'E';
+                    } else if (unitPathVec.y > 0) {
+                        direction = 'S';
+                    } else {
+                        direction = 'W';
+                    }
 
                     // Update enemy's position.
                     this->position_.x += outInSpeed * unitPathVec.x;
@@ -92,6 +115,25 @@ void FootSoldier::update() {
                 
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
+
+            // Set rotation angle in degrees according to the direction variable above.
+            switch(direction) {
+                case 'N':
+                    this->SetArtilleryAngle(0);
+                    break;
+                case 'E':
+                    this->SetArtilleryAngle(90);
+                    break;
+                case 'S':
+                    this->SetArtilleryAngle(180);
+                    break;
+                case 'W':
+                    this->SetArtilleryAngle(270);
+                    break;
+                default:
+                    assert(false);
+            }
+
             break;
         }
     } else {
