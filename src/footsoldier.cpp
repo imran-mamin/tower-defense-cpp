@@ -117,18 +117,19 @@ void FootSoldier::update() {
             }
 
             // Set rotation angle in degrees according to the direction variable above.
+            // Enemy's direction is 'E' at the start.
             switch(direction) {
                 case 'N':
-                    this->SetArtilleryAngle(0);
+                    this->SetArtilleryAngle(270);
                     break;
                 case 'E':
-                    this->SetArtilleryAngle(90);
+                    this->SetArtilleryAngle(0);
                     break;
                 case 'S':
-                    this->SetArtilleryAngle(180);
+                    this->SetArtilleryAngle(90);
                     break;
                 case 'W':
-                    this->SetArtilleryAngle(270);
+                    this->SetArtilleryAngle(180);
                     break;
                 default:
                     assert(false);
