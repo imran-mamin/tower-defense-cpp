@@ -46,4 +46,13 @@ Trivial change: We plan to rename Game class to Level class as it is more suitab
  - Debug: Draw light blue overlay on the enemy path tiles.
 
 
+## 29-30.11.2023
 
+-Leevi:
+
+
+-Aleksi
+Working on gameloop and created ToolbarRenderer(deleted for now). Modifications to various classes.
+
+
+-Imran
