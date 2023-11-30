@@ -150,6 +150,10 @@ int GameLoop::Play() {
     MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
     std::optional<int> towerType;
 
+
+	// TODO: Replace with proper solution.
+	std::vector<sf::Sprite> gameSprites;
+
     // Load window
     while (window_.isOpen()) {
 		sf::Event event;
@@ -211,7 +215,7 @@ int GameLoop::Play() {
 									selectedTower = weaponNameIdMapping["redcannon"];
 								}
 								
-								// selectedTower = weaponNameIdMapping["redcannon"];
+								selectedTower = weaponNameIdMapping["redcannon"];
 
 							} else {
 								if (towerClicked.has_value() && grid.TileAtCoordinate(mousePos.x / 64, mousePos.y / 64).isEmpty()) {
@@ -225,14 +229,18 @@ int GameLoop::Play() {
 									}
 									int posX = mousePos.x / 64;
 									int posY = mousePos.y / 64;
+									std::cout << "canSpritePos(before) = (" << canSprite.getPosition().x << ", " << canSprite.getPosition().y << ")" << std::endl;
 									canSprite.setPosition(posX * 64, posY * 64);
-
+									std::cout << "canSpritePos(after) = (" << canSprite.getPosition().x << ", " << canSprite.getPosition().y << ")" << std::endl;
 									grid.TileAtCoordinate(posX, posY).occupy();
 
-									game_.AddObject(can); // game_.AddObject(canSprite);
+									gameSprites.push_back(canSprite);
+									// game_.AddObject(can); // game_.AddObject(canSprite);
 									towerClicked.reset();
 									selectedTower.reset();
 									towerType.reset();
+
+
 								} 
 							}
 						}
@@ -279,9 +287,14 @@ int GameLoop::Play() {
 
 			// Debug: draw the enemy path.
 			enemyPathRenderer.Draw();
-			
+			/*
 			for (auto it : game_.Objects()) {
 				window_.draw(it->GetSprite());
+			}*/
+			int i = 0;
+			while (i < gameSprites.size()) {
+				window_.draw(gameSprites.at(i));
+				i++;
 			}
 			
 			// Draw the toolbar and buttons inside it.
