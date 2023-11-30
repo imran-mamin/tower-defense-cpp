@@ -34,11 +34,14 @@ void FootSoldier::update() {
                 continue;
             }
 
-            const double cos12 = std::abs(dotP / (vec1Length * vec2Length));
-            // Check the angle and the vec2 should not be null vector.
-            if ((cos12 != 1.0) || ((vec2.x != 0) && (vec2.y != 0))) {
-                i++;
-                continue;
+            // vec2 should not be a zero vector, if so, then the current vector is proper path.
+            if (vec2Length != 0) {
+                const double cos12 = std::abs(dotP / (vec1Length * vec2Length));
+                // Check the angle and the vec2 should not be null vector.
+                if (cos12 != 1.0) {
+                    i++;
+                    continue;
+                }
             }
 
             // Find unit vector of vec1.
@@ -47,17 +50,15 @@ void FootSoldier::update() {
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
-            std::cout << "unitVec1 = (" << unitVec1.x << ", " << unitVec1.y << ")" << std::endl;
-            
+ 
             // Check that the enemy doesn't go further than the end point of a path vector.
             bool outX = (unitVec1.x > 0) ? (this->position_.x > currVec.b.x) : (this->position_.x < currVec.b.x);
             bool outY = (unitVec1.y > 0) ? (this->position_.y > currVec.b.y) : (this->position_.y < currVec.b.y);
-            std::cout << "outX = " << outX << std::endl;
-            std::cout << "outY = " << outY << std::endl;
+
             if (outX || outY) {
                 // Check how far does the enemy go from the currVec's end point.
                 double outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
-                std::cout << "outInSpeed = " << outInSpeed << std::endl;
+
                 // Restore enemy's position to end point of the currVec.
                 this->position_ = currVec.b;
 
@@ -91,7 +92,6 @@ void FootSoldier::update() {
                 
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
-            std::cout << "Enemy's position = (" << this->position_.x << ", " << this->position_.y << ")" << std::endl;
             break;
         }
     } else {
