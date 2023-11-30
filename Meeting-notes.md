@@ -23,6 +23,7 @@ Game class is in progress by Aleksi.
 - Valerie is doing main menu and level selection.
 - Valerie add music theme.
 - Imran is working on implementing methods for the Tower class and its subclasses.
+  Additionally, added the toolbar.
 
 Trivial change: We plan to rename Game class to Level class as it is more suitable according to the content.
 
@@ -31,7 +32,7 @@ Trivial change: We plan to rename Game class to Level class as it is more suitab
  All members participated in Achitecture and UML planning.
  - Leevi created map selector renderer, enemy path renderer and game loop skeleton. He also participated in bug fixing.
  - Aleksi was working on game loop, tower placement, bug fixing and overall improved the GUI of the application.
- - Imran was working on classes and their method implementations and fixed bugs.
+ - Imran was working on classes and their method implementations. Additionally fixed bugs and warnings.
 
  ## 23.11.2023 - 24.11.2023
  I (Leevi) made a branch called leesalon/feature/path-deduction-features-and-more-painting-stuff. Currently already merged to master.
@@ -55,4 +56,7 @@ Trivial change: We plan to rename Game class to Level class as it is more suitab
 Working on gameloop and created ToolbarRenderer(deleted for now). Modifications to various classes.
 
 
--Imran
+-Imran:
+I (Imran) implemented update(), fire(), getEnemiesWithinRadius() and probably some other methods
+in classes. I also wrote some unit tests to test functionality of the methods. I merged imran/game-logic/towers_and_enemies and fix-gameloop branches to the master. I'm planning to implement also the fire() in
+Cannon class and start working on gameloop.
