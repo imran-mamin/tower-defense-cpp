@@ -9,8 +9,16 @@
 #include <exception>
 #include <iostream>
 #include <filesystem>
+#include <string>
 
 const std::string textureFilePathEnding = ".png";
+
+/* Initialize the static singleton instance. */
+TextureManager TextureManager::textureManager_ = TextureManager();
+
+TextureManager &TextureManager::GetInstance() {
+	return textureManager_;
+}
 
 TextureManager::TextureManager() {
 	/* Iterate over all the tile subdirectories. */
@@ -43,7 +51,7 @@ sf::Texture &TextureManager::GetTexture(std::uint16_t textureId) {
 		return textures_.at(textureId);
 	}
 	catch (std::out_of_range /* &e */) {
-		throw TextureDoesNotExistError();
+		throw TextureDoesNotExistError(std::string("The texture with the texture id of ") + std::to_string(textureId) + " does not exist.");
 	}
 }
 

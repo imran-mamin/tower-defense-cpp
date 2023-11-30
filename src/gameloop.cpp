@@ -29,7 +29,7 @@ int GameLoop::Play() {
     int toolbarWidth = 68;
     int toolbarHeight = window_.getSize().y;
 
-	TextureManager t = TextureManager();
+	TextureManager &t = TextureManager::GetInstance();
 	
 	std::map<std::string, std::uint16_t> weaponNameIdMapping;
 	weaponNameIdMapping["greencannon"] = 248;
