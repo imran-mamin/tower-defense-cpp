@@ -190,9 +190,9 @@ int GameLoop::Play() {
 							if (cannonSprite.getGlobalBounds().contains(mousePos)) {
 								std::cout << "cannon button was clicked." << std::endl;
 								
-								// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+								// Cannon(int radius, int fireRate, int price, Game& game, Pos position)
 								// TODO: Check the position of the Cannon-instance.
-								towerClicked = new Cannon(10, 10, 18, cannonSprite, game_, Pos{ 100, 100 });
+								towerClicked = new Cannon(10, 10, 18, game_, Pos{ 100, 100 });
 								towerType = 1;
 								if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["greencannon"])) {
 									selectedTower.reset();
@@ -206,8 +206,8 @@ int GameLoop::Play() {
 							} else if (bigCannonSprite.getGlobalBounds().contains(mousePos)) {
 								std::cout << "bigCannon button was clicked." << std::endl;
 								// TODO: Check the position of the Cannon-instance.
-								// Cannon(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-								towerClicked = new Cannon(10, 10, 20, cannonSprite, game_, Pos{ 100, 60 });
+								// Cannon(int radius, int fireRate, int price, Game& game, Pos position)
+								towerClicked = new Cannon(10, 10, 20, game_, Pos{ 100, 60 });
 								towerType = 2;
 								if (selectedTower.has_value() && (selectedTower.value() == weaponNameIdMapping["redcannon"])) {
 									selectedTower.reset();
@@ -272,7 +272,7 @@ int GameLoop::Play() {
 					break;
 			}
 		}
-		
+
 		window_.clear(sf::Color(200, 200, 200));
 		
 		if (!startButtonClicked) {

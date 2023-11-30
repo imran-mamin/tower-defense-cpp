@@ -23,9 +23,6 @@
 TEST(TowerClass, getEnemiesWithinRadius) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
-
-    sf::Sprite spM; // For MissileLauncher
-    sf::Sprite spF; // For FootSoldier
     
     Pos p1 = Pos{ 2, 220 };
 
@@ -33,9 +30,9 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-    MissileLauncher ml = MissileLauncher(6, 2, 100, spM, game, p1);
+    MissileLauncher ml = MissileLauncher(6, 2, 100, game, p1);
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(18, 6, 6, 18, spF, game, p2);
+    FootSoldier fs = FootSoldier(18, 6, 6, 18, game, p2);
     game.AddObject(&fs);
     game.AddObject(&ml);
 
@@ -57,12 +54,11 @@ TEST(FootSoldierClass, Update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
 
-    sf::Sprite sp;
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(18, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(18, 6, 6, 18, game, p);
     game.AddObject(&fs);
     
     for (int i = 0; i < 2; i++) {
@@ -79,12 +75,11 @@ TEST(FootSoldierClass, Update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
 
-    sf::Sprite sp;
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(20, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(20, 6, 6, 18, game, p);
     game.AddObject(&fs);
 
     for (int i = 0; i < 4; i++) {
@@ -109,12 +104,11 @@ TEST(FootSoldierClass, Update3) {
     }
     
     std::cout << "EnemPath() ended" << std::endl;
-    sf::Sprite sp;
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(7, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(7, 6, 6, 18, game, p);
     game.AddObject(&fs);
 
     std::cout << "Enemy position at the start" << std::endl;
@@ -147,12 +141,12 @@ TEST(FootSoldierClass, Update4) {
     }
     
     std::cout << "EnemPath() ended" << std::endl;
-    sf::Sprite sp;
+
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(7, 6, 6, 18, sp, game, p);
+    FootSoldier fs = FootSoldier(7, 6, 6, 18, game, p);
     game.AddObject(&fs);
 
     std::cout << "Enemy position at the start" << std::endl;
@@ -179,9 +173,6 @@ TEST(FootSoldierClass, Update4) {
 TEST(MissileClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
-
-    sf::Sprite spM; // For MissileLauncher
-    sf::Sprite spF; // For FootSoldier
     
     Pos p1 = Pos{ 2, 220 };
 
@@ -189,9 +180,9 @@ TEST(MissileClass, update) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-    MissileLauncher ml = MissileLauncher(100, 2, 100, spM, game, p1);
+    MissileLauncher ml = MissileLauncher(100, 2, 100, game, p1);
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(18, 6, 6, 18, spF, game, p2);
+    FootSoldier fs = FootSoldier(18, 6, 6, 18, game, p2);
     game.AddObject(&fs);
     game.AddObject(&ml);
 
@@ -212,9 +203,6 @@ TEST(MissileClass, update) {
 TEST(MissileClass, update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
-
-    sf::Sprite spM; // For MissileLauncher
-    sf::Sprite spF; // For FootSoldier
     
     Pos p1 = Pos{ 2, 220 };
 
@@ -222,9 +210,9 @@ TEST(MissileClass, update2) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-    MissileLauncher ml = MissileLauncher(100, 2, 100, spM, game, p1);
+    MissileLauncher ml = MissileLauncher(100, 2, 100, game, p1);
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(18, 6, 6, 6, spF, game, p2);
+    FootSoldier fs = FootSoldier(18, 6, 6, 6, game, p2);
     game.AddObject(&fs);
     game.AddObject(&ml);
 

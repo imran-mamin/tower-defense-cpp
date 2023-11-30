@@ -25,8 +25,8 @@ public:
      * @param radius the radius of damage caused by projectile (int)
     */
 
-    explicit Tower(int radius, int fireRate, int price, sf::Sprite& sprite, Game& game, Pos position)
-            : GameObject(sprite, game, position), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price) {};
+    explicit Tower(int radius, int fireRate, int price, Game& game, Pos position)
+            : GameObject(game, position), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price) {};
 
     /**
      * @brief Returns all the enemies within the given radius (tower radius).
