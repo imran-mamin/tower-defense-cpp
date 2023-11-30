@@ -11,8 +11,8 @@ class FootSoldier: public Enemy {
 private:
 
 public:
-    FootSoldier(int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-            : Enemy(speed, value, price, hp, sprite, game, position) {};
+    FootSoldier(int speed, int value, int price, int hp, Game& game, Pos position)
+            : Enemy(speed, value, price, hp, game, position) {};
 
     ~FootSoldier() {};
 

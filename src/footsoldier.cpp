@@ -5,7 +5,6 @@ void FootSoldier::update() {
     if (this->isAlive()) {
         const std::vector<Vec2D> path = this->getGrid().EnemyPath();
         int i = 0;
-
         // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
             const Vec2D currVec = path.at(i);
@@ -17,7 +16,7 @@ void FootSoldier::update() {
             Pos vec1 = Pos{ (currVec.b.x - currVec.a.x), (currVec.b.y - currVec.a.y) };
 
             // Find a vector between start position and enemy's position.
-            Pos vec2 = Pos{ (sPosToEnemPos.b.x - sPosToEnemPos.a.x), (sPosToEnemPos.b.y - sPosToEnemPos.a.y)};
+            Pos vec2 = Pos{ (this->position_.x - currVec.a.x), (this->position_.y - currVec.a.y) };
             
             // Calculate the dot product between vec1 and vec2.
             // If enemy's position is on current vector, then the angle between the vectors should be 0.
@@ -27,13 +26,6 @@ void FootSoldier::update() {
             const double vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
             const double vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
 
-            const double cos12 = dotP / (vec1Length * vec2Length);
-            // Check the angle and the vec2 should not be null vector.
-            if ((cos12 != 1.0) && ((vec2.x != 0) && (vec2.y != 0))) {
-                i++;
-                continue;
-            }
-
             // TODO: Check for the end of the path, enemy wins
             // The length of the vec2 should be smaller than vec1, if the enemy's position is
             // on the current vector.
@@ -42,20 +34,45 @@ void FootSoldier::update() {
                 continue;
             }
 
+            // vec2 should not be a zero vector, if so, then the current vector is proper path.
+            if (vec2Length != 0) {
+                const double cos12 = std::abs(dotP / (vec1Length * vec2Length));
+                // Check the angle and the vec2 should not be null vector.
+                if (cos12 != 1.0) {
+                    i++;
+                    continue;
+                }
+            }
+
+            // Tells the direction of the enemy (North - 'N', East - 'E', South - 'S', West - 'W').
+            char direction;
+
             // Find unit vector of vec1.
             Pos unitVec1 = Pos{ (vec1.x / vec1Length), (vec1.y / vec1Length) };
             
+            // Set the direction of the enemy.
+            if (unitVec1.y < 0) {
+                direction = 'N';
+            } else if (unitVec1.x > 0) {
+                direction = 'E';
+            } else if (unitVec1.y > 0) {
+                direction = 'S';
+            } else {
+                direction = 'W';
+            }
+
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
-            
+ 
             // Check that the enemy doesn't go further than the end point of a path vector.
             bool outX = (unitVec1.x > 0) ? (this->position_.x > currVec.b.x) : (this->position_.x < currVec.b.x);
             bool outY = (unitVec1.y > 0) ? (this->position_.y > currVec.b.y) : (this->position_.y < currVec.b.y);
+
             if (outX || outY) {
-                
                 // Check how far does the enemy go from the currVec's end point.
                 double outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
+
                 // Restore enemy's position to end point of the currVec.
                 this->position_ = currVec.b;
 
@@ -66,6 +83,17 @@ void FootSoldier::update() {
                     Pos pathVec = Pos{ (pathPoints.b.x - pathPoints.a.x), (pathPoints.b.y - pathPoints.a.y) };
                     double pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
                     Pos unitPathVec = Pos{ (pathVec.x / pathVecLength), (pathVec.y / pathVecLength) };
+                    
+                    // Update the direction of the enemy.
+                    if (unitPathVec.y < 0) {
+                        direction = 'N';
+                    } else if (unitPathVec.x > 0) {
+                        direction = 'E';
+                    } else if (unitPathVec.y > 0) {
+                        direction = 'S';
+                    } else {
+                        direction = 'W';
+                    }
 
                     // Update enemy's position.
                     this->position_.x += outInSpeed * unitPathVec.x;
@@ -87,6 +115,26 @@ void FootSoldier::update() {
                 
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
+
+            // Set rotation angle in degrees according to the direction variable above.
+            // Enemy's direction is 'E' at the start.
+            switch(direction) {
+                case 'N':
+                    this->SetArtilleryAngle(270);
+                    break;
+                case 'E':
+                    this->SetArtilleryAngle(0);
+                    break;
+                case 'S':
+                    this->SetArtilleryAngle(90);
+                    break;
+                case 'W':
+                    this->SetArtilleryAngle(180);
+                    break;
+                default:
+                    assert(false);
+            }
+
             break;
         }
     } else {
