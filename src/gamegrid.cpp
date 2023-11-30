@@ -15,6 +15,7 @@
 #include "map_parser.hpp"
 #include "path.hpp"
 #include "tile.hpp"
+#include "vec2d.hpp"
 
 
 /* Create the gamegrid. */
@@ -36,34 +37,51 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 	    tiles_.push_back(v);
 	}
 
+	/* This is for making sure path corner tiles are path tiles. */
+	const Vec2D firstPath = mapInfo.enemyPath[0];
+	const Vec2D lastPath = mapInfo.enemyPath[mapInfo.enemyPath.size() - 1];
+
 	/* Resolve the path tiles from the enemyPath. */
-	// TODO:
 	for (auto path : mapInfo.enemyPath) {
+
+		// TODO
+		//if (path != firstPath && path != lastPath) {
+		//	
+		//}
+
 		/* Horizontal line. */
 		if (path.a.y == path.b.y && path.a.x != path.b.x) {
-			// TODO: Check a.x > b.x
-			for (auto tileStartX = path.a.x; tileStartX < path.b.x; tileStartX += mapInfo.tileWidth) {
-				std::cout << tileStartX << std::endl;
-				if (tileStartX < tileWidth_ * width_ && tileStartX >= 0) {
-					if (path.a.y != 0) {
-						std::cout << "path set" << std::endl;
-						TileAtAbsoluteCoordinate(tileStartX, path.a.y - 1).SetType(TileType::Path);
+			const std::uint32_t smallerX = path.a.x < path.b.x ? path.a.x : path.b.x;
+			const std::uint32_t largerX = smallerX == path.a.x ? path.b.x : path.a.x;
+
+			for (std::uint32_t currentTileStartX = smallerX; currentTileStartX < largerX; currentTileStartX += mapInfo.tileWidth) {
+				if (currentTileStartX < tileWidth_ * width_) {
+					/* Note: a.y & b.y are the same. */
+					const std::uint32_t currentY = path.a.y;
+
+					if (currentY != 0) {
+						TileAtAbsoluteCoordinate(currentTileStartX, currentY - 1).SetType(TileType::Path);
 					}
-					TileAtAbsoluteCoordinate(tileStartX, path.a.y).SetType(TileType::Path);
+					TileAtAbsoluteCoordinate(currentTileStartX, currentY).SetType(TileType::Path);
 				}
 			}
 		}
 		/* Vertical line. */
 		else if (path.a.x == path.b.x && path.a.y != path.b.y) {
-			/* FIXME: path.a.y is arbitrary, where are the bounds checks? Same goes without saying for the above too. */
-			for (auto tileStartY = path.a.y; tileStartY < path.a.y; tileStartY += mapInfo.tileWidth) {
-				if (tileStartY < tileWidth_ * height_ && tileStartY >= 0) {
-					if (path.a.x != 0) {
-						TileAtAbsoluteCoordinate(path.a.x - 1, tileStartY).SetType(TileType::Path);
+			const std::uint32_t smallerY = path.a.y < path.b.y ? path.a.y : path.b.y;
+			const std::uint32_t largerY = smallerY == path.a.y ? path.b.y : path.a.y;
+
+				for (std::uint32_t tileStartY = smallerY; tileStartY < largerY; tileStartY += mapInfo.tileWidth) {
+					if (tileStartY < tileWidth_ * height_) {
+						/* Note: a.x & b.x are the same. */
+						const std::uint32_t currentX = path.a.x;
+
+						if (currentX != 0) {
+							TileAtAbsoluteCoordinate(currentX - 1, tileStartY).SetType(TileType::Path);
+						}
+						TileAtAbsoluteCoordinate(currentX, tileStartY).SetType(TileType::Path);
 					}
-					TileAtAbsoluteCoordinate(path.a.x, tileStartY).SetType(TileType::Path);
 				}
-			}
 		}
 		else {
 			/* TODO: Better exception type. */

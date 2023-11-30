@@ -13,7 +13,7 @@
 #include <vector>
 
 
-const float lineThicknessPx = 8.0;
+const float lineThicknessPx = 6.0;
 const sf::Color lineColor(0xff, 0x00, 0x00, 0x80);
 const sf::Color pathTileColor(0x00, 0x00, 0xff, 0x40);
 
@@ -36,15 +36,21 @@ void EnemyPathRenderer::Draw() {
 	for (Vec2D v : gameGrid_.EnemyPath()) {
 		sf::RectangleShape line;
 
-		/* Vertical line. */
-		if (v.a.y == v.b.y) {
-			line = sf::RectangleShape(sf::Vector2f(v.b.x, lineThicknessPx));
-			line.setPosition(v.a.x, v.a.y - lineThicknessPx / 2);
-		}
 		/* Horizontal line. */
+		if (v.a.y == v.b.y) {
+			const std::uint32_t smallerX = v.a.x < v.b.x ? v.a.x : v.b.x;
+			const std::uint32_t largerX = smallerX == v.a.x ? v.b.x : v.a.x;
+
+			line = sf::RectangleShape(sf::Vector2f(largerX - smallerX, lineThicknessPx));
+			line.setPosition(smallerX, v.a.y - lineThicknessPx / 2);
+		}
+		/* Vertical line. */
 		else if (v.a.x == v.b.x){
-			line = sf::RectangleShape(sf::Vector2f(lineThicknessPx, v.b.y));
-			line.setPosition(v.a.x - lineThicknessPx / 2, v.a.y);
+			const std::uint32_t smallerY = v.a.y < v.b.y ? v.a.y : v.b.y;
+			const std::uint32_t largerY = smallerY == v.a.y ? v.b.y : v.a.y;
+			
+			line = sf::RectangleShape(sf::Vector2f(lineThicknessPx, largerY - smallerY));
+			line.setPosition(v.a.x - lineThicknessPx / 2, smallerY);
 		}
 		/* Diagonal */
 		else {
