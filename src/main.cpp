@@ -11,14 +11,14 @@
 #include "gameloop.hpp"
 #include "gameobject.hpp"
 #include "map_tile_selector_renderer.hpp"
-#include "testmapinfo.hpp"
+#include "map_parser.hpp"
 #include "tower.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
   int windowHeight = 12 * 64;
 
-  GameGrid gg = GameGrid(testMapInfoObject1());
+  GameGrid gg = GameGrid(ParseMap("../rsrc/maps/map1.json"));
   Game game = Game(gg);
 
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
