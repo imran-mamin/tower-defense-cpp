@@ -36,26 +36,16 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 	    tiles_.push_back(v);
 	}
 
-	/* This is for making sure path corner tiles are path tiles. */
-	const Vec2D firstPath = mapInfo.enemyPath[0];
-	const Vec2D lastPath = mapInfo.enemyPath[mapInfo.enemyPath.size() - 1];
-
 	/* Resolve the path tiles from the enemyPath. */
 	for (auto path : mapInfo.enemyPath) {
-
-		// TODO
-		//if (path != firstPath && path != lastPath) {
-		//	
-		//}
-
 		/* Horizontal line. */
 		if (path.a.y == path.b.y && path.a.x != path.b.x) {
 			const std::uint32_t smallerX = path.a.x < path.b.x ? path.a.x : path.b.x;
 			const std::uint32_t largerX = smallerX == path.a.x ? path.b.x : path.a.x;
 
-			for (std::uint32_t tileStartX = smallerX; tileStartX <= largerX; tileStartX += mapInfo.tileWidth) {
+			std::uint32_t tileStartX = smallerX > 0 ? smallerX - tileWidth_ : smallerX;
+			for (; tileStartX <= largerX && tileStartX < width_ * tileWidth_; tileStartX += tileWidth_) {
 				if (tileStartX < tileWidth_ * width_) {
-					std::cout << "a" << std::endl;
 					/* Note: a.y & b.y are the same. */
 					const std::uint32_t currentY = path.a.y;
 
@@ -71,32 +61,30 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 			const std::uint32_t smallerY = path.a.y < path.b.y ? path.a.y : path.b.y;
 			const std::uint32_t largerY = smallerY == path.a.y ? path.b.y : path.a.y;
 
-				for (std::uint32_t tileStartY = smallerY; tileStartY <= largerY; tileStartY += mapInfo.tileWidth) {
-					if (tileStartY < tileWidth_ * height_) {
-						std::cout << "b" << std::endl;
-						/* Note: a.x & b.x are the same. */
-						const std::uint32_t currentX = path.a.x;
-
-						if (currentX != 0) {
-							TileAtAbsoluteCoordinate(currentX - 1, tileStartY).SetType(TileType::Path);
-						}
-						TileAtAbsoluteCoordinate(currentX, tileStartY).SetType(TileType::Path);
+			std::uint32_t tileStartY = smallerY > 0 ? smallerY - tileWidth_ : smallerY;
+			for (; tileStartY <= largerY && tileStartY < height_ * tileWidth_; tileStartY += mapInfo.tileWidth) {
+				if (tileStartY < tileWidth_ * height_) {
+					/* Note: a.x & b.x are the same. */
+					const std::uint32_t currentX = path.a.x;
+					
+					if (currentX != 0) {
+						TileAtAbsoluteCoordinate(currentX - 1, tileStartY).SetType(TileType::Path);
 					}
+					TileAtAbsoluteCoordinate(currentX, tileStartY).SetType(TileType::Path);
 				}
+			}
 		}
 		else {
-			/* TODO: Better exception type. */
 			throw std::runtime_error("Diagonal enemyPath lines are not currently supported.");
 		}
 	}
 }
 
-/* Static helper method. */
+/* Helper method. */
 Pos GameGrid::AbsoluteCoordinateToClosestTilePosition(std::uint32_t x, std::uint32_t y) {
-	std::cout << "BEFORE: x: " << x << ", y: " << y << std::endl;
+	/* Note: Without these intermediate steps the compiler will optimize the division plus multiplication operations out. */
 	x = x / tileWidth_ * tileWidth_;
 	y = y / tileWidth_ * tileWidth_;
-	std::cout << "AFTER: x: " << x << ", y: " << y << std::endl;
 	return Pos{ (float) x, (float) y };
 }
 
