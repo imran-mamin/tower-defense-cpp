@@ -1,5 +1,7 @@
 #include "missile.hpp"
+#include "enemy.hpp"
 #include "vec2d.hpp"
+#include <memory>
 
 
 /**
@@ -14,10 +16,10 @@
 
 void Missile::update() {
     bool isAlive = false;
-    for (GameObject* obj : this->game_.Objects()) {
+    for (const auto & obj : this->game_.Objects()) {
         // Attempt to cast to Enemy*
-        if (Enemy* enemy = dynamic_cast<Enemy*>(obj)) {
-            if (enemy == this->target_) {
+        if (const auto enemy = dynamic_cast<const Enemy *>(obj); enemy) {
+            if (enemy == target_) {
                 isAlive = true;
                 break;
             }
@@ -31,7 +33,7 @@ void Missile::update() {
         Pos vectorToTarget = Pos{ (pathToTarget.b.x - pathToTarget.a.x), (pathToTarget.b.y - pathToTarget.a.y) };
 
         // Find the length of the vectorToTarget.
-        double vectorToTargetLength = sqrt((vectorToTarget.x * vectorToTarget.x) + (vectorToTarget.y * vectorToTarget.y));
+        float vectorToTargetLength = sqrt((vectorToTarget.x * vectorToTarget.x) + (vectorToTarget.y * vectorToTarget.y));
 
         // Find unit vector of vectorToTarget.
         Pos unitVec = Pos{ (vectorToTarget.x / vectorToTargetLength), (vectorToTarget.y / vectorToTargetLength) };
@@ -43,9 +45,9 @@ void Missile::update() {
             // Calculate the distance between missile and target.
             // Formula sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
             Pos currPos = this->getPosition();
-            double xPow2 = std::pow((this->target_->getPosition().x - currPos.x), 2);
-            double yPow2 = std::pow((this->target_->getPosition().y - currPos.y), 2);
-            double dist = sqrt(xPow2 + yPow2);
+            float xPow2 = std::pow((this->target_->getPosition().x - currPos.x), 2);
+            float yPow2 = std::pow((this->target_->getPosition().y - currPos.y), 2);
+            float dist = sqrt(xPow2 + yPow2);
 
             // Is target in the explosion radius of missile?
             if (this->explosionRadius_ > dist) {
@@ -58,8 +60,9 @@ void Missile::update() {
                 }
                 
                 // Remove missile object from the vector objects_ and from heap.
-                this->game_.DeleteObject(this);
-                delete this;
+				this->health_ = 0;
+                //this->game_.DeleteObject(this);
+                //delete this;
                 break;
             }
             // Update missile's position.
@@ -82,8 +85,8 @@ void Missile::update() {
             }
             
             // Remove missile object from the vector objects_.
-            this->game_.DeleteObject(this);
-            delete this;
+            //this->game_.DeleteObject(this);
+            //delete this;
 
         } else {
             // TODO: Improve this, so that missile goes straight.
@@ -97,8 +100,9 @@ void Missile::update() {
 
             if (isOutWidth || isOutHeight) {
                 // Remove missile object from the vector objects_.
-                this->game_.DeleteObject(this);
-                delete this;
+                //this->game_.DeleteObject(this);
+                //delete this;
+				health_ = 0;
             }
         }
         

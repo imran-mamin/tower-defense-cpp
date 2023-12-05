@@ -3,7 +3,7 @@
 void Bullet::update() {
     // Find the vector between starting point and end point.
     Pos vec = Pos{ (endPos_.x - startPos_.x), (endPos_.y - startPos_.y) };
-    double vecLength = sqrt((vec.x * vec.x) + (vec.y * vec.y));
+    float vecLength = sqrt((vec.x * vec.x) + (vec.y * vec.y));
 
     // Find unit vector of vec.
     Pos unitVec = Pos{ (vec.x / vecLength), (vec.y / vecLength) };
@@ -38,6 +38,4 @@ void Bullet::update() {
 }
 
 void Bullet::onDestroy() {
-    this->game_.DeleteObject(this);
-    delete this;
 }

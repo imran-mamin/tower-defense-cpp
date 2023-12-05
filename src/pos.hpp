@@ -2,11 +2,13 @@
 #pragma once
 
 #include <cstdint>
+#include <SFML/System/Vector2.hpp>
 
 struct Pos { 
-	double x;
-	double y;
+	float x;
+	float y;
+	
 	bool operator==(const Pos &that) const { return x == that.x && y == that.y; };
-	// std::int32_t x;
-	// std::int32_t y;
+	sf::Vector2f ToVector2f() { return sf::Vector2f{ x, y }; }
 };
+

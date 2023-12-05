@@ -5,7 +5,11 @@
 #include <map>
 #include <utility>
 
-enum class Weapons{
+enum class GameObjectType {
+	Dick
+};
+
+enum class Weapons {
 	GreenCannon,
 	RedCannon,
 	MissileLauncher1,
