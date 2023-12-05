@@ -4,9 +4,13 @@ TileType Tile::type() const {
     return type_;
 }
 
-bool Tile::isEmpty() const {
-    return isEmpty_;
+bool Tile::isFree() const {
+	return isEmpty_ && type_ == TileType::Ground;
 }
+
+/*bool Tile::isEmpty() const {
+    return isEmpty_;
+}*/
 
 bool Tile::occupy() {
     if (isEmpty_) {

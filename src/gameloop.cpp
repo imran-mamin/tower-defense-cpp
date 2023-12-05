@@ -132,17 +132,10 @@ int GameLoop::Play() {
 
     bool startButtonClicked = false;
 
-    // TODO: Experimental
 
-    /* TODO: Use std::unique. */
-    // std::optional<Tower *> towerClicked;
-
-    std::optional<Cannon *> towerClicked;
-    /* Tower id. */
-    /* TODO: Create mapping from tower id's to towers and vice versa. */
+    /* Selected tower id and the renderer that utilizes it. */
     std::optional<std::uint16_t> selectedTower;
     MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
-    //std::optional<int> towerType;
 
     // Load window
     while (window_.isOpen()) {
@@ -204,7 +197,7 @@ int GameLoop::Play() {
 				    weaponNameIdMapping["redcannon"];
 
 			    } else {
-				if (auto selectedTile = grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y); selectedTower.has_value() && selectedTile.isEmpty()) {
+				if (auto selectedTile = grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y); selectedTower.has_value() && selectedTile.isFree()) {
 					//const Pos selectedTilePos = Pos{ mousePos.x / grid.TileWidth() * grid.TileWidth(), mousePos.y / grid.TileWidth() * grid.TileWidth() };
 					const Pos selectedTilePos = grid.AbsoluteCoordinateToClosestTilePosition(mousePos.x, mousePos.y);
 				    std::cout << "placing tower" << std::endl;
@@ -257,19 +250,16 @@ int GameLoop::Play() {
 	    window_.draw(playText);
 	    window_.draw(title);
 	} else {
-	    // Draw the tiles
+	    /* Draw the background. */
 	    ikkuna.Draw();
 
-	    // Draw the tile selector.
+		/* Draw the tile selector. */
 	    tileSelector.Draw();
 
-	    // Debug: draw the enemy path.
+		/* Debug: Draw the enemy path and hightlight the path tiles on blue. */
 	    enemyPathRenderer.Draw();
-	    /*
-	    for (auto it : game_.Objects()) {
-		    window_.draw(it->GetSprite());
-	    }*/
-	    /* Draw the game object. */
+	    
+		/* Draw the game object. */
 	    gameobjectRenderer.Draw();
 
 	    // Draw the toolbar and buttons inside it.
