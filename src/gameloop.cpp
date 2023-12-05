@@ -7,6 +7,7 @@
 #include <map>
 #include <memory>
 #include <optional>
+#include <stdexcept>
 #include <vector>
 
 #include "background_renderer.hpp"
@@ -37,15 +38,8 @@ int GameLoop::Play() {
     weaponNameIdMapping["redcannon"] = 249;
 
     GameGrid &grid = game_.GetGrid();
-    /*
-// Renderers.
-    BackgroundRenderer ikkuna(window_, grid);
-    MapTileSelectorRenderer tileSelector(window_, grid);
-    // For debug purposes.
-    EnemyPathRenderer enemyPathRenderer(window_, grid);
-    */
-    /* Renderers. */
-
+    
+	/* Renderers. */
     BackgroundRenderer ikkuna(window_, grid);
     /* For debug purposes.*/
     EnemyPathRenderer enemyPathRenderer(window_, grid);
@@ -148,16 +142,13 @@ int GameLoop::Play() {
     /* TODO: Create mapping from tower id's to towers and vice versa. */
     std::optional<std::uint16_t> selectedTower;
     MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
-    std::optional<int> towerType;
-
-    // TODO: Replace with proper solution.
-    // Store all the sprites for the GameObjects in this std::vector.
-    // The order should be the same with the game_.Objects().
-    std::vector<sf::Sprite> gameSprites;
+    //std::optional<int> towerType;
 
     // Load window
     while (window_.isOpen()) {
 	sf::Event event;
+
+	// TODO: Separate the views.
 
 	while (window_.pollEvent(event)) {
 	    switch (event.type) {
@@ -183,13 +174,6 @@ int GameLoop::Play() {
 				std::cout << "cannon button was clicked."
 					  << std::endl;
 
-				// Cannon(int radius, int fireRate, int price,
-				// Game& game, Pos position)
-				// TODO: Check the position of the
-				// Cannon-instance.
-				towerClicked = new Cannon(10, 10, 18, game_,
-							  Pos{100, 100});
-				towerType = 1;
 				if (selectedTower.has_value() &&
 				    (selectedTower.value() ==
 				     weaponNameIdMapping["greencannon"])) {
@@ -207,13 +191,6 @@ int GameLoop::Play() {
 					   .contains(mousePos)) {
 				std::cout << "bigCannon button was clicked."
 					  << std::endl;
-				// TODO: Check the position of the
-				// Cannon-instance. Cannon(int radius, int
-				// fireRate, int price, Game& game, Pos
-				// position)
-				towerClicked =
-				    new Cannon(10, 10, 20, game_, Pos{100, 60});
-				towerType = 2;
 				if (selectedTower.has_value() &&
 				    (selectedTower.value() ==
 				     weaponNameIdMapping["redcannon"])) {
@@ -227,39 +204,20 @@ int GameLoop::Play() {
 				    weaponNameIdMapping["redcannon"];
 
 			    } else {
-				if (towerClicked.has_value() &&
-				    grid.TileAtCoordinate(mousePos.x / 64,
-							  mousePos.y / 64)
-					.isEmpty()) {
+				if (auto selectedTile = grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y); selectedTower.has_value() && selectedTile.isEmpty()) {
+					//const Pos selectedTilePos = Pos{ mousePos.x / grid.TileWidth() * grid.TileWidth(), mousePos.y / grid.TileWidth() * grid.TileWidth() };
+					const Pos selectedTilePos = grid.AbsoluteCoordinateToClosestTilePosition(mousePos.x, mousePos.y);
 				    std::cout << "placing tower" << std::endl;
-				    //Cannon *can =
-					//towerClicked
-					//    .value();  // dynamic_cast<Cannon*>(towerClicked.value());
-				    sf::Sprite canSprite;
-				    if (towerType.value() == 1) {
-					canSprite.setTexture(cannon);
-				    } else if (towerType.value() == 2) {
-					canSprite.setTexture(bigCannon);
-				    }
-				    int posX = mousePos.x / 64;
-				    int posY = mousePos.y / 64;
-				    std::cout
-					<< "canSpritePos(before) = ("
-					<< canSprite.getPosition().x << ", "
-					<< canSprite.getPosition().y << ")"
-					<< std::endl;
-				    canSprite.setPosition(posX * 64, posY * 64);
-				    std::cout
-					<< "canSpritePos(after) = ("
-					<< canSprite.getPosition().x << ", "
-					<< canSprite.getPosition().y << ")"
-					<< std::endl;
-				    grid.TileAtCoordinate(posX, posY).occupy();
+					selectedTile.occupy();
+					if (selectedTower.value() == weaponNameIdMapping["greencannon"]) {
+						game_.AddObject(new GreenCannon(game_, selectedTilePos));
+					}
+					else if (selectedTower.value() == weaponNameIdMapping["redcannon"]){
+						game_.AddObject(new RedCannon(game_, selectedTilePos));
+					}
+					else { throw std::runtime_error("Not implemented."); }
 
-				    gameSprites.push_back(canSprite);
-				    towerClicked.reset();
 				    selectedTower.reset();
-				    towerType.reset();
 				}
 			    }
 			}
@@ -313,11 +271,6 @@ int GameLoop::Play() {
 	    }*/
 	    /* Draw the game object. */
 	    gameobjectRenderer.Draw();
-	    // std::size_t i = 0;
-	    // while (i < gameSprites.size()) {
-	    //	window_.draw(gameSprites.at(i));
-	    //	i++;
-	    // }
 
 	    // Draw the toolbar and buttons inside it.
 	    window_.draw(toolbar);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <cstdint>
 #include <vector>
 #include <cmath>
 #include <iostream>
@@ -25,8 +26,8 @@ public:
      * @param radius the radius of damage caused by projectile (int)
     */
 
-    explicit Tower(int radius, int fireRate, int price, Game& game, Pos position)
-            : GameObject(game, position), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price) {};
+    explicit Tower(int radius, int fireRate, int price, Game& game, Pos position, std::uint32_t health)
+            : GameObject(game, position, health), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price) {};
 
     /**
      * @brief Returns all the enemies within the given radius (tower radius).

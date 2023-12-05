@@ -19,6 +19,8 @@ class GameGrid {
     GameGrid(const MapInfo &mapInfo);
     GameGrid() = delete;
 
+	Pos AbsoluteCoordinateToClosestTilePosition(std::uint32_t x, std::uint32_t y);
+
     Tile &TileAtCoordinate(std::uint8_t x, std::uint8_t y);
     Tile &TileAtAbsoluteCoordinate(std::uint32_t x, std::uint32_t y);
     std::vector<std::vector<Tile>> &Tiles() { return tiles_; }

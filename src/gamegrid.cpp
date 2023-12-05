@@ -17,7 +17,6 @@
 #include "tile.hpp"
 #include "vec2d.hpp"
 
-
 /* Create the gamegrid. */
 GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
     width_ = mapInfo.mapWidth;
@@ -90,6 +89,14 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 	}
 }
 
+/* Static helper method. */
+Pos GameGrid::AbsoluteCoordinateToClosestTilePosition(std::uint32_t x, std::uint32_t y) {
+	std::cout << "BEFORE: x: " << x << ", y: " << y << std::endl;
+	x = x / tileWidth_ * tileWidth_;
+	y = y / tileWidth_ * tileWidth_;
+	std::cout << "AFTER: x: " << x << ", y: " << y << std::endl;
+	return Pos{ (float) x, (float) y };
+}
 
 Tile &GameGrid::TileAtAbsoluteCoordinate(std::uint32_t x, std::uint32_t y) {
 	if (x > tileWidth_ * width_ || y > tileWidth_ * height_) {

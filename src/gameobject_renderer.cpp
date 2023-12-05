@@ -13,6 +13,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <memory>
+#include <stdexcept>
 #include <type_traits>
 #include <typeinfo>
 #include <vector>
@@ -37,9 +38,15 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		/* Note: C++17 allows to assignment inside if statement (visible in the block scope only). */
 		//if (dynamic_cast<const std::unique_ptr<Cannon> &>(gameObject)) {
 		if (isOfType<Cannon>(gameObject)) {
-			// FIXME: Select correct cannon texture. Currently does not differentiate between the green and the red cannon.
-			sf::Texture &currentTexture = textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::GreenCannon));
-			currentSprite.setTexture(currentTexture);
+			if (isOfType<GreenCannon>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::GreenCannon)));
+			}
+			else if (isOfType<RedCannon>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::RedCannon)));
+			}
+			else {
+				throw std::runtime_error("Unknown cannon type.");
+			}
 		}
 		else if (isOfType<FootSoldier>(gameObject)) {
 			// FIXME: Select correct footsoldier texture. Currently does not differentiate between the four of them.
