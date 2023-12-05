@@ -20,7 +20,7 @@ public:
      * @param radius radius of damage (int)
     */
     explicit Projectile(Game& game, int travel_speed, int damage, int radius, Pos position)
-            : GameObject(game, position), travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
+            : GameObject(game, position, 1), travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
     
 
     /**

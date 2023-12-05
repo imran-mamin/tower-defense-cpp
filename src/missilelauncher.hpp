@@ -8,7 +8,7 @@ private:
 
 public:
     MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-        : Tower(radius, fireRate, price, game, position) {};
+        : Tower(radius, fireRate, price, game, position, 250) {};
 
     ~MissileLauncher() {};
 

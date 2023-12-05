@@ -9,6 +9,9 @@ class GameObject;  // Forward declaration
 class Game {
  public:
   Game(const GameGrid& grid);
+  ~Game();
+
+  void Update();
 
   void AddObject(GameObject* obj);
   void DeleteObject(GameObject* obj);

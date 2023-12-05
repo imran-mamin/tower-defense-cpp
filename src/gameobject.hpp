@@ -1,18 +1,19 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <cstdint>
 
 #include "game.hpp"
 #include "pos.hpp"
 
 class GameObject {
    public:
-    GameObject(Game& game, Pos position, int health = 2)
+    GameObject(Game& game, Pos position, std::uint32_t health = 1)
 	: health_(health), game_(game), position_(position){};
 
     Pos getPosition() const { return position_; }
 
-    void takeDamage(int damage) {
+    void takeDamage(std::uint32_t damage) {
 		if (damage > health_) {
 	    	health_ = 0;
 		}
@@ -38,8 +39,10 @@ class GameObject {
 		rotationAngleDeg_ = std::fmod(degree, 360.0);
     }
 
+	std::uint32_t Health() const { return health_; }
+
    protected:
-    int health_;
+	std::uint32_t health_;
     Game& game_;
     Pos position_;
 
