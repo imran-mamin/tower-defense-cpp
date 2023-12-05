@@ -64,32 +64,36 @@ Cannon class and start working on gameloop.
 
 ## 5.12.2023
 
-- Leevi & Imran: Tinkering on the program architechture. We concluded that the enemy logic must be written to the level files in the following format (or something close to it):
-{
-  "enemyWaves" : {
-    {
-	 "duration_seconds" : 60,
-    "enemies" : [
-      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-	  ], 
-	},
-	{
-	 "duration_seconds" : 120,
-	 "enemies" : [
-    	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-    	"FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2",
-        "Tank1", "FootSoldier1", "FootSoldier1", "Tank1", "FootSoldier1", "FootSoldier2",
-		"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
-    	"Tank1", "FootSoldier2", "Tank1", "FootSoldier2", "Tank1", "FootSoldier2",
-		"Tank1", "Tank1", "Tank1", "FootSoldier3", "FootSoldier3", "Tank2"
-	  ], 
-	}
-  }
-}
+- Leevi & Imran: Tinkering on the program architechture. We concluded that the enemy logic must be written to the level files itself.
 
 - Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path.
 
-- Leevi: Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
+- Leevi:
+	* Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
+	* Fixed the bug that allows to set tiles over the path.
+	* Created a json format for the enemy waves:
+	```
+	"enemy_waves": [
+		{
+			"duration_seconds": 60,
+			"enemies": [
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1"
+			]
+		},
+		{
+			"duration_seconds": 120,
+			"enemies": [
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+				"FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2",
+				"Tank1",        "FootSoldier1", "FootSoldier1", "Tank1",        "FootSoldier1", "FootSoldier2",
+				"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+				"Tank1",        "FootSoldier2", "Tank1",        "FootSoldier2", "Tank1",        "FootSoldier2",
+				"Tank1",        "Tank1",        "Tank1",        "FootSoldier3", "FootSoldier3", "Tank2"
+			]
+		}
+    ]
+	```
+	* Update the level 1 map with the information on the enemy waves.
