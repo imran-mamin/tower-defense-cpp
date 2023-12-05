@@ -50,6 +50,7 @@ Trivial change: We plan to rename Game class to Level class as it is more suitab
 ## 29-30.11.2023
 
 -Leevi:
+Added GameObjectRenderer and fixed bugs.
 
 
 -Aleksi
@@ -60,3 +61,35 @@ Working on gameloop and created ToolbarRenderer(deleted for now). Modifications 
 I (Imran) implemented update(), fire(), getEnemiesWithinRadius() and probably some other methods
 in classes. I also wrote some unit tests to test functionality of the methods. I merged imran/game-logic/towers_and_enemies and fix-gameloop branches to the master. I'm planning to implement also the fire() in
 Cannon class and start working on gameloop.
+
+## 5.12.2023
+
+- Leevi & Imran: Tinkering on the program architechture. We concluded that the enemy logic must be written to the level files in the following format (or something close to it):
+{
+  "enemyWaves" : {
+    {
+	 "duration_seconds" : 60,
+    "enemies" : [
+      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+      "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+	  ], 
+	},
+	{
+	 "duration_seconds" : 120,
+	 "enemies" : [
+    	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+    	"FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2",
+        "Tank1", "FootSoldier1", "FootSoldier1", "Tank1", "FootSoldier1", "FootSoldier2",
+		"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+    	"Tank1", "FootSoldier2", "Tank1", "FootSoldier2", "Tank1", "FootSoldier2",
+		"Tank1", "Tank1", "Tank1", "FootSoldier3", "FootSoldier3", "Tank2"
+	  ], 
+	}
+  }
+}
+
+- Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path.
+
+- Leevi: Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
