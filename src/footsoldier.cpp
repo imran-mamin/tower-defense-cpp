@@ -1,4 +1,5 @@
 #include "footsoldier.hpp"
+#include <stdexcept>
 
 void FootSoldier::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
@@ -10,7 +11,7 @@ void FootSoldier::update() {
             const Vec2D currVec = path.at(i);
 
             // start position of the currVec to current position of the enemy.
-            Vec2D sPosToEnemPos = Vec2D{ currVec.a, this->position_ };
+            //Vec2D sPosToEnemPos = Vec2D{ currVec.a, this->position_ };
 
             // Find a current vector in form of (4i + 2j) for example, which is a point.
             Pos vec1 = Pos{ (currVec.b.x - currVec.a.x), (currVec.b.y - currVec.a.y) };
@@ -23,8 +24,8 @@ void FootSoldier::update() {
             // This means that the cosine should equal 1.
             const int dotP = (vec1.x * vec2.x) + (vec1.y * vec2.y);
             // Calculate the length of the vectors vec1 and vec2.
-            const double vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
-            const double vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
+            const float vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
+            const float vec2Length = sqrt((vec2.x * vec2.x) + (vec2.y * vec2.y));
 
             // TODO: Check for the end of the path, enemy wins
             // The length of the vec2 should be smaller than vec1, if the enemy's position is
@@ -36,7 +37,7 @@ void FootSoldier::update() {
 
             // vec2 should not be a zero vector, if so, then the current vector is proper path.
             if (vec2Length != 0) {
-                const double cos12 = std::abs(dotP / (vec1Length * vec2Length));
+                const float cos12 = std::abs(dotP / (vec1Length * vec2Length));
                 // Check the angle and the vec2 should not be null vector.
                 if (cos12 != 1.0) {
                     i++;
@@ -71,7 +72,7 @@ void FootSoldier::update() {
 
             if (outX || outY) {
                 // Check how far does the enemy go from the currVec's end point.
-                double outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
+                float outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
 
                 // Restore enemy's position to end point of the currVec.
                 this->position_ = currVec.b;
@@ -132,7 +133,7 @@ void FootSoldier::update() {
                     this->SetArtilleryAngle(180);
                     break;
                 default:
-                    assert(false);
+                    throw std::runtime_error("Unknown direction!");
             }
 
             break;
