@@ -18,5 +18,29 @@
 	],
 	"enemy_path": [[[0,192], [448,192]], [[448,192], [448,576]], [[448,576], [832,576]], [[832,576], [832,192]], [[832,192], [1280,192]]],
 	"enemy_start_cash": 10000,
-	"enemy_cash_growth_per_tick": 25.0
+	"enemy_cash_growth_per_tick": 25.0,
+	{
+    	"enemyWaves": [
+        	{
+            	"duration_seconds": 60,
+           		"enemies": [
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1"
+            	]
+        	},
+        	{
+            	"duration_seconds": 120,
+            	"enemies": [
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+                	"FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2", "FootSoldier2",
+                	"Tank1",        "FootSoldier1", "FootSoldier1", "Tank1",        "FootSoldier1", "FootSoldier2",
+                	"FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1", "FootSoldier1",
+                	"Tank1",        "FootSoldier2", "Tank1",        "FootSoldier2", "Tank1",        "FootSoldier2",
+                	"Tank1",        "Tank1",        "Tank1",        "FootSoldier3", "FootSoldier3", "Tank2"
+            	]
+        	}
+    	]
+	}
 }
