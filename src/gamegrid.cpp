@@ -54,15 +54,16 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 			const std::uint32_t smallerX = path.a.x < path.b.x ? path.a.x : path.b.x;
 			const std::uint32_t largerX = smallerX == path.a.x ? path.b.x : path.a.x;
 
-			for (std::uint32_t currentTileStartX = smallerX; currentTileStartX < largerX; currentTileStartX += mapInfo.tileWidth) {
-				if (currentTileStartX < tileWidth_ * width_) {
+			for (std::uint32_t tileStartX = smallerX; tileStartX <= largerX; tileStartX += mapInfo.tileWidth) {
+				if (tileStartX < tileWidth_ * width_) {
+					std::cout << "a" << std::endl;
 					/* Note: a.y & b.y are the same. */
 					const std::uint32_t currentY = path.a.y;
 
 					if (currentY != 0) {
-						TileAtAbsoluteCoordinate(currentTileStartX, currentY - 1).SetType(TileType::Path);
+						TileAtAbsoluteCoordinate(tileStartX, currentY - 1).SetType(TileType::Path);
 					}
-					TileAtAbsoluteCoordinate(currentTileStartX, currentY).SetType(TileType::Path);
+					TileAtAbsoluteCoordinate(tileStartX, currentY).SetType(TileType::Path);
 				}
 			}
 		}
@@ -71,8 +72,9 @@ GameGrid::GameGrid(const MapInfo &mapInfo) : enemyPath_(mapInfo.enemyPath) {
 			const std::uint32_t smallerY = path.a.y < path.b.y ? path.a.y : path.b.y;
 			const std::uint32_t largerY = smallerY == path.a.y ? path.b.y : path.a.y;
 
-				for (std::uint32_t tileStartY = smallerY; tileStartY < largerY; tileStartY += mapInfo.tileWidth) {
+				for (std::uint32_t tileStartY = smallerY; tileStartY <= largerY; tileStartY += mapInfo.tileWidth) {
 					if (tileStartY < tileWidth_ * height_) {
+						std::cout << "b" << std::endl;
 						/* Note: a.x & b.x are the same. */
 						const std::uint32_t currentX = path.a.x;
 
