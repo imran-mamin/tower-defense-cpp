@@ -98,3 +98,4 @@ Cannon class and start working on gameloop.
 	```
 	* Update the level 1 map with the information on the enemy waves.
 	* Fix the path resolving bug once and for all. Add additional bounds checking into the resolving algorithm.
+	* Added missile launcher to the game. Improved the menu rendering in gameloop.cpp.
