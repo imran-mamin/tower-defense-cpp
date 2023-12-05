@@ -67,7 +67,7 @@ TEST(FootSoldierClass, Update) {
 
     EXPECT_EQ(fs.getPosition().x, 36);
     EXPECT_EQ(fs.getPosition().y, 224);
-    EXPECT_EQ(fs.ArtilleryAngle(), 0);
+    EXPECT_EQ(fs.GetRotation(), 0);
 }
 
 // Enemy should be on the second vec2D in enemyPath.
@@ -88,7 +88,7 @@ TEST(FootSoldierClass, Update2) {
 
     EXPECT_EQ(fs.getPosition().x, 60);
     EXPECT_EQ(fs.getPosition().y, 244);
-    EXPECT_EQ(fs.ArtilleryAngle(), 90);
+    EXPECT_EQ(fs.GetRotation(), 90);
 }
 
 
@@ -126,7 +126,7 @@ TEST(FootSoldierClass, Update3) {
     // (58, 260)
     EXPECT_EQ(fs.getPosition().x, 58);
     EXPECT_EQ(fs.getPosition().y, 260);
-    EXPECT_EQ(fs.ArtilleryAngle(), 180);
+    EXPECT_EQ(fs.GetRotation(), 180);
 }
 
 // Enemy should be on the fourth vec2D in enemyPath.
@@ -164,7 +164,7 @@ TEST(FootSoldierClass, Update4) {
     // (0, 255)
     EXPECT_EQ(fs.getPosition().x, 0);
     EXPECT_EQ(fs.getPosition().y, 255);
-    EXPECT_EQ(fs.ArtilleryAngle(), 270);
+    EXPECT_EQ(fs.GetRotation(), 270);
 }
 
 

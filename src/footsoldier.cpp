@@ -81,7 +81,7 @@ void FootSoldier::update() {
                 while ((j < (int)path.size()) && (outInSpeed > 0)) {
                     const Vec2D pathPoints = path.at(j);
                     Pos pathVec = Pos{ (pathPoints.b.x - pathPoints.a.x), (pathPoints.b.y - pathPoints.a.y) };
-                    double pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
+                    float pathVecLength = sqrt((pathVec.x * pathVec.x) + (pathVec.y * pathVec.y));
                     Pos unitPathVec = Pos{ (pathVec.x / pathVecLength), (pathVec.y / pathVecLength) };
                     
                     // Update the direction of the enemy.
@@ -138,9 +138,6 @@ void FootSoldier::update() {
             break;
         }
     } else {
-        // Remove enemy object from vector of objects.
-        this->game_.DeleteObject(static_cast<GameObject*>(this));
-
         // Add profit to player.
         this->addPlayerMoney(this->value_);
         
@@ -150,5 +147,4 @@ void FootSoldier::update() {
 }
 
 void FootSoldier::onDestroy() {
-    this->game_.DeleteObject(this);
 }
