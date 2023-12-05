@@ -30,6 +30,7 @@ class ButtonText : public Button {
   void handleHover(sf::Vector2f mousePos) {
     if (isMouseOver(mousePos)) {
       shape.setFillColor(sf::Color(49, 55, 81, 255));
+      return;
     }
 
     shape.setFillColor(sf::Color(36, 39, 54, 255));

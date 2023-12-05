@@ -1,30 +1,78 @@
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <list>
 #include <optional>
 #include <vector>
 
-#include "background_renderer.hpp"
-#include "cannon.hpp"
 #include "game.hpp"
 #include "gamegrid.hpp"
 #include "gameloop.hpp"
-#include "gameobject.hpp"
-#include "map_tile_selector_renderer.hpp"
-#include "map_parser.hpp"
-#include "tower.hpp"
+#include "menu_home.hpp"
+#include "menu_level.hpp"
+#include "music_manager.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
   int windowHeight = 12 * 64;
 
-  GameGrid gg = GameGrid(ParseMap("../rsrc/maps/map1.json"));
-  Game game = Game(gg);
-
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
                           "TestiPiirto");
 
-  GameLoop loop(window, game);
+  std::vector<std::pair<int, std::string>> levels =
+      readLevels("../rsrc/level.csv");
 
-  loop.Play();
-};
+  int page = 0;
+  int gameLevel = 0;
+  MusicManager musicManager;
+  MenuLevel menuLevel(levels);
+  MenuHome menuHome(musicManager);
+
+  std::pair<int, int> resp;
+
+  while (window.isOpen()) {
+    switch (page) {
+      case 1:
+        // Level Selection Screen
+        resp = menuLevel.run(window);
+        page = resp.first;
+        gameLevel = resp.second;
+
+        break;
+      case 2: {
+        auto levelIt = std::find_if(levels.begin(), levels.end(),
+                                    [gameLevel](const auto& level) {
+                                      return level.first == gameLevel;
+                                    });
+        if (levelIt == levels.end()) {
+          std::cerr << "Error: gameLevel " << gameLevel << " not found"
+                    << std::endl;
+          return -1;
+        }
+
+        std::cout << "Game Start: gameLevel is " << gameLevel << std::endl;
+        std::string mapFilename = levelIt->second;
+        std::string fullMapPath = "../rsrc/maps/" + mapFilename;
+
+        GameGrid gg = GameGrid(ParseMap(fullMapPath));
+        Game game = Game(gg, gameLevel);
+        GameLoop loop(window, game);
+
+        loop.Play();
+
+        // Back to main menu on game exit
+        page = 0;
+        break;
+      }
+      default:
+        // Main Menu Screen
+        if (page < 0) {
+          return page;
+        }
+
+        page = menuHome.run(window);
+        break;
+    }
+  }
+
+  return 0;
+}
