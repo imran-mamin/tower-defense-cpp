@@ -9,7 +9,7 @@ class GameObject;  // Forward declaration
 class Game {
  public:
   Game(const GameGrid& grid);
-  Game(const GameGrid& grid, int level);
+  Game(const GameGrid& grid, int level, MapInfo mapInfo);
   ~Game();
 
   void Update();
@@ -20,12 +20,13 @@ class Game {
   const std::vector<GameObject*>& Objects();
   GameGrid& GetGrid();
   int GetLevel();
+  int GetPlayerMoney();
 
  protected:
   friend class GameObject;
   int level_;
   GameGrid grid_;
-  std::size_t enemyMoney_;
-  std::size_t playerMoney_;
+  int enemyMoney_;
+  int playerMoney_;
   std::vector<GameObject*> objects_;
 };

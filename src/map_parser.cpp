@@ -20,6 +20,7 @@ const std::string mapHeightKey = "map_height";
 const std::string backgroundTilesKey = "background";
 const std::string enemyPathKey = "enemy_path";
 const std::string enemyStartCashKey = "enemy_start_cash";
+const std::string playerStartCashKey = "player_start_cash";
 const std::string enemyCashGrowthPerTickKey = "enemy_cash_growth_per_tick";
 
 MapInfo ParseMap(const std::string &path) {
@@ -37,6 +38,7 @@ MapInfo ParseMap(const std::string &path) {
 		std::vector<std::vector<std::uint16_t>> backgroundTiles;
 		std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
 		std::uint64_t enemyStartCash;
+		std::uint64_t playerStartCash;
 		std::float_t enemyCashGrowthPerTick;
 
 		/* Read the input. */
@@ -46,6 +48,7 @@ MapInfo ParseMap(const std::string &path) {
 		data.at(backgroundTilesKey).get_to(backgroundTiles);
 		data.at(enemyPathKey).get_to(enemyPath_);
 		data.at(enemyStartCashKey).get_to(enemyStartCash);
+		data.at(playerStartCashKey).get_to(playerStartCash);
 		data.at(enemyCashGrowthPerTickKey).get_to(enemyCashGrowthPerTick);
 
 		/* ===== Validate the input. ===== */
@@ -110,7 +113,7 @@ MapInfo ParseMap(const std::string &path) {
 			enemyPath.push_back(Vec2D{ a, b });
 		}
 
-		return MapInfo{ tileWidth, mapWidth, mapHeight, backgroundTiles, enemyPath, enemyStartCash, enemyCashGrowthPerTick };
+		return MapInfo{ tileWidth, mapWidth, mapHeight, backgroundTiles, enemyPath, enemyStartCash, playerStartCash, enemyCashGrowthPerTick };
 	}
 	/* TODO: Catch correct exceptions: missing field and incorrect data format. */
 	catch (const std::exception &e) {

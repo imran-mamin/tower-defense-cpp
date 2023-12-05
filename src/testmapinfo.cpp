@@ -38,7 +38,7 @@ MapInfo testMapInfoObject1() {
 	enemyPath.push_back(Vec2D{ Pos{ 60, 260 }, Pos{ 0, 260 } });
 	enemyPath.push_back(Vec2D{ Pos{ 0, 260 }, Pos{ 0, 224 } });
 
-	return MapInfo{ 64, 20, 12, backgroundTiles, enemyPath, 10000, 25.0 };
+	return MapInfo{ 64, 20, 12, backgroundTiles, enemyPath, 10000, 10000, 25.0 };
 }
 
 

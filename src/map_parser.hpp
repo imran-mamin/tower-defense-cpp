@@ -19,6 +19,7 @@ struct MapInfo {
     /* Enemy path consisting from vectors. */
     std::vector<Vec2D> enemyPath;
 	std::uint64_t enemyStartCash;
+	std::uint64_t playerStartCash;
 	std::float_t enemyCashGrowthPerTick;
 };
 

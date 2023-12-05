@@ -53,8 +53,9 @@ int main() {
         std::string mapFilename = levelIt->second;
         std::string fullMapPath = "../rsrc/maps/" + mapFilename;
 
-        GameGrid gg = GameGrid(ParseMap(fullMapPath));
-        Game game = Game(gg, gameLevel);
+        MapInfo mapInfo = ParseMap(fullMapPath);
+        GameGrid gg = GameGrid(mapInfo);
+        Game game = Game(gg, gameLevel, mapInfo);
         GameLoop loop(window, game);
 
         loop.Play();

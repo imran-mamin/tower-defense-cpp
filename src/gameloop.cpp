@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "background_renderer.hpp"
+#include "button_sprite.hpp"
 #include "button_text.hpp"
 #include "cannon.hpp"
 #include "enemy_path_renderer.hpp"
@@ -49,6 +50,7 @@ int GameLoop::Play() {
 
   GameGrid &grid = game_.GetGrid();
   int level = game_.GetLevel();
+  int playerMoney = game_.GetPlayerMoney();
 
   /* Renderers. */
   BackgroundRenderer ikkuna(window_, grid);
@@ -65,6 +67,61 @@ int GameLoop::Play() {
   toolbar.setPosition(window_.getSize().x - toolbarWidth, 0);
   toolbar.setFillColor(sf::Color(128, 128, 128));
 
+  //////////////////////
+  // Add buttons to the toolbar (tower buttons)
+  /* Selected tower id and the renderer that utilizes it. */
+  std::optional<std::uint16_t> selectedTower;
+  MapTileSelectorRenderer tileSelector(window_, grid, textureManager,
+                                       selectedTower);
+
+  sf::Sprite greenCannonSprite(
+      textureManager.GetTexture(weaponNameIdMapping["greencannon"]));
+  sf::Sprite redCannonSprite(
+      textureManager.GetTexture(weaponNameIdMapping["redcannon"]));
+  sf::Sprite missileLauncherSprite(
+      textureManager.GetTexture(weaponNameIdMapping["missilelauncher"]));
+
+  auto onGreenCannonClick = [&selectedTower, &weaponNameIdMapping]() {
+    std::cout << "green cannon button was clicked." << std::endl;
+
+    if (selectedTower.has_value() &&
+        (selectedTower.value() == weaponNameIdMapping["greencannon"])) {
+      selectedTower.reset();
+    } else {
+      selectedTower = weaponNameIdMapping["greencannon"];
+    }
+  };
+  auto onRedCannonClick = [&selectedTower, &weaponNameIdMapping]() {
+    std::cout << "red cannon button was clicked." << std::endl;
+    if (selectedTower.has_value() &&
+        (selectedTower.value() == weaponNameIdMapping["redcannon"])) {
+      selectedTower.reset();
+    } else {
+      selectedTower = weaponNameIdMapping["redcannon"];
+    }
+  };
+  auto onMissileLauncherClick = [&selectedTower, &weaponNameIdMapping]() {
+    std::cout << "missile launcher button was clicked." << std::endl;
+    if (selectedTower.has_value() &&
+        selectedTower.value() == weaponNameIdMapping["missilelauncher"]) {
+      selectedTower.reset();
+    } else {
+      selectedTower = weaponNameIdMapping["missilelauncher"];
+    }
+  };
+
+  ButtonSprite greenCannon = ButtonSprite(
+      greenCannonSprite, sf::Vector2f(window_.getSize().x - toolbarWidth, 60),
+      sf::Vector2f(6, 6), onGreenCannonClick);
+  ButtonSprite redCannon = ButtonSprite(
+      redCannonSprite, sf::Vector2f(window_.getSize().x - toolbarWidth, 140),
+      sf::Vector2f(6, 6), onGreenCannonClick);
+  ButtonSprite missileLauncher =
+      ButtonSprite(missileLauncherSprite,
+                   sf::Vector2f(window_.getSize().x - toolbarWidth, 220),
+                   sf::Vector2f(6, 6), onGreenCannonClick);
+
+  // Game Decoration (Level, Exit Button, Money)
   sf::Text levelText;
   levelText.setString("Level " + std::to_string(level));
   levelText.setPosition(20, 10);
@@ -76,37 +133,26 @@ int GameLoop::Play() {
   ButtonText exitButton(sf::Vector2f(windowWidth - 200, windowHeight - 50),
                         sf::Vector2f(200, 50), onExit, "Exit", font);
 
-  //////////////////////
-  // TODO: Move to menu.
-  // Add buttons to the toolbar (tower buttons)
-  // Creating sprites for the towers.
-  sf::Sprite greenCannonSprite(
-      textureManager.GetTexture(weaponNameIdMapping["greencannon"]));
-  sf::Sprite redCannonSprite(
-      textureManager.GetTexture(weaponNameIdMapping["redcannon"]));
-  sf::Sprite missileLauncherSprite(
-      textureManager.GetTexture(weaponNameIdMapping["missilelauncher"]));
+  // Money Text
+  sf::Text moneyTextTitle;
+  moneyTextTitle.setString("Money");
+  moneyTextTitle.setPosition(window_.getSize().x - toolbarWidth,
+                             window_.getSize().y - 60);
+  moneyTextTitle.setFont(font);
+  moneyTextTitle.setCharacterSize(20);
+  moneyTextTitle.setFillColor(sf::Color::White);
 
-  // Set positions of the buttons
-  greenCannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3,
-                                60);  // Toolbar x-coordinate + 20
-  // 20 + tank x-coordinate + tank width + 20
-  redCannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3, 140);
-  missileLauncherSprite.setPosition(window_.getSize().x - toolbarWidth + 3,
-                                    220);
-  // TODO: Move to menu.
-  //////////////////////
-
-  /* Selected tower id and the renderer that utilizes it. */
-  std::optional<std::uint16_t> selectedTower;
-  MapTileSelectorRenderer tileSelector(window_, grid, textureManager,
-                                       selectedTower);
+  sf::Text moneyText;
+  moneyText.setString(std::to_string(playerMoney));
+  moneyText.setPosition(window_.getSize().x - toolbarWidth,
+                        window_.getSize().y - 30);
+  moneyText.setFont(font);
+  moneyText.setCharacterSize(20);
+  moneyText.setFillColor(sf::Color::White);
 
   // Load window
   while (window_.isOpen()) {
     sf::Event event;
-
-    // TODO: Separate the views.
 
     while (window_.pollEvent(event)) {
       switch (event.type) {
@@ -121,72 +167,37 @@ int GameLoop::Play() {
                 window_.mapPixelToCoords(sf::Mouse::getPosition(window_));
 
             exitButton.handleClick(mousePos);
+            greenCannon.handleClick(mousePos);
+            redCannon.handleClick(mousePos);
+            missileLauncher.handleClick(mousePos);
 
-            // TODO: Needs to be put in a menu view.
-            if (greenCannonSprite.getGlobalBounds().contains(mousePos)) {
-              std::cout << "green cannon button was clicked." << std::endl;
-
+            if (auto selectedTile =
+                    grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y);
+                selectedTower.has_value() && selectedTile.isFree()) {
+              // const Pos selectedTilePos = Pos{ mousePos.x /
+              // grid.TileWidth() * grid.TileWidth(), mousePos.y /
+              // grid.TileWidth() * grid.TileWidth() };
+              const Pos selectedTilePos =
+                  grid.AbsoluteCoordinateToClosestTilePosition(mousePos.x,
+                                                               mousePos.y);
+              std::cout << "placing tower" << std::endl;
+              selectedTile.occupy();
+              // TODO: Is the has_value redundant?
               if (selectedTower.has_value() &&
-                  (selectedTower.value() ==
-                   weaponNameIdMapping["greencannon"])) {
-                selectedTower.reset();
+                  selectedTower.value() == weaponNameIdMapping["greencannon"]) {
+                game_.AddObject(new GreenCannon(game_, selectedTilePos));
+              } else if (selectedTower.has_value() &&
+                         selectedTower.value() ==
+                             weaponNameIdMapping["redcannon"]) {
+                game_.AddObject(new RedCannon(game_, selectedTilePos));
+              } else if (selectedTower.has_value() && selectedTower.value()) {
+                game_.AddObject(
+                    new BasicMissileLauncher(game_, selectedTilePos));
               } else {
-                selectedTower = weaponNameIdMapping["greencannon"];
+                throw std::runtime_error("Not implemented.");
               }
 
-              // TODO: When clicking on this button the
-              // program should create a new tank instance.
-            } else if (redCannonSprite.getGlobalBounds().contains(mousePos)) {
-              std::cout << "red cannon button was clicked." << std::endl;
-              if (selectedTower.has_value() &&
-                  (selectedTower.value() == weaponNameIdMapping["redcannon"])) {
-                selectedTower.reset();
-              } else {
-                selectedTower = weaponNameIdMapping["redcannon"];
-              }
-
-            } else if (missileLauncherSprite.getGlobalBounds().contains(
-                           mousePos)) {
-              std::cout << "missile launcher button was clicked." << std::endl;
-              if (selectedTower.has_value() &&
-                  selectedTower.value() ==
-                      weaponNameIdMapping["missilelauncher"]) {
-                selectedTower.reset();
-              } else {
-                selectedTower = weaponNameIdMapping["missilelauncher"];
-              }
-            }
-            // TODO: Wtf??? Remove the redundant else clause.
-            else {
-              if (auto selectedTile =
-                      grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y);
-                  selectedTower.has_value() && selectedTile.isFree()) {
-                // const Pos selectedTilePos = Pos{ mousePos.x /
-                // grid.TileWidth() * grid.TileWidth(), mousePos.y /
-                // grid.TileWidth() * grid.TileWidth() };
-                const Pos selectedTilePos =
-                    grid.AbsoluteCoordinateToClosestTilePosition(mousePos.x,
-                                                                 mousePos.y);
-                std::cout << "placing tower" << std::endl;
-                selectedTile.occupy();
-                // TODO: Is the has_value redundant?
-                if (selectedTower.has_value() &&
-                    selectedTower.value() ==
-                        weaponNameIdMapping["greencannon"]) {
-                  game_.AddObject(new GreenCannon(game_, selectedTilePos));
-                } else if (selectedTower.has_value() &&
-                           selectedTower.value() ==
-                               weaponNameIdMapping["redcannon"]) {
-                  game_.AddObject(new RedCannon(game_, selectedTilePos));
-                } else if (selectedTower.has_value() && selectedTower.value()) {
-                  game_.AddObject(
-                      new BasicMissileLauncher(game_, selectedTilePos));
-                } else {
-                  throw std::runtime_error("Not implemented.");
-                }
-
-                selectedTower.reset();
-              }
+              selectedTower.reset();
             }
           }
           break;
@@ -220,14 +231,17 @@ int GameLoop::Play() {
     /* Draw the game object. */
     gameobjectRenderer.Draw();
 
-    window_.draw(levelText);
-    exitButton.draw(window_);
-
     // Draw the toolbar and buttons inside it.
     window_.draw(toolbar);
-    window_.draw(greenCannonSprite);
-    window_.draw(redCannonSprite);
-    window_.draw(missileLauncherSprite);
+    greenCannon.draw(window_);
+    redCannon.draw(window_);
+    missileLauncher.draw(window_);
+
+    /* Game Decoration. */
+    window_.draw(levelText);
+    window_.draw(moneyTextTitle);
+    window_.draw(moneyText);
+    exitButton.draw(window_);
 
     window_.display();
 

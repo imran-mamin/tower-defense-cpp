@@ -99,3 +99,11 @@ Cannon class and start working on gameloop.
 	* Update the level 1 map with the information on the enemy waves.
 	* Fix the path resolving bug once and for all. Add additional bounds checking into the resolving algorithm.
 	* Added missile launcher to the game. Improved the menu rendering in gameloop.cpp.
+
+## 6.12.2023
+Valerie:
+- Integrate main menu with game loop
+- Create a Button Sprite wrapper to have cleaner code
+- Select and read level by map json file, defined in `rsrc/levels.csv`
+- Include money on MapInfo to the Game object
+- Include some detail on game loop UI, including Level, Money, and Navigation Button
