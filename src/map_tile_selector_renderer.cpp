@@ -57,7 +57,7 @@ void MapTileSelectorRenderer::Draw() {
 		if (selectedTower_.has_value()) {
 			/* Draw the tile selector rectangle. */
 			/* Are we trying to place the selected item on a path or on a nonempty tile? */
-			if (selectedTile.isEmpty() && selectedTile.type() == TileType::Ground) {
+			if (selectedTile.isFree()) {
 				if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
 					selectorRect_.setFillColor(selectorPressedColorGreen);
 				}

@@ -23,8 +23,10 @@ public:
     
 	std::uint16_t Id() const { return id_; }
 
+	bool isFree() const;
+
 //returns true if tile is empty (has nothing placed on it).
-    bool isEmpty() const;
+//    bool isEmpty() const;
 
 //put something in the tile and set isEmpty to false. returns true is succesful else false.
     bool occupy();
