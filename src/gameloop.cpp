@@ -22,6 +22,7 @@
 #include "testmapinfo.hpp"
 #include "texture_manager.hpp"
 #include "tower.hpp"
+#include "missilelauncher.hpp"
 
 int GameLoop::Play() {
     int windowWidth = 20 * 64;
@@ -31,11 +32,12 @@ int GameLoop::Play() {
     int toolbarWidth = 68;
     int toolbarHeight = window_.getSize().y;
 
-    TextureManager &t = TextureManager::GetInstance();
+    TextureManager &textureManager = TextureManager::GetInstance();
 
     std::map<std::string, std::uint16_t> weaponNameIdMapping;
     weaponNameIdMapping["greencannon"] = 248;
     weaponNameIdMapping["redcannon"] = 249;
+	weaponNameIdMapping["missilelauncher"] = 205;
 
     GameGrid &grid = game_.GetGrid();
     
@@ -100,42 +102,29 @@ int GameLoop::Play() {
     toolbar.setPosition(window_.getSize().x - toolbarWidth, 0);
     toolbar.setFillColor(sf::Color(128, 128, 128));
 
-    // Towers to protect base: Cannon, MissileLauncher and FighterPlane
-    std::vector<std::string> towersVec = {"../rsrc/tiles/weapons/248.png",
-					  "../rsrc/tiles/weapons/249.png"};
-
+	//////////////////////
+	// TODO: Move to menu.
     // Add buttons to the toolbar (tower buttons)
-    sf::Texture cannon, bigCannon;
-
-    // Load tank texture
-    if (!cannon.loadFromFile(towersVec[0])) {
-	std::cout << "cannon loadFromFile problem." << std::endl;
-	return -1;
-    }
-
-    // Load bigCannon texture
-    if (!bigCannon.loadFromFile(towersVec[1])) {
-	std::cout << "bigCannon loadFromFile problem." << std::endl;
-	return -1;
-    }
-
     // Creating sprites for the towers.
-    sf::Sprite cannonSprite(cannon);
-    sf::Sprite bigCannonSprite(bigCannon);
+    sf::Sprite greenCannonSprite(textureManager.GetTexture(weaponNameIdMapping["greencannon"]));
+    sf::Sprite redCannonSprite(textureManager.GetTexture(weaponNameIdMapping["redcannon"]));
+    sf::Sprite missileLauncherSprite(textureManager.GetTexture(weaponNameIdMapping["missilelauncher"]));
 
     // Set positions of the buttons
-    cannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3,
+    greenCannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3,
 			     60);  // Toolbar x-coordinate + 20
-
     // 20 + tank x-coordinate + tank width + 20
-    bigCannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3, 140);
+    redCannonSprite.setPosition(window_.getSize().x - toolbarWidth + 3, 140);
+	missileLauncherSprite.setPosition(window_.getSize().x - toolbarWidth + 3, 220);
+	// TODO: Move to menu.
+	//////////////////////
 
     bool startButtonClicked = false;
 
 
     /* Selected tower id and the renderer that utilizes it. */
     std::optional<std::uint16_t> selectedTower;
-    MapTileSelectorRenderer tileSelector(window_, grid, t, selectedTower);
+    MapTileSelectorRenderer tileSelector(window_, grid, textureManager, selectedTower);
 
     // Load window
     while (window_.isOpen()) {
@@ -161,10 +150,11 @@ int GameLoop::Play() {
 			    window_.setView(applicationView);
 			}
 
+			// TODO: Needs to be put in a menu view.
 			if (startButtonClicked) {
-			    if (cannonSprite.getGlobalBounds().contains(
+			    if (greenCannonSprite.getGlobalBounds().contains(
 				    mousePos)) {
-				std::cout << "cannon button was clicked."
+				std::cout << "green cannon button was clicked."
 					  << std::endl;
 
 				if (selectedTower.has_value() &&
@@ -176,13 +166,11 @@ int GameLoop::Play() {
 					weaponNameIdMapping["greencannon"];
 				}
 
-				selectedTower =
-				    weaponNameIdMapping["greencannon"];
 				// TODO: When clicking on this button the
 				// program should create a new tank instance.
-			    } else if (bigCannonSprite.getGlobalBounds()
+			    } else if (redCannonSprite.getGlobalBounds()
 					   .contains(mousePos)) {
-				std::cout << "bigCannon button was clicked."
+				std::cout << "red cannon button was clicked."
 					  << std::endl;
 				if (selectedTower.has_value() &&
 				    (selectedTower.value() ==
@@ -193,20 +181,32 @@ int GameLoop::Play() {
 					weaponNameIdMapping["redcannon"];
 				}
 
-				selectedTower =
-				    weaponNameIdMapping["redcannon"];
 
-			    } else {
+			    } else if (missileLauncherSprite.getGlobalBounds().contains(mousePos)) {
+					std::cout << "missile launcher button was clicked." << std::endl;
+					if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["missilelauncher"]) {
+						selectedTower.reset();
+					}
+					else {
+						selectedTower = weaponNameIdMapping["missilelauncher"];
+					}
+				}
+				// TODO: Wtf??? Remove the redundant else clause.
+				else {
 				if (auto selectedTile = grid.TileAtAbsoluteCoordinate(mousePos.x, mousePos.y); selectedTower.has_value() && selectedTile.isFree()) {
 					//const Pos selectedTilePos = Pos{ mousePos.x / grid.TileWidth() * grid.TileWidth(), mousePos.y / grid.TileWidth() * grid.TileWidth() };
 					const Pos selectedTilePos = grid.AbsoluteCoordinateToClosestTilePosition(mousePos.x, mousePos.y);
 				    std::cout << "placing tower" << std::endl;
 					selectedTile.occupy();
-					if (selectedTower.value() == weaponNameIdMapping["greencannon"]) {
+					// TODO: Is the has_value redundant?
+					if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["greencannon"]) {
 						game_.AddObject(new GreenCannon(game_, selectedTilePos));
 					}
-					else if (selectedTower.value() == weaponNameIdMapping["redcannon"]){
+					else if (selectedTower.has_value() && selectedTower.value() == weaponNameIdMapping["redcannon"]){
 						game_.AddObject(new RedCannon(game_, selectedTilePos));
+					}
+					else if (selectedTower.has_value() && selectedTower.value()) {
+						game_.AddObject(new BasicMissileLauncher(game_, selectedTilePos));
 					}
 					else { throw std::runtime_error("Not implemented."); }
 
@@ -264,8 +264,9 @@ int GameLoop::Play() {
 
 	    // Draw the toolbar and buttons inside it.
 	    window_.draw(toolbar);
-	    window_.draw(cannonSprite);
-	    window_.draw(bigCannonSprite);
+	    window_.draw(greenCannonSprite);
+	    window_.draw(redCannonSprite);
+		window_.draw(missileLauncherSprite);
 	}
 
 	window_.display();

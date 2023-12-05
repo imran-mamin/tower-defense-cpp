@@ -4,6 +4,7 @@
 #include "gameobject.hpp"
 #include "gameobject_renderer.hpp"
 #include "game.hpp"
+#include "missilelauncher.hpp"
 #include "tank.hpp"
 #include "texture_manager.hpp"
 #include "weapons_and_enemies.hpp"
@@ -46,6 +47,14 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			}
 			else {
 				throw std::runtime_error("Unknown cannon type.");
+			}
+		}
+		else if (isOfType<MissileLauncher>(gameObject)) {
+			if (isOfType<BasicMissileLauncher>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::MissileLauncher1)));
+			}
+			else {
+				throw std::runtime_error("Unknown missile launcher type.");
 			}
 		}
 		else if (isOfType<FootSoldier>(gameObject)) {
