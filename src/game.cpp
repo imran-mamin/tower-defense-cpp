@@ -1,12 +1,13 @@
 #include "game.hpp"
 
 #include "gameobject.hpp"
+#include <cstdint>
 
 Game::Game(const GameGrid& grid) : level_(0), grid_(grid){};
 
 Game::Game(const GameGrid& grid, int level, MapInfo mapInfo)
     : level_(level), grid_(grid) {
-  enemyMoney_ = mapInfo.enemyStartCash;
+  //enemyMoney_ = mapInfo.enemyStartCash;
   playerMoney_ = mapInfo.playerStartCash;
 };
 
@@ -39,4 +40,4 @@ GameGrid& Game::GetGrid() { return grid_; }
 
 int Game::GetLevel() { return level_; }
 
-int Game::GetPlayerMoney() { return static_cast<int>(playerMoney_); }
+const std::uint32_t &Game::PlayerMoney() const { return playerMoney_; }
