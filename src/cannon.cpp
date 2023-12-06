@@ -40,9 +40,47 @@ int findCurrentPathVec(const Enemy* e, const std::vector<Vec2D>& path) {
 */
 float findEnemyDist(const Enemy* e, const std::vector<Vec2D>& path, Pos p, int i) {
     int j = i;
-    
+    float dist = 0.0;
+
+    // Find the vector Vec2D, where this position occurs.
+    for (j; j < path.size(); j++) {
+        bool betweenAandB = false;
+        // Calculate the difference between ending point and starting point of current Vec2D.
+        float diffX = path.at(i).b.x - path.at(i).a.x;
+        float diffY = path.at(i).b.y - path.at(i).b.y;
+
+        if ((diffX == 0) && (diffY > 0)) {
+            // Is the y-coordinate of the enemy on the interval [a.y, b.y).
+            betweenAandB = (path.at(i).a.y <= e->getPosition().y) && (e->getPosition().y < path.at(i).b.y);
+        } else if ((diffX > 0) && (diffY == 0)) {
+            // Is the x-coordinate of the enemy on the interval [a.x, b.x).
+            betweenAandB = (path.at(i).a.x <= e->getPosition().x) && (e->getPosition().x < path.at(i).b.x);
+        } else if ((diffX == 0) && (diffY < 0)) {
+            // Is the y-coordinate of the enemy on the interval (b.y, a.y].
+            betweenAandB = (path.at(i).b.y < e->getPosition().y) && (e->getPosition().y <= path.at(i).a.y);
+        } else if ((diffX < 0) && (diffY == 0)) {
+            // Is the x-coordinate of the enemy on the interval (b.x, a.x].
+            betweenAandB = (path.at(i).b.x < e->getPosition().x) && (e->getPosition().x <= path.at(i).a.x);
+        }
+
+        if (betweenAandB) {
+            if (j == i) {
+                dist += sqrt(std::pow(p.x - e->getPosition().x, 2) + std::pow(p.y - e->getPosition().y, 2));
+            } else {
+                dist += sqrt(std::pow(p.x - path.at(j).a.x, 2) + std::pow(p.y - path.at(j).a.y, 2));
+            }
+            break;
+        } else if (j == i) {
+            dist += sqrt(std::pow(path.at(j).b.x - e->getPosition().x, 2) + std::pow(path.at(j).b.y - e->getPosition().y, 2));
+        } else {
+            dist += sqrt(std::pow(path.at(j).b.x - path.at(j).a.x, 2) + std::pow(path.at(j).b.y - path.at(j).a.y, 2));
+        }
+        
+    }
+    return dist;
+    /*
     // Distance to the end of current path.
-    float dist = sqrt(std::pow(path.at(i).b.x - e->getPosition().x, 2) + std::pow(path.at(i).b.y - e->getPosition().y, 2));
+    // float dist = sqrt(std::pow(path.at(i).b.x - e->getPosition().x, 2) + std::pow(path.at(i).b.y - e->getPosition().y, 2));
     
     // Positions are different.
     while ((path.at(j).a.x != p.x) || (path.at(j).a.y != p.y)) {
@@ -51,7 +89,7 @@ float findEnemyDist(const Enemy* e, const std::vector<Vec2D>& path, Pos p, int i
         dist += currLength;
         j++;
     }
-    return dist;
+    return dist;*/
 }
 
 /**
@@ -108,9 +146,10 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
 
     while (((right.x - left.x) + (right.y - left.y)) > radius) {
         float enemyDistToMidLen = findEnemyDist(e, path, mid, i);
+        std::cout << "enemyDistToMidLen found" << std::endl;
         // Calculate times for enemy to reach left, mid and right positions.
         float tEnemM = enemyDistToMidLen / e->GetSpeed();
-
+        std::cout << "tEnemM found" << std::endl;
         float bulletDistToMidLen = sqrt(std::pow(mid.x - bulletPos.x, 2) + std::pow(mid.y - bulletPos.y, 2));
         // Calculate times for enemy to reach left mid and right positions.
         float tBullM = bulletDistToMidLen / bulletSpeed;
@@ -125,7 +164,7 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
             mid.y = left.y + (right.y - left.y) / 2;
         }
     }
-
+    std::cout << "out of while loop" << std::endl;
     return mid;
     
 }
@@ -135,6 +174,7 @@ Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2
     float diffY = collisionVec.b.y - collisionVec.a.y;
 
     if ((diffX < 0) || (diffY < 0)) {
+        std::cout << "diffX < 0 || diffY < 0" << std::endl;
         return binarySearch(e, i, path, collisionVec.b, collisionVec.a, bulletPos, bulletSpeed, radius);
     }
 
@@ -151,17 +191,20 @@ Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2
 void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
+    std::cout << "Enemy found" << std::endl;
     int bulletSpeed = 18;
     int radius = 2;
 
     // Returns current vec2D and its index in enemyPath vector.
     int currIndex = findCurrentPathVec(e, game_.GetGrid().EnemyPath());
+    std::cout << "Current path found" << std::endl;
     Vec2D collisionVec = findCollisionVec(e, currIndex, game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
+    std::cout << "Collision vector found" << std::endl;
     Pos collisionPos = findCollisionPos(e, currIndex, game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
-
+    std::cout << "Collision position found" << std::endl;
     // Bullet(Game& game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
-    // TODO: The Bullet-instance should be added to the vector of objects.
-    // game_.AddObject(std::make_unique<Bullet>(Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos)));
+    // TODO: The Bullet-instance should be unique pointer.
+    game_.AddObject(new Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos));
     
 };
 

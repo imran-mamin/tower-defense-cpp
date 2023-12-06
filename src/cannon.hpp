@@ -4,6 +4,7 @@
 #include "tower.hpp"
 #include "vec2d.hpp"
 
+#include <iostream>
 #include <cstdint>
 #include <cmath>
 

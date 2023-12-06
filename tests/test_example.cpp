@@ -230,3 +230,30 @@ TEST(MissileClass, update2) {
 }
 */
 
+// ----------- TEST CANNON CLASS -------------
+TEST(CannonClass, update) {
+    GameGrid gg = GameGrid(testMapInfoObject1());
+    Game game = Game(gg);
+
+    Pos p2;
+    p2.x = gg.EnemyPath().at(0).a.x;
+    p2.y = gg.EnemyPath().at(0).a.y;
+
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 6, game, p2);
+    game.AddObject(fs);
+
+    Pos canPos = Pos{ 20, 240 };
+    Cannon* cn = new GreenCannon(game, canPos);
+    game.AddObject(cn);
+    for (int i = 0; i < game.Objects().size(); i++) {
+        std::cout << "Pos = (" << game.Objects().at(i)->getPosition().x << ", " << game.Objects().at(i)->getPosition().y << ")" << std::endl;
+    }
+    game.Objects().at(1)->update();
+    // game.Update();
+    std::cout << "a" << std::endl;
+    for (int i = 0; i < game.Objects().size(); i++) {
+        std::cout << "Pos = (" << game.Objects().at(i)->getPosition().x << ", " << game.Objects().at(i)->getPosition().y << ")" << std::endl;
+    }
+
+    EXPECT_EQ(game.Objects().size(), 3);
+}
