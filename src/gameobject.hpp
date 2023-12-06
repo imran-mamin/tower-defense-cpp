@@ -32,10 +32,10 @@ class GameObject {
     virtual ~GameObject(){};
 
     float GetRotation() const { return rotationAngleDeg_; }
-    void RotateArtillery(float degree) {
+    void Rotate(float degree) {
 		rotationAngleDeg_ = std::fmod(rotationAngleDeg_ + degree, 360);
     }
-    void SetArtilleryAngle(float degree) {
+    void SetAngle(float degree) {
 		rotationAngleDeg_ = std::fmod(degree, 360.0);
     }
 
