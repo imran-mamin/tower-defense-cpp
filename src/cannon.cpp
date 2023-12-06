@@ -33,6 +33,9 @@ Vec2D findCurrentPathVec(const Enemy* e, const std::vector<Vec2D>& path) {
     assert(false);
 };
 
+/**
+ * The collision between enemy and bullet may happen on
+*/
 // TODO: Cannon should set the direction for the Bullet-instance.
 void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
