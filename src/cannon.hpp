@@ -2,7 +2,10 @@
 #include "bullet.hpp"
 #include "game.hpp"
 #include "tower.hpp"
+#include "vec2d.hpp"
+
 #include <cstdint>
+#include <cmath>
 
 class Cannon : public Tower {
    protected:
