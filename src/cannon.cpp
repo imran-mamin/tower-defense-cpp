@@ -34,6 +34,10 @@ int findCurrentPathVec(const Enemy* e, const std::vector<Vec2D>& path) {
     assert(false);
 };
 
+/**
+ * This method finds the length of path from enemy's current position to pos p according
+ * to the enemypath (path parameter).
+*/
 float findEnemyDist(const Enemy* e, std::vector<Vec2D> path, Pos p, int i) {
     int j = i;
     
@@ -50,6 +54,9 @@ float findEnemyDist(const Enemy* e, std::vector<Vec2D> path, Pos p, int i) {
     return dist;
 }
 
+/**
+ * This method returns the Vec2D, where the collision between bullet and enemy occurs.
+*/
 Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D> path, Pos bulletPos, int bulletSpeed) {
 
     // TODO: Check separately for path.at(i).
@@ -91,6 +98,40 @@ Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D> path, Pos
         j++;
     }
 };
+
+float binarySearch(float start, float end) {
+
+}
+
+Pos findCollisionPos(const Enemy* e, Vec2D collisionVec, Pos bulletPos, int bulletSpeed, int radius) {
+    float diffX = collisionVec.b.x - collisionVec.a.x;
+    float diffY = collisionVec.b.y - collisionVec.a.y;
+
+    float distFromA;
+    Pos collisionPos;
+
+    // Intialize distFromA variable according to the Vec2D direction.
+    if (diffX > 0) {
+        distFromA = binarySearch(collisionVec.a.x, collisionVec.b.x);
+        collisionPos.x = collisionVec.a.x + distFromA;
+        collisionPos.y = collisionVec.a.y;
+    } else if (diffY > 0) {
+        distFromA = binarySearch(collisionVec.a.y, collisionVec.b.y);
+        collisionPos.x = collisionVec.a.x;
+        collisionPos.y = collisionVec.a.y + distFromA;
+    } else if (diffX < 0) {
+        distFromA = binarySearch(collisionVec.b.x, collisionVec.a.x);
+        collisionPos.x = collisionVec.a.x - distFromA;
+        collisionPos.y = collisionVec.a.y;
+    } else { // else if (diffY < 0) {
+        distFromA = binarySearch(collisionVec.b.y, collisionVec.a.y);
+        collisionPos.x = collisionVec.a.x;
+        collisionPos.y = collisionVec.a.y - distFromA;
+    }
+
+    return collisionPos;
+}
+
 /**
  * The collision between enemy and bullet may happen starting from
  * enemy's current position and to the end of the path. It is also
@@ -102,10 +143,12 @@ void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
     int bulletSpeed = 18;
+    int radius = 2;
 
     // Returns current vec2D and its index in enemyPath vector.
     int currIndex = findCurrentPathVec(e, game_.GetGrid().EnemyPath());
     Vec2D collisionVec = findCollisionVec(e, currIndex, game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
+    Pos collisionPos = findCollisionPos(e, collisionVec, this->getPosition(), bulletSpeed, radius);
 
     /*
     // This is constant - representing 18px motion per "time unit".
