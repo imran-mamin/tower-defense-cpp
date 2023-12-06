@@ -10,6 +10,7 @@
 #include "menu_home.hpp"
 #include "menu_level.hpp"
 #include "music_manager.hpp"
+#include "time.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
@@ -17,6 +18,7 @@ int main() {
 
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
                           "TestiPiirto");
+  window.setFramerateLimit(ticksPerSecond);
 
   std::vector<std::pair<int, std::string>> levels =
       readLevels("../rsrc/level.csv");
