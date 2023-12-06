@@ -8,17 +8,16 @@ void Bullet::update() {
     // Find unit vector of vec.
     Pos unitVec = Pos{ (vec.x / vecLength), (vec.y / vecLength) };
 
-    // Check, whether the enemy is within missile radius on every position update.
+    // Check, whether the enemy is within bullet radius on every position update.
     int i = 0;
 
-    
     while (i < this->travel_speed()) {
         // Hit the first enemy on the Bullet's path, if there is one.
         std::vector<Enemy*> enemies = this->getEnemiesWithinRadius();
 
         if (!enemies.empty()) {
             enemies.at(0)->takeDamage(this->damage());
-            this->onDestroy();
+            this->health_ = 0;
         }
 
         // Update bullet's position.
@@ -30,7 +29,7 @@ void Bullet::update() {
         bool outY = ((0 <= this->position_.y) && (this->position_.y < (this->getGrid().Height() - 1)));
 
         if (outX || outY) {
-            this->onDestroy();
+            this->health_ = 0;
         }
 
         i++;
