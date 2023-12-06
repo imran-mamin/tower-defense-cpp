@@ -66,7 +66,8 @@ Cannon class and start working on gameloop.
 
 - Leevi & Imran: Tinkering on the program architechture. We concluded that the enemy logic must be written to the level files itself.
 
-- Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path.
+- Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path. Works
+on implementing the update and fire methods in Cannon class.
 
 - Leevi:
 	* Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
