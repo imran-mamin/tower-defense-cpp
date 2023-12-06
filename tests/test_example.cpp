@@ -45,7 +45,8 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     // There should be only one enemy within the radius.
     EXPECT_EQ(v.size(), 1);
 }
-/*
+
+
 // --------------------- TEST FOOTSOLDIER CLASS --------------------------
 
 // Enemy should be on the first vec2D in enemyPath.
@@ -57,16 +58,16 @@ TEST(FootSoldierClass, Update) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(18, 6, 6, 18, game, p);
-    game.AddObject(&fs);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p);
+    game.AddObject(fs);
     
     for (int i = 0; i < 2; i++) {
-        fs.update();
+        fs->update();
     }
 
-    EXPECT_EQ(fs.getPosition().x, 36);
-    EXPECT_EQ(fs.getPosition().y, 224);
-    EXPECT_EQ(fs.GetRotation(), 0);
+    EXPECT_EQ(fs->getPosition().x, 36);
+    EXPECT_EQ(fs->getPosition().y, 224);
+    EXPECT_EQ(fs->GetRotation(), 0);
 }
 
 // Enemy should be on the second vec2D in enemyPath.
@@ -78,19 +79,19 @@ TEST(FootSoldierClass, Update2) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier fs = FootSoldier(20, 6, 6, 18, game, p);
-    game.AddObject(&fs);
+    FootSoldier* fs = new FootSoldier(20, 6, 6, 18, game, p);
+    game.AddObject(fs);
 
     for (int i = 0; i < 4; i++) {
-        fs.update();
+        fs->update();
     }
 
-    EXPECT_EQ(fs.getPosition().x, 60);
-    EXPECT_EQ(fs.getPosition().y, 244);
-    EXPECT_EQ(fs.GetRotation(), 90);
+    EXPECT_EQ(fs->getPosition().x, 60);
+    EXPECT_EQ(fs->getPosition().y, 244);
+    EXPECT_EQ(fs->GetRotation(), 90);
 }
 
-
+/*
 // Enemy should be on the third vec2D in enemyPath.
 TEST(FootSoldierClass, Update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
