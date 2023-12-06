@@ -14,5 +14,6 @@ public:
     
     virtual ~Enemy() {};
 
+    int GetSpeed() const;
     bool isAlive() const;
 };
