@@ -12,7 +12,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 # Add the main executable and link with the library
 add_executable(${PROJECT_NAME} ${MAIN_SOURCES})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_lib)
+target_link_libraries(${PROJECT_NASFML/Config.hppME} PRIVATE ${PROJECT_NAME}_lib)
 
 # Set the include directories for the main project
 target_include_directories(${PROJECT_NAME} PRIVATE src)
@@ -31,9 +31,6 @@ if(SFML_FOUND)
   target_include_directories(${PROJECT_NAME} PRIVATE ${SFML_INCLUDE_DIR})
   target_link_libraries(${PROJECT_NAME} PRIVATE sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
 endif()
-
-target_include_directories(${PROJECT_NAME} PRIVATE ${TMXLITE_INCLUDE_LIBS})
-target_link_libraries(${PROJECT_NAME} PRIVATE ${TMXLITE_LIBRARIES})
 
 # Fetch Google Test
 include(FetchContent)
