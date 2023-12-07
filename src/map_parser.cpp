@@ -36,6 +36,8 @@ MapInfo ParseMap(const std::string &path) {
     std::uint8_t mapWidth;
     std::uint8_t mapHeight;
     std::vector<std::vector<std::uint16_t>> backgroundTiles;
+    std::vector<std::pair<u_int16_t, std::pair<u_int16_t, u_int16_t>>>
+        obstacleTiles;
     std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
     std::uint64_t playerStartCash;
 
@@ -44,6 +46,7 @@ MapInfo ParseMap(const std::string &path) {
     data.at(mapWidthKey).get_to(mapWidth);
     data.at(mapHeightKey).get_to(mapHeight);
     data.at(backgroundTilesKey).get_to(backgroundTiles);
+    data.at(obstacleTilesKey).get_to(obstacleTiles);
     data.at(enemyPathKey).get_to(enemyPath_);
     data.at(playerStartCashKey).get_to(playerStartCash);
 
@@ -117,15 +120,14 @@ MapInfo ParseMap(const std::string &path) {
     /* Convert the enemy path into the Vec2D format. */
     std::vector<Vec2D> enemyPath;
     for (auto vec : enemyPath_) {
-      Pos a{(float) vec[0][0], (float) vec[0][1]};
-      Pos b{(float) vec[1][0], (float) vec[1][1]};
+      Pos a{(float)vec[0][0], (float)vec[0][1]};
+      Pos b{(float)vec[1][0], (float)vec[1][1]};
 
       enemyPath.push_back(Vec2D{a, b});
     }
 
-    return MapInfo{
-        tileWidth, mapWidth,       mapHeight,       backgroundTiles,
-        enemyPath, playerStartCash};
+    return MapInfo{tileWidth,     mapWidth,  mapHeight,      backgroundTiles,
+                   obstacleTiles, enemyPath, playerStartCash};
   }
   /* TODO: Catch correct exceptions: missing field and incorrect data format. */
   catch (const std::exception &e) {
