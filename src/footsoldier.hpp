@@ -16,10 +16,7 @@ class FootSoldier : public Enemy {
 		Pos position)
 	: Enemy(speed, value, price, hp, game, position){};
 
-   public:
     ~FootSoldier() = default;
-
-    void update();
     void onDestroy();
 };
 
