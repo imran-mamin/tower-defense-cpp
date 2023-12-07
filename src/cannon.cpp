@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <cstddef>
 
 #include "cannon.hpp"
 #include "bullet.hpp"
@@ -8,11 +9,11 @@
  * This method finds the length of path from enemy's current position to pos p according
  * to the enemypath (path parameter).
 */
-float findEnemyDist(const Enemy* e, const std::vector<Vec2D>& path, Pos p, int i) {
+float findEnemyDist(const Enemy* e, const std::vector<Vec2D>& path, Pos p, std::size_t i) {
     float dist = 0.0;
 
     // Find the vector Vec2D, where this position occurs.
-    for (int j = i; j < path.size(); j++) {
+    for (std::size_t j = i; j < path.size(); j++) {
         bool betweenAandB = false;
         // Calculate the difference between ending point and starting point of current Vec2D.
         float diffX = path.at(i).b.x - path.at(i).a.x;
@@ -52,7 +53,7 @@ float findEnemyDist(const Enemy* e, const std::vector<Vec2D>& path, Pos p, int i
 /**
  * This method returns the Vec2D, where the collision between bullet and enemy occurs.
 */
-Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos bulletPos, int bulletSpeed) {
+Vec2D findCollisionVec(const Enemy* e, std::size_t i, const std::vector<Vec2D>& path, Pos bulletPos, int bulletSpeed) {
 
     // Check separately for path.at(i).
     float distEnemy = sqrt(std::pow(path.at(i).b.x - e->getPrevPos().x, 2) + std::pow(path.at(i).b.y - e->getPrevPos().y, 2));
@@ -67,7 +68,7 @@ Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D>& path, Po
 
     Vec2D collisionVec;
 
-    int j = i + 1;
+	std::size_t j = i + 1;
     while (j < path.size()) {
         Vec2D currVec = path.at(j);
 

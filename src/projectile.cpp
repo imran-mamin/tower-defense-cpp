@@ -1,4 +1,5 @@
 #include "projectile.hpp"
+#include <cstddef>
 
 // Calculate the distance between this and the enemy object using formula:
 // sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
@@ -17,7 +18,7 @@ const std::vector<Enemy*> Projectile::getEnemiesWithinRadius() {
     // Find all the enemies within the given radius.
     std::vector<Enemy*> enemiesWithinRadius;
 
-    for (int i = 0; i < enemies.size(); i++) {
+    for (std::size_t i = 0; i < enemies.size(); i++) {
         int sqrtEq = std::pow((this->position_.x - enemies.at(i)->getPosition().x), 2) + std::pow((this->position_.y - enemies.at(i)->getPosition().y), 2);
         double distance = std::sqrt(static_cast<double>(sqrtEq));
 
