@@ -272,11 +272,12 @@ TEST(CannonClass, update2) {
     Pos canPos = Pos{ 20, 240 };
     Cannon* cn = new GreenCannon(game, canPos);
     game.AddObject(cn);
-    for (int i = 0; i < game.Objects().size(); i++) {
-        std::cout << "Pos = (" << game.Objects().at(i)->getPosition().x << ", " << game.Objects().at(i)->getPosition().y << ")" << std::endl;
+
+    for (auto obj : game.Objects()) {
+        std::cout << "Pos = (" << obj->getPosition().x << ", " << obj->getPosition().y << ")" << std::endl;
     }
-    game.Objects().at(1)->update();
-    // game.Update();
+    // game.Objects().at(1)->update();
+    game.Update();
     std::cout << "a" << std::endl;
     for (int i = 0; i < game.Objects().size(); i++) {
         std::cout << "Pos = (" << game.Objects().at(i)->getPosition().x << ", " << game.Objects().at(i)->getPosition().y << ")" << std::endl;

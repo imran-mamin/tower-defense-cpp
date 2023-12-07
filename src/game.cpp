@@ -18,10 +18,13 @@ Game::~Game() {
 
 void Game::Update() {
   /* Update the game objects. */
-  for (auto gameObject : objects_) {
-    gameObject->update();
+  int i = 0;
+  while (i < objects_.size()) {
+    objects_.at(i)->update();
+    i++;
   }
 
+  std::cout << "Bullet Pos = (" << objects_.at(2)->getPosition().x << ", " << objects_.at(2)->getPosition().y << ")" << std::endl;
   /* Remove any dead game object. */
   for (auto it = objects_.begin(); it != objects_.end(); it++) {
     if ((*it)->Health() == 0) {

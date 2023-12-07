@@ -1,6 +1,7 @@
 #include "bullet.hpp"
 
 void Bullet::update() {
+    std::cout << "Bullet update()-method called" << std::endl;
     // Find the vector between starting point and end point.
     Pos vec = Pos{ (endPos_.x - startPos_.x), (endPos_.y - startPos_.y) };
     float vecLength = sqrt((vec.x * vec.x) + (vec.y * vec.y));

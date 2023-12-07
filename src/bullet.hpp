@@ -4,6 +4,7 @@
 #include "projectile.hpp"
 #include "enemy.hpp"
 
+#include <iostream>
 // TODO: Implement methods
 class Bullet : public Projectile {
 private:
