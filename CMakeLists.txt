@@ -28,8 +28,8 @@ if (APPLE)
     target_link_libraries(${PROJECT_NAME} sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
   endif()
 
-  include_directories(${TMXLITE_INCLUDE_LIBS})
-  target_link_libraries(${EXECUTABLE_NAME} ${TMXLITE_LIBRARIES})
+  #include_directories(${TMXLITE_INCLUDE_LIBS})
+  #target_link_libraries(${EXECUTABLE_NAME} ${TMXLITE_LIBRARIES})
 else()
   # Add the source files to the library
   file(GLOB_RECURSE LIB_SOURCES src/*.cpp)
@@ -61,8 +61,8 @@ else()
     target_link_libraries(${PROJECT_NAME} PRIVATE sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
   endif()
 
-  target_include_directories(${PROJECT_NAME} PRIVATE ${TMXLITE_INCLUDE_LIBS})
-  target_link_libraries(${PROJECT_NAME} PRIVATE ${TMXLITE_LIBRARIES})
+  #target_include_directories(${PROJECT_NAME} PRIVATE ${TMXLITE_INCLUDE_LIBS})
+  #target_link_libraries(${PROJECT_NAME} PRIVATE ${TMXLITE_LIBRARIES})
 
   # Fetch Google Test
   include(FetchContent)
