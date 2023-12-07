@@ -84,7 +84,9 @@ int MenuHome::run(sf::RenderWindow& window) {
             musicButton.handleClick(mousePos);
           }
           break;
-      };
+		default:
+		  break;
+      }
     }
     window.clear();
 
