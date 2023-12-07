@@ -31,6 +31,7 @@ class Game {
  protected:
   friend class GameObject;
   int level_;
+  bool gameOver = false;
   GameGrid grid_;
   //int enemyMoney_;
   std::uint64_t playerMoney_;

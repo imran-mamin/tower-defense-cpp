@@ -14,7 +14,7 @@ void Enemy::update() {
         const std::vector<Vec2D> path = this->getGrid().EnemyPath();
         int i = 0;
 
-        prevPos_ = this->position_;
+        prevPos_ = position_;
         // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
             const Vec2D currVec = path.at(i);
@@ -85,7 +85,7 @@ void Enemy::update() {
                 float outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
 
                 // Restore enemy's position to end point of the currVec.
-                this->position_ = currVec.b;
+                position_ = currVec.b;
 
                 int j = i + 1;
 
@@ -122,9 +122,10 @@ void Enemy::update() {
                     }
                     // If it doesn't go into if-block, then the next path vector2D is found.
                     outInSpeed = 0;
+                    prevVecIndex_ = j;
                 }
-                
-                assert(outInSpeed <= 0); // This is for TODO above.
+                // assert(outInSpeed <= 0); // This is for TODO above.
+                gameOver();  
             }
 
             // Set rotation angle in degrees according to the direction variable above.
