@@ -7,9 +7,9 @@
 /* Ticks per second, or to put it into other words, frames per second. */
 const std::uint32_t ticksPerSecond = 60;
 
-class Timer {
+class FiniteTimer {
    public:
-    Timer(float ttlSeconds, const float updateIntervalSeconds, std::function<void(float)> updateCallback, std::function<void()> onFinishCallback) : ttlTicksInBeginning_(ttlSeconds * ticksPerSecond),
+    FiniteTimer(float ttlSeconds, const float updateIntervalSeconds, std::function<void(float)> updateCallback, std::function<void()> onFinishCallback) : ttlTicksInBeginning_(ttlSeconds * ticksPerSecond),
 	ttlTicks_(ttlTicksInBeginning_), updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond), onUpdateCallback_(updateCallback), onFinishCallback_(onFinishCallback) {}
 
 	void Update() {
@@ -36,5 +36,31 @@ class Timer {
 	std::function<void(float)> onUpdateCallback_;
 	std::function<void()> onFinishCallback_;
 	bool finishCallbackCalled = false;
+};
+
+class CircularTimer {
+   public:
+	CircularTimer(float ttlSeconds, const float updateIntervalSeconds, std::function<void(void)> updateCallback) : ttlTicksInBeginning_(ttlSeconds * ticksPerSecond),
+	ttlTicks_(ttlTicksInBeginning_), updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond), onUpdateCallback_(updateCallback) {}
+
+	void Update() {
+		if (ttlTicks_ > 0) {
+			if (ttlTicks_ % updateIntervalTicks_ == 0) {
+				onUpdateCallback_();
+			}
+
+			ttlTicks_--;
+		}
+		else {
+			onUpdateCallback_();
+			ttlTicks_ = 0;
+		}
+	}
+
+   private:
+	const std::uint32_t ttlTicksInBeginning_;
+	std::uint32_t ttlTicks_;
+	std::uint32_t updateIntervalTicks_;
+	std::function<void(void)> onUpdateCallback_;
 };
 
