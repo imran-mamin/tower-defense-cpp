@@ -2,7 +2,11 @@
 #include "bullet.hpp"
 #include "game.hpp"
 #include "tower.hpp"
+#include "vec2d.hpp"
+
+#include <iostream>
 #include <cstdint>
+#include <cmath>
 
 const std::uint32_t GreenCannonPrice = 1000;
 const std::uint32_t RedCannonPrice = 4000;

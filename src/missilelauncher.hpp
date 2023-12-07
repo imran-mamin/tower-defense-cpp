@@ -6,6 +6,8 @@
 
 const std::uint32_t BasicMissileLauncherPrice = 8000;
 
+#include <cmath>
+
 class MissileLauncher : public Tower {
    // TODO: Make protected.
 	//protected:

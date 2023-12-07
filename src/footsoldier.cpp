@@ -6,6 +6,8 @@ void FootSoldier::update() {
     if (this->isAlive()) {
         const std::vector<Vec2D> path = this->getGrid().EnemyPath();
         int i = 0;
+
+        prevPos_ = this->position_;
         // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
             const Vec2D currVec = path.at(i);
@@ -62,6 +64,7 @@ void FootSoldier::update() {
                 direction = 'W';
             }
 
+            this->prevVecIndex_ = i;
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
@@ -121,16 +124,16 @@ void FootSoldier::update() {
             // Enemy's direction is 'E' at the start.
             switch(direction) {
                 case 'N':
-                    this->SetArtilleryAngle(270);
+                    this->SetAngle(270);
                     break;
                 case 'E':
-                    this->SetArtilleryAngle(0);
+                    this->SetAngle(0);
                     break;
                 case 'S':
-                    this->SetArtilleryAngle(90);
+                    this->SetAngle(90);
                     break;
                 case 'W':
-                    this->SetArtilleryAngle(180);
+                    this->SetAngle(180);
                     break;
                 default:
                     throw std::runtime_error("Unknown direction!");
@@ -138,12 +141,6 @@ void FootSoldier::update() {
 
             break;
         }
-    } else {
-        // Add profit to player.
-        this->addPlayerMoney(this->value_);
-        
-        // Destroy the Enemy object.
-        this->onDestroy();
     }
 }
 
