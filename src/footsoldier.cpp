@@ -6,6 +6,8 @@ void FootSoldier::update() {
     if (this->isAlive()) {
         const std::vector<Vec2D> path = this->getGrid().EnemyPath();
         int i = 0;
+
+        prevPos_ = this->position_;
         // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
             const Vec2D currVec = path.at(i);
@@ -62,6 +64,7 @@ void FootSoldier::update() {
                 direction = 'W';
             }
 
+            this->prevVecIndex_ = i;
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
