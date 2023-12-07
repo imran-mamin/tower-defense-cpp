@@ -18,24 +18,18 @@ Game::~Game() {
 }
 
 void Game::Update() {
-  /* Update the game objects. */
-  int i = 0;
-  while (i < objects_.size()) {
-    objects_.at(i)->update();
-    i++;
-  }
+  	/* Update the game objects. */
+	for (auto it = objects_.begin(); it != objects_.end(); it++) {
+		(*it)->update();
+	}
 
-  std::cout << "Bullet Pos = (" << objects_.at(2)->getPosition().x << ", " << objects_.at(2)->getPosition().y << ")" << std::endl;
-  /* Remove any dead game object. */
-  auto it = objects_.begin();
-  while (it != objects_.end()) {
-    if ((*it)->Health() == 0) {
-      delete *it;
-      objects_.erase(it);
-      continue;
-    }
-    it++;
-  }
+  	/* Remove any dead game object. */
+	for (auto it = objects_.begin(); it != objects_.end(); it++) {
+		if ((*it)->Health() == 0) {
+			delete *it;
+			it = objects_.erase(it);
+		}
+	}
 }
 
 const std::vector<GameObject*>& Game::Objects() { return objects_; }
