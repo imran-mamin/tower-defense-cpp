@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "vec2d.hpp"
+#include "enemy_wave.hpp"
 
 struct MapInfo {
   /* tileWidth = tileHeight */
@@ -19,8 +20,9 @@ struct MapInfo {
   std::vector<std::pair<u_int16_t, std::pair<u_int16_t, u_int16_t>>>
       obstacleTiles;
   /* Enemy path consisting from vectors. */
-  std::vector<Vec2D> enemyPath;
   std::uint64_t playerStartCash;
+  std::vector<Vec2D> enemyPath;
+  std::vector<EnemyWave> enemyWaves;
 };
 
 class MapParserError : public std::exception {

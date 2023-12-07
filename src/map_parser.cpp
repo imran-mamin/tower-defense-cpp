@@ -8,19 +8,23 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
+#include "enemy_wave.hpp"
 #include "json.hpp"
 #include "pos.hpp"
 #include "vec2d.hpp"
+#include "weapons_and_enemies.hpp"
 
 const std::string tileWidthKey = "tile_width";
 const std::string mapWidthKey = "map_width";
 const std::string mapHeightKey = "map_height";
 const std::string backgroundTilesKey = "background";
 const std::string obstacleTilesKey = "obstacles";
-const std::string enemyPathKey = "enemy_path";
 const std::string playerStartCashKey = "player_start_cash";
+const std::string enemyPathKey = "enemy_path";
+const std::string enemyWavesKey = "enemy_waves";
 
 MapInfo ParseMap(const std::string &path) {
   std::ifstream is(path);
@@ -36,9 +40,10 @@ MapInfo ParseMap(const std::string &path) {
     std::uint8_t mapWidth;
     std::uint8_t mapHeight;
     std::vector<std::vector<std::uint16_t>> backgroundTiles;
-    std::vector<std::pair<u_int16_t, std::pair<u_int16_t, u_int16_t>>>
+    std::vector<std::pair<std::uint16_t, std::pair<std::uint16_t, std::uint16_t>>>
         obstacleTiles;
     std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
+	std::vector<std::pair<std::uint32_t, std::vector<std::string>>> enemyWaves_;
     std::uint64_t playerStartCash;
 
     /* Read the input. */
@@ -46,9 +51,15 @@ MapInfo ParseMap(const std::string &path) {
     data.at(mapWidthKey).get_to(mapWidth);
     data.at(mapHeightKey).get_to(mapHeight);
     data.at(backgroundTilesKey).get_to(backgroundTiles);
-    data.at(obstacleTilesKey).get_to(obstacleTiles);
-    data.at(enemyPathKey).get_to(enemyPath_);
+    try {
+		data.at(obstacleTilesKey).get_to(obstacleTiles);
+	} catch (const std::exception &) {
+		/* Initialize the obstacles with empty vector in case they are not found. */
+		obstacleTiles = std::vector<std::pair<std::uint16_t, std::pair<std::uint16_t, std::uint16_t>>>();
+	}
     data.at(playerStartCashKey).get_to(playerStartCash);
+	data.at(enemyPathKey).get_to(enemyPath_);
+	data.at(enemyWavesKey).get_to(enemyWaves_);
 
     /* ===== Validate the input. ===== */
 
@@ -126,8 +137,22 @@ MapInfo ParseMap(const std::string &path) {
       enemyPath.push_back(Vec2D{a, b});
     }
 
+	/* TODO: Validate input for enemy waves. */
+	std::vector<EnemyWave> enemyWaves;
+	for (auto enemyWave : enemyWaves_) {
+		std::vector<EnemyType> enemies;
+		for (auto enemyName : enemyWave.second) {
+			if (stringToEnemyTypeMapping.find(enemyName) == stringToEnemyTypeMapping.end()) {
+				throw std::runtime_error(std::string("Unknown enemy type '") + enemyName + std::string("' found in the enemy wave in file '") + path + "'.");
+			}
+			enemies.push_back(stringToEnemyTypeMapping.at(enemyName));
+		}
+
+		enemyWaves.push_back(EnemyWave(enemyWave.first, enemies));
+	}
+
     return MapInfo{tileWidth,     mapWidth,  mapHeight,      backgroundTiles,
-                   obstacleTiles, enemyPath, playerStartCash};
+                   obstacleTiles, playerStartCash, enemyPath, enemyWaves };
   }
   /* TODO: Catch correct exceptions: missing field and incorrect data format. */
   catch (const std::exception &e) {
@@ -136,3 +161,4 @@ MapInfo ParseMap(const std::string &path) {
     throw e;
   }
 }
+
