@@ -29,6 +29,7 @@ MapInfo ParseMap(const std::string &path) {
                          "'.");
   }
 
+<<<<<<< HEAD
   /* Create a parser instance. */
   nlohmann::json data = nlohmann::json::parse(is);
   try {
@@ -37,6 +38,7 @@ MapInfo ParseMap(const std::string &path) {
     std::uint8_t mapHeight;
     std::vector<std::vector<std::uint16_t>> backgroundTiles;
     std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
+    std::uint64_t enemyStartCash;
     std::uint64_t playerStartCash;
 
     /* Read the input. */
@@ -44,8 +46,10 @@ MapInfo ParseMap(const std::string &path) {
     data.at(mapWidthKey).get_to(mapWidth);
     data.at(mapHeightKey).get_to(mapHeight);
     data.at(backgroundTilesKey).get_to(backgroundTiles);
+    data.at(obstacleTilesKey).get_to(obstacleTiles);
     data.at(enemyPathKey).get_to(enemyPath_);
     data.at(playerStartCashKey).get_to(playerStartCash);
+    data.at(enemyCashGrowthPerTickKey).get_to(enemyCashGrowthPerTick);
 
     /* ===== Validate the input. ===== */
 
@@ -114,18 +118,25 @@ MapInfo ParseMap(const std::string &path) {
     /* TODO: Make sure the enemy path and ends to a legal value.  */
     /* TODO: Make sure that the vectors come in order. */
 
+<<<<<<< HEAD
     /* Convert the enemy path into the Vec2D format. */
     std::vector<Vec2D> enemyPath;
     for (auto vec : enemyPath_) {
-      Pos a{(float) vec[0][0], (float) vec[0][1]};
-      Pos b{(float) vec[1][0], (float) vec[1][1]};
+      Pos a{(float)vec[0][0], (float)vec[0][1]};
+      Pos b{(float)vec[1][0], (float)vec[1][1]};
+=======
+    /* Convert the enemy path into the Vec2D format. */
+    std::vector<Vec2D> enemyPath;
+    for (auto vec : enemyPath_) {
+      Pos a{vec[0][0], vec[0][1]};
+      Pos b{vec[1][0], vec[1][1]};
 
       enemyPath.push_back(Vec2D{a, b});
     }
 
-    return MapInfo{
-        tileWidth, mapWidth,       mapHeight,       backgroundTiles,
-        enemyPath, playerStartCash};
+<<<<<<< HEAD
+    return MapInfo{tileWidth,       mapWidth,  mapHeight,
+                   backgroundTiles, enemyPath, playerStartCash};
   }
   /* TODO: Catch correct exceptions: missing field and incorrect data format. */
   catch (const std::exception &e) {
@@ -133,4 +144,16 @@ MapInfo ParseMap(const std::string &path) {
     // TODO: Implement new exception throwing besides just rethrowing.
     throw e;
   }
+=======
+    return MapInfo{
+        tileWidth, mapWidth,       mapHeight,       backgroundTiles,
+        enemyPath, enemyStartCash, playerStartCash, enemyCashGrowthPerTick};
+  }
+  /* TODO: Catch correct exceptions: missing field and incorrect data format. */
+  catch (const std::exception &e) {
+    std::cout << e.what() << std::endl;
+    // TODO: Implement new exception throwing besides just rethrowing.
+    throw e;
+  }
+>>>>>>> 5d2154f (lmao)
 }
