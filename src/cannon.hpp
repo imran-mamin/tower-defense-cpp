@@ -4,6 +4,9 @@
 #include "tower.hpp"
 #include <cstdint>
 
+const std::uint32_t GreenCannonPrice = 1000;
+const std::uint32_t RedCannonPrice = 4000;
+
 class Cannon : public Tower {
    protected:
     Cannon(int radius, int fireRate, int price, Game &game, Pos position, std::uint32_t health)
@@ -20,14 +23,14 @@ class Cannon : public Tower {
 class GreenCannon : public Cannon {
    public:
     GreenCannon(Game &game, Pos position)
-	: Cannon(64 * 4, 3, 1000, game, position, 100) {}
+	: Cannon(64 * 4, 3, GreenCannonPrice, game, position, 100) {}
     ~GreenCannon() = default;
 };
 
 class RedCannon : public Cannon {
    public:
     RedCannon(Game &game, Pos position)
-	: Cannon(64 * 7, 1, 4000, game, position, 300) {}
+	: Cannon(64 * 7, 1, RedCannonPrice, game, position, 300) {}
     ~RedCannon() = default;
 };
 

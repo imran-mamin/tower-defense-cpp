@@ -21,6 +21,7 @@ class Timer {
 
 			ttlTicks_--;
 		}
+		/* Timer finished. */
 		else if (!finishCallbackCalled) {
 			onFinishCallback_();
 			finishCallbackCalled = true;
