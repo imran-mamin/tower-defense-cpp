@@ -19,6 +19,7 @@ void Bullet::update() {
         if (!enemies.empty()) {
             enemies.at(0)->takeDamage(this->damage());
             this->health_ = 0;
+            break;
         }
 
         // Update bullet's position.
@@ -26,11 +27,15 @@ void Bullet::update() {
         this->position_.y += unitVec.y;
 
         // Check that the Bullet is still on the screen.
-        bool outX = ((0 <= this->position_.x) && (this->position_.x < (this->getGrid().Width() - 1)));
-        bool outY = ((0 <= this->position_.y) && (this->position_.y < (this->getGrid().Height() - 1)));
-
-        if (outX || outY) {
+        bool inX = ((0 <= this->position_.x) && (this->position_.x < (this->getGrid().Width() * this->getGrid().TileWidth() - 1)));
+        bool inY = ((0 <= this->position_.y) && (this->position_.y < (this->getGrid().Height() * this->getGrid().TileWidth() - 1)));
+         std::cout << "inX = " << inX << "   " << "inY = " << inY << std::endl;
+         std::cout << "Pos = (" << position_.x << ", " << position_.y << ")" << std::endl;
+        if (!(inX && inY)) {
             this->health_ = 0;
+            std::cout << "if block" << std::endl;
+            std::cout << "Pos = (" << position_.x << ", " << position_.y << ")" << std::endl;
+            break;
         }
 
         i++;

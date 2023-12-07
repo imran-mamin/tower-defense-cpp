@@ -282,6 +282,6 @@ TEST(CannonClass, update2) {
     for (int i = 0; i < game.Objects().size(); i++) {
         std::cout << "Pos = (" << game.Objects().at(i)->getPosition().x << ", " << game.Objects().at(i)->getPosition().y << ")" << std::endl;
     }
-
+    
     EXPECT_EQ(game.Objects().size(), 1);
 }

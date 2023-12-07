@@ -26,11 +26,14 @@ void Game::Update() {
 
   std::cout << "Bullet Pos = (" << objects_.at(2)->getPosition().x << ", " << objects_.at(2)->getPosition().y << ")" << std::endl;
   /* Remove any dead game object. */
-  for (auto it = objects_.begin(); it != objects_.end(); it++) {
+  auto it = objects_.begin();
+  while (it != objects_.end()) {
     if ((*it)->Health() == 0) {
       delete *it;
       objects_.erase(it);
+      continue;
     }
+    it++;
   }
 }
 
