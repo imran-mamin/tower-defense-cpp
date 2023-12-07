@@ -10,13 +10,17 @@
 #include "menu_home.hpp"
 #include "menu_level.hpp"
 #include "music_manager.hpp"
+#include "time.hpp"
+#include "path.hpp"
+#include "weapon_toolbar_renderer.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
   int windowHeight = 12 * 64;
 
-  sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight),
+  sf::RenderWindow window(sf::VideoMode(windowWidth + WeaponToolbarWidthPx, windowHeight),
                           "TestiPiirto");
+  window.setFramerateLimit(ticksPerSecond);
 
   std::vector<std::pair<int, std::string>> levels =
       readLevels("../rsrc/level.csv");

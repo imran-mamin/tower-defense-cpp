@@ -2,6 +2,9 @@
 #include "game.hpp"
 #include "missile.hpp"
 #include "tower.hpp"
+#include <cstdint>
+
+const std::uint32_t BasicMissileLauncherPrice = 8000;
 
 #include <cmath>
 
@@ -24,6 +27,6 @@ class MissileLauncher : public Tower {
 
 class BasicMissileLauncher : public MissileLauncher {
    public:
-	BasicMissileLauncher(Game &game, Pos position) : MissileLauncher(64 * 10, 3, 8000, game, position) {}
+	BasicMissileLauncher(Game &game, Pos position) : MissileLauncher(64 * 10, 3, BasicMissileLauncherPrice, game, position) {}
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <cstdint>
 #include <vector>
 #include <iostream>
 
@@ -21,13 +22,17 @@ class Game {
   const std::vector<GameObject*>& Objects();
   GameGrid& GetGrid();
   int GetLevel();
-  int GetPlayerMoney();
+
+  /* Operations for money. */
+  const std::uint64_t &PlayerMoney() const;
+  void AddMoney(std::uint32_t money) { playerMoney_ += money; }
+  void RemoveMoney(std::uint32_t money) { playerMoney_ -= money <= playerMoney_ ? money : playerMoney_; }
 
  protected:
   friend class GameObject;
   int level_;
   GameGrid grid_;
-  int enemyMoney_;
-  int playerMoney_;
+  //int enemyMoney_;
+  std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
 };

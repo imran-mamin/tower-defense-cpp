@@ -66,7 +66,8 @@ Cannon class and start working on gameloop.
 
 - Leevi & Imran: Tinkering on the program architechture. We concluded that the enemy logic must be written to the level files itself.
 
-- Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path.
+- Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path. Works
+on implementing the update and fire methods in Cannon class.
 
 - Leevi:
 	* Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
@@ -107,3 +108,15 @@ Valerie:
 - Select and read level by map json file, defined in `rsrc/levels.csv`
 - Include money on MapInfo to the Game object
 - Include some detail on game loop UI, including Level, Money, and Navigation Button
+
+
+## 6.12.2023 - 7.12.2023
+- Leevi:
+	* Added timer class and set the FPS-rate limit to constant 60.
+		This seemed to fix the bug that resulted to game freezing while inside the game for few minutes.
+	* Improved Valeries money and level name rendering. Added them to separate renderer class. TODO: yet to be committed tomorrow.
+	* Separated weapon menu event handling and rendering. Moved them out from the gameloop class.
+		* This fixed also the bug where all clicks to the menu buttons weren't registered.
+	* Fixed bug where the menu was rendered on the tile grid.
+	* Overall a lot of other changes too ~+400LoC ~-200LoC.
+	
