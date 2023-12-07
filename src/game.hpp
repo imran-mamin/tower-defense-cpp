@@ -23,15 +23,17 @@ class Game {
   int GetLevel();
 
   /* Operations for money. */
-  const std::uint64_t &PlayerMoney() const;
+  const std::uint64_t& PlayerMoney() const;
   void AddMoney(std::uint32_t money) { playerMoney_ += money; }
-  void RemoveMoney(std::uint32_t money) { playerMoney_ -= money <= playerMoney_ ? money : playerMoney_; }
+  void RemoveMoney(std::uint32_t money) {
+    playerMoney_ -= money <= playerMoney_ ? money : playerMoney_;
+  }
 
  protected:
   friend class GameObject;
   int level_;
   GameGrid grid_;
-  //int enemyMoney_;
+  // int enemyMoney_;
   std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
 };

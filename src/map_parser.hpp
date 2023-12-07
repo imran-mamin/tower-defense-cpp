@@ -16,6 +16,8 @@ struct MapInfo {
   const std::uint8_t mapWidth;
   const std::uint8_t mapHeight;
   std::vector<std::vector<std::uint16_t>> backgroundTiles;
+  std::vector<std::pair<u_int16_t, std::pair<u_int16_t, u_int16_t>>>
+      obstacleTiles;
   /* Enemy path consisting from vectors. */
   std::vector<Vec2D> enemyPath;
   std::uint64_t playerStartCash;
