@@ -18,9 +18,7 @@ struct MapInfo {
   std::vector<std::vector<std::uint16_t>> backgroundTiles;
   /* Enemy path consisting from vectors. */
   std::vector<Vec2D> enemyPath;
-  std::uint64_t enemyStartCash;
   std::uint64_t playerStartCash;
-  std::float_t enemyCashGrowthPerTick;
 };
 
 class MapParserError : public std::exception {
