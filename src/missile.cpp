@@ -105,7 +105,5 @@ void Missile::update() {
 				health_ = 0;
             }
         }
-        
     }
-    
 }

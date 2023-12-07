@@ -3,6 +3,8 @@
 #include "missile.hpp"
 #include "tower.hpp"
 
+#include <cmath>
+
 class MissileLauncher : public Tower {
    // TODO: Make protected.
 	//protected:
