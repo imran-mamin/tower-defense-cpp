@@ -35,7 +35,7 @@ TextureManager::TextureManager() {
 						textures_[textureId] = t;
 						std::cout << "Successfully loaded texture '" << filename << "'." << std::endl;
 					}
-					catch (std::exception /* &e */) {
+					catch (const std::exception & /* e */) {
 						/* Ignore errors. Assume that they are non fatal and come from non texture files that happen to be there. E.g. .DS_Store etc.*/
 					}
 				}
@@ -50,7 +50,7 @@ sf::Texture &TextureManager::GetTexture(std::uint16_t textureId) {
 	try {
 		return textures_.at(textureId);
 	}
-	catch (std::out_of_range /* &e */) {
+	catch (const std::out_of_range & /* e */) {
 		throw TextureDoesNotExistError(std::string("The texture with the texture id of ") + std::to_string(textureId) + " does not exist.");
 	}
 }
