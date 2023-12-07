@@ -62,7 +62,7 @@ sf::Text CreateMoneyText(const GameGrid &gameGrid, const sf::Font &font, const s
 }
 
 // TODO: Also draw the wave name here. E.g. "level 1: enemy wave 2".
-sf::Text CreateLevelNameText(sf::Font &font, const std::uint32_t level) {
+sf::Text CreateLevelNameText(const sf::Font &font, const std::uint32_t level) {
 	sf::Text levelNameText;
   	levelNameText.setFont(font);
 	levelNameText.setCharacterSize(40);
