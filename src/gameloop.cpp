@@ -115,11 +115,11 @@ int GameLoop::Play() {
       sf::Vector2f(6, 6), onGreenCannonClick);
   ButtonSprite redCannon = ButtonSprite(
       redCannonSprite, sf::Vector2f(window_.getSize().x - toolbarWidth, 140),
-      sf::Vector2f(6, 6), onGreenCannonClick);
+      sf::Vector2f(6, 6), onRedCannonClick);
   ButtonSprite missileLauncher =
       ButtonSprite(missileLauncherSprite,
                    sf::Vector2f(window_.getSize().x - toolbarWidth, 220),
-                   sf::Vector2f(6, 6), onGreenCannonClick);
+                   sf::Vector2f(6, 6), onMissileLauncherClick);
 
   // Game Decoration (Level, Exit Button, Money)
   sf::Text levelText;
