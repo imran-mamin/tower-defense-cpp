@@ -65,6 +65,8 @@ Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D>& path, Po
         return path.at(i);
     }
 
+    Vec2D collisionVec;
+
     int j = i + 1;
     while (j < path.size()) {
         Vec2D currVec = path.at(j);
@@ -88,10 +90,13 @@ Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D>& path, Po
         float t2b = bulletDistToB / bulletSpeed;
 
         if ((t1a <= t1b) && (t2a >= t2b)) {
-            return path.at(j);
+            collisionVec = path.at(j);
+            break;
         }
         j++;
     }
+
+    return collisionVec;
 };
 
 Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos start, Pos end, Pos bulletPos, int bulletSpeed, int radius) {
@@ -120,7 +125,6 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
         }
     }
     return mid;
-    
 }
 
 Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2D collisionVec, Pos bulletPos, int bulletSpeed, int radius) {
