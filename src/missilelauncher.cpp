@@ -8,7 +8,7 @@ void MissileLauncher::fire() {
     // Missile(Game& game, int travel_speed, int damage, int radius, Enemy target, Pos position, double exp_radius = 0)
     // Create a missile object.
     Pos p = this->getPosition();
-    Missile* m = new Missile(this->game_, 18, 6, 18, e, p, 4);
+    Missile* m = new Missile(this->game_, 40, 6, 18, e, p, 4);
     
     // Add missile to vector.
     this->game_.AddObject(m); 
@@ -23,7 +23,15 @@ void MissileLauncher::fire() {
     float dotP = unitVecN.y * MToEVec.y;
     float angleInRad = std::acos(dotP / MToEVecLen);
     float angleInDeg = angleInRad * (180.0 / M_PI);
-    this->SetAngle(angleInDeg);
+    
+    // Is the enemy on the left side of the missilelauncher?
+    bool onTheLeft = (e->getPosition().x <= position_.x);
+    
+    if (onTheLeft) {
+        this->SetAngle(360.0 - angleInDeg);
+    } else {
+        this->SetAngle(angleInDeg);
+    }
 }
 
 void MissileLauncher::update() {
