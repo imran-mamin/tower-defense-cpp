@@ -99,6 +99,9 @@ Vec2D findCollisionVec(const Enemy* e, int i, const std::vector<Vec2D>& path, Po
     return collisionVec;
 };
 
+/**
+ * Binarysearch-algorithm for finding the collision point. This helper method is used by findCollisionPos()-method.
+*/
 Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos start, Pos end, Pos bulletPos, int bulletSpeed, int radius) {
     Pos left = start;
     Pos mid;
@@ -127,6 +130,10 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
     return mid;
 }
 
+/**
+ * This function finds the position, where the bullet collides to the enemy.
+ * @return Collision position (Pos)
+*/
 Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2D collisionVec, Pos bulletPos, int bulletSpeed, int radius) {
     float diffX = collisionVec.b.x - collisionVec.a.x;
     float diffY = collisionVec.b.y - collisionVec.a.y;
