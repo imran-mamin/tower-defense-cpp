@@ -294,7 +294,7 @@ TEST(CannonClass, update3) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
 
-    FootSoldier* fs = new FootSoldier(18, 2, 2, 2, game, p2);
+    FootSoldier* fs = new FootSoldier(4, 2, 2, 2, game, p2);
     game.AddObject(fs);
 
     Pos canPos = Pos{ 20, 240 };

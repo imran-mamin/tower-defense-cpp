@@ -102,20 +102,12 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
     Pos right = end;
 
     while (((right.x - left.x) + (right.y - left.y)) > radius) {
-        std::cout << "Mid = (" << mid.x << ", " << mid.y << ")" << std::endl;
         float enemyDistToMidLen = findEnemyDist(e, path, mid, i);
-        std::cout << "enemyDistToMidLen found and is = " << enemyDistToMidLen << std::endl;
         // Calculate times for enemy to reach left, mid and right positions.
         float tEnemM = enemyDistToMidLen / e->GetSpeed();
-        std::cout << "tEnemM found" << std::endl;
         float bulletDistToMidLen = sqrt(std::pow(mid.x - bulletPos.x, 2) + std::pow(mid.y - bulletPos.y, 2));
-        std::cout << "bulletDistToMidLen = " << bulletDistToMidLen << std::endl;
         // Calculate times for enemy to reach left mid and right positions.
         float tBullM = bulletDistToMidLen / bulletSpeed;
-
-        std::cout << "Calculate times" << std::endl;
-        std::cout << "tEnemM = " << tEnemM << std::endl;
-        std::cout << "tBullM = " << tBullM << std::endl;
 
         if (tEnemM > tBullM) {
             right = mid;
@@ -127,7 +119,6 @@ Pos binarySearch(const Enemy* e, int i, const std::vector<Vec2D>& path, Pos star
             mid.y = left.y + (right.y - left.y) / 2;
         }
     }
-    std::cout << "out of while loop" << std::endl;
     return mid;
     
 }
@@ -137,7 +128,6 @@ Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2
     float diffY = collisionVec.b.y - collisionVec.a.y;
 
     if ((diffX < 0) || (diffY < 0)) {
-        std::cout << "diffX < 0 || diffY < 0" << std::endl;
         return binarySearch(e, i, path, collisionVec.b, collisionVec.a, bulletPos, bulletSpeed, radius);
     }
 
@@ -154,19 +144,12 @@ Pos findCollisionPos(const Enemy* e, int i, const std::vector<Vec2D>& path, Vec2
 void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
-    std::cout << "Enemy found" << std::endl;
     int bulletSpeed = 40;
     int radius = 2;
 
     Vec2D collisionVec = findCollisionVec(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
-    // For debug purposes only
-    bool colIsCurr = (collisionVec.a.x == game_.GetGrid().EnemyPath().at(0).a.x) && (collisionVec.a.y == game_.GetGrid().EnemyPath().at(0).a.y);
-    std::cout << "Collision vector found and colIsCurr = " << colIsCurr << std::endl;
     Pos collisionPos = findCollisionPos(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
-    std::cout << "Collision position found" << std::endl;
-    std::cout << "Pos = (" << collisionPos.x << ", " << collisionPos.y << ")" << std::endl;
     // Bullet(Game& game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
-    // TODO: The Bullet-instance should be unique pointer.
     game_.AddObject(new Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos));
     
 };
