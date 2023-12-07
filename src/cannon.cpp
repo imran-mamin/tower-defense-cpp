@@ -192,7 +192,7 @@ void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
     std::cout << "Enemy found" << std::endl;
-    int bulletSpeed = 18;
+    int bulletSpeed = 40;
     int radius = 2;
 
     // Returns current vec2D and its index in enemyPath vector.
@@ -202,6 +202,7 @@ void Cannon::fire() {
     std::cout << "Collision vector found" << std::endl;
     Pos collisionPos = findCollisionPos(e, currIndex, game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
     std::cout << "Collision position found" << std::endl;
+    std::cout << "Pos = (" << collisionPos.x << ", " << collisionPos.y << ")" << std::endl;
     // Bullet(Game& game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
     // TODO: The Bullet-instance should be unique pointer.
     game_.AddObject(new Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos));
