@@ -40,10 +40,10 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		//if (dynamic_cast<const std::unique_ptr<Cannon> &>(gameObject)) {
 		if (isOfType<Cannon>(gameObject)) {
 			if (isOfType<GreenCannon>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::GreenCannon)));
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannon)));
 			}
 			else if (isOfType<RedCannon>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::RedCannon)));
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::RedCannon)));
 			}
 			else {
 				throw std::runtime_error("Unknown cannon type.");
@@ -51,7 +51,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		}
 		else if (isOfType<MissileLauncher>(gameObject)) {
 			if (isOfType<BasicMissileLauncher>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(Weapons::MissileLauncher1)));
+				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::MissileLauncher1)));
 			}
 			else {
 				throw std::runtime_error("Unknown missile launcher type.");
@@ -59,12 +59,12 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		}
 		else if (isOfType<FootSoldier>(gameObject)) {
 			// FIXME: Select correct footsoldier texture. Currently does not differentiate between the four of them.
-			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(Enemies::Soldier1));
+			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier1));
 			currentSprite.setTexture(currentTexture);
 		}
 		else if (isOfType<Tank>(gameObject)) {
 			// FIXME: Select correct tank texture. Currently does not differentiate between Tank1 and Tank2.
-			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(Enemies::Tank1));
+			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1));
 			currentSprite.setTexture(currentTexture);
 		}
 		// TODO: Enemy plane.

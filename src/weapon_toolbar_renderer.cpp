@@ -27,11 +27,11 @@ WeaponToolbarRenderer::WeaponToolbarRenderer(sf::RenderWindow &renderWindow,
     }**/ // TODO: Validate that the window height is gameGrid.w * tilewidth + toolbarWidth
 
     greenCannonSprite_ = sf::Sprite(textureManager_.GetTexture(
-	weaponToTileIDMapping.at(Weapons::GreenCannon)));
+	weaponToTileIDMapping.at(WeaponType::GreenCannon)));
     redCannonSprite_ = sf::Sprite(textureManager_.GetTexture(
-	weaponToTileIDMapping.at(Weapons::RedCannon)));
+	weaponToTileIDMapping.at(WeaponType::RedCannon)));
     basicMissileLauncherSprite_ = sf::Sprite(textureManager_.GetTexture(
-	weaponToTileIDMapping.at(Weapons::MissileLauncher1)));
+	weaponToTileIDMapping.at(WeaponType::MissileLauncher1)));
 
 	/* Set the sprite positions. */
 	greenCannonSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 60);
