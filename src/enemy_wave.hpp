@@ -22,7 +22,7 @@ class EnemyWave {
    private:
     std::vector<EnemyType> enemyVector_;
 
-	Timer waveTimer_;
+	FiniteTimer waveTimer_;
 	bool enemyIsReady_;
 };
 

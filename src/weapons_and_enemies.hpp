@@ -3,11 +3,8 @@
 
 #include <cstdint>
 #include <map>
+#include <string>
 #include <utility>
-
-enum class GameObjectType {
-	Dick
-};
 
 enum class WeaponType {
 	GreenCannon,
@@ -26,6 +23,17 @@ enum class EnemyType{
 	Tank2,
 	Plane1,
 	Plane2
+};
+
+const std::map<std::string, EnemyType> stringToEnemyTypeMapping =  {
+	std::make_pair("Soldier1", EnemyType::Soldier1),
+	std::make_pair("Soldier2", EnemyType::Soldier2),
+	std::make_pair("Soldier3", EnemyType::Soldier3),
+	std::make_pair("Soldier4", EnemyType::Soldier4),
+	std::make_pair("Tank1", EnemyType::Tank1),
+	std::make_pair("Tank2", EnemyType::Tank2),
+	std::make_pair("Plane1", EnemyType::Plane1),
+	std::make_pair("Plane2", EnemyType::Plane2)
 };
 
 const std::map<WeaponType, std::uint16_t> weaponToTileIDMapping = {
