@@ -197,9 +197,11 @@ void Cannon::fire() {
 
     // Returns current vec2D and its index in enemyPath vector.
     int currIndex = findCurrentPathVec(e, game_.GetGrid().EnemyPath());
-    std::cout << "Current path found" << std::endl;
+    std::cout << "Current path found. CurrIndex = " << currIndex << std::endl;
     Vec2D collisionVec = findCollisionVec(e, currIndex, game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
-    std::cout << "Collision vector found" << std::endl;
+    // For debug purposes only
+    bool colIsCurr = (collisionVec.a.x == game_.GetGrid().EnemyPath().at(0).a.x) && (collisionVec.a.y == game_.GetGrid().EnemyPath().at(0).a.y);
+    std::cout << "Collision vector found and colIsCurr = " << colIsCurr << std::endl;
     Pos collisionPos = findCollisionPos(e, currIndex, game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
     std::cout << "Collision position found" << std::endl;
     std::cout << "Pos = (" << collisionPos.x << ", " << collisionPos.y << ")" << std::endl;

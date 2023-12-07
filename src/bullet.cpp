@@ -17,6 +17,7 @@ void Bullet::update() {
         std::vector<Enemy*> enemies = this->getEnemiesWithinRadius();
 
         if (!enemies.empty()) {
+            std::cout << "!enemies.empty() = " << !enemies.empty() << std::endl;
             enemies.at(0)->takeDamage(this->damage());
             this->health_ = 0;
             break;
