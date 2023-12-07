@@ -9,7 +9,7 @@ enum class GameObjectType {
 	Dick
 };
 
-enum class Weapons {
+enum class WeaponType {
 	GreenCannon,
 	RedCannon,
 	MissileLauncher1,
@@ -17,7 +17,7 @@ enum class Weapons {
 	MissileLauncher3
 };
 
-enum class Enemies{
+enum class EnemyType{
 	Soldier1,
 	Soldier2,
 	Soldier3,
@@ -28,22 +28,22 @@ enum class Enemies{
 	Plane2
 };
 
-const std::map<Weapons, std::uint16_t> weaponToTileIDMapping = {
-	std::make_pair(Weapons::GreenCannon, 248),
-	std::make_pair(Weapons::RedCannon, 249),
-	std::make_pair(Weapons::MissileLauncher1, 205),
-	std::make_pair(Weapons::MissileLauncher2, 204),
-	std::make_pair(Weapons::MissileLauncher3, 203)
+const std::map<WeaponType, std::uint16_t> weaponToTileIDMapping = {
+	std::make_pair(WeaponType::GreenCannon, 248),
+	std::make_pair(WeaponType::RedCannon, 249),
+	std::make_pair(WeaponType::MissileLauncher1, 205),
+	std::make_pair(WeaponType::MissileLauncher2, 204),
+	std::make_pair(WeaponType::MissileLauncher3, 203)
 };
 
-const std::map<Enemies, std::uint16_t> enemyToTileIDMapping = {
-	std::make_pair(Enemies::Soldier1, 244),
-	std::make_pair(Enemies::Soldier2, 245),
-	std::make_pair(Enemies::Soldier3, 246),
-	std::make_pair(Enemies::Soldier4, 247),
-	std::make_pair(Enemies::Tank1, 267),
-	std::make_pair(Enemies::Tank2, 268),
-	std::make_pair(Enemies::Plane1, 269),
-	std::make_pair(Enemies::Plane2, 270)
+const std::map<EnemyType, std::uint16_t> enemyToTileIDMapping = {
+	std::make_pair(EnemyType::Soldier1, 244),
+	std::make_pair(EnemyType::Soldier2, 245),
+	std::make_pair(EnemyType::Soldier3, 246),
+	std::make_pair(EnemyType::Soldier4, 247),
+	std::make_pair(EnemyType::Tank1, 267),
+	std::make_pair(EnemyType::Tank2, 268),
+	std::make_pair(EnemyType::Plane1, 269),
+	std::make_pair(EnemyType::Plane2, 270)
 };
 

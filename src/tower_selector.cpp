@@ -14,27 +14,27 @@ void TowerSelector::OnClickAction() {
 
     if (weaponToolbarRenderer_.IsCoordinateInsideTheToolbar(mousePosition.x, mousePosition.y)) {
 		if (weaponToolbarRenderer_.GreenCannonButtonGlobalBounds().contains(mousePosition.x, mousePosition.y)) {
-		    if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(Weapons::GreenCannon)) {
+		    if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::GreenCannon)) {
 				selectedTower_.reset();
 	    	}
 			else {
-				selectedTower_ = weaponToTileIDMapping.at(Weapons::GreenCannon);
+				selectedTower_ = weaponToTileIDMapping.at(WeaponType::GreenCannon);
 	    	}
 		}
 		else if (weaponToolbarRenderer_.RedCannonButtonGlobalBounds().contains(mousePosition.x, mousePosition.y)) {
-	    	if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(Weapons::RedCannon)) {
+	    	if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::RedCannon)) {
 				selectedTower_.reset();
 	    	}
 			else {
-				selectedTower_ = weaponToTileIDMapping.at(Weapons::RedCannon);
+				selectedTower_ = weaponToTileIDMapping.at(WeaponType::RedCannon);
 	    	}
 		}
 		else if (weaponToolbarRenderer_.MissileLauncher1ButtonGlobalBounds().contains(mousePosition.x, mousePosition.y)) {
-	    	if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(Weapons::MissileLauncher1)) {
+	    	if (selectedTower_.has_value() && selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::MissileLauncher1)) {
 				selectedTower_.reset();
 	    	}
 			else {
-				selectedTower_ = weaponToTileIDMapping.at(Weapons::MissileLauncher1);
+				selectedTower_ = weaponToTileIDMapping.at(WeaponType::MissileLauncher1);
 	    	}
 		}
     }
@@ -46,19 +46,19 @@ void TowerSelector::OnClickAction() {
 		if (Tile &selectedTile = game_.GetGrid().TileAtAbsoluteCoordinate(mousePos.x, mousePos.y); selectedTile.isFree()) {
 		    const Pos selectedTilePos = game_.GetGrid().AbsoluteCoordinateToClosestTilePosition(mousePos.x, mousePos.y);
 
-		    if (selectedTower_.value() == weaponToTileIDMapping.at(Weapons::GreenCannon) && playerMoney >= GreenCannonPrice) {
+		    if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::GreenCannon) && playerMoney >= GreenCannonPrice) {
 				game_.AddObject(new GreenCannon(game_, selectedTilePos));
 				game_.RemoveMoney(GreenCannonPrice);
 		    	selectedTile.occupy();
 		    	selectedTower_.reset();
 		    }
-			else if (selectedTower_.value() == weaponToTileIDMapping.at(Weapons::RedCannon) && playerMoney >= RedCannonPrice) {
+			else if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::RedCannon) && playerMoney >= RedCannonPrice) {
 				game_.AddObject(new RedCannon(game_, selectedTilePos));
 				game_.RemoveMoney(RedCannonPrice);
 		    	selectedTile.occupy();
 		    	selectedTower_.reset();
 		    }
-			else if (selectedTower_.value() == weaponToTileIDMapping.at(Weapons::MissileLauncher1) && playerMoney >= BasicMissileLauncherPrice) {
+			else if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::MissileLauncher1) && playerMoney >= BasicMissileLauncherPrice) {
 				game_.AddObject(new BasicMissileLauncher(game_, selectedTilePos));
 				game_.RemoveMoney(BasicMissileLauncherPrice);
 		    	selectedTile.occupy();
