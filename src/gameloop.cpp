@@ -74,14 +74,10 @@ int GameLoop::Play() {
 
   window_.setView(applicationView);
 
-  int exit = 0;
-  auto onExit = [&exit]() { exit = 1; };
-  ButtonText exitButton(sf::Vector2f(windowWidth - 200, windowHeight - 50),
-                        sf::Vector2f(200, 50), onExit, "Exit", font);
-
   // Load window
   while (window_.isOpen()) {
 
+	/* 1. Process user events. */
     while (window_.pollEvent(gameEvent)) {
       switch (gameEvent.type) {
 		default:
@@ -95,18 +91,13 @@ int GameLoop::Play() {
 			}
 		break;  
         
-		// Mouse hover event
-        //case (sf::Event::MouseMoved):
-        //  // Mouse position in window coordinates.
-        //  sf::Vector2f mousePos =
-        //      window_.mapPixelToCoords(sf::Mouse::getPosition(window_));
-		//
-        //  exitButton.handleHover(mousePos);
-		//
-        //  break;
       }
 	}
 
+	/* 2. Update Game(Objects). */
+	game_.Update();
+
+	/* 3. Do rendering. */
     window_.clear(sf::Color(200, 200, 200));
 
     /* Draw the background. */
@@ -116,10 +107,6 @@ int GameLoop::Play() {
 
     window_.display();
 
-    if (exit == 1) {
-      return 0;
-    }
-  
 }
   return 0;
 }
