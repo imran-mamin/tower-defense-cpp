@@ -170,7 +170,7 @@ TEST(FootSoldierClass, Update4) {
 
 // ----------------- TEST MISSILE CLASS --------------------
 // TODO: Checkout the commented unit test
-/*
+
 TEST(MissileClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
@@ -195,7 +195,7 @@ TEST(MissileClass, update) {
     EXPECT_EQ(game.Objects().size(), 2);
 }
 
-
+/*
 TEST(MissileClass, update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
