@@ -57,9 +57,9 @@ class GameObject {
 
     void removePlayerMoney(int money) { game_.playerMoney_ -= money; }
 
-    void addEnemyMoney(int money) { game_.enemyMoney_ += money; }
+    //void addEnemyMoney(int money) { game_.enemyMoney_ += money; }
 
-    void removeEnemyMoney(int money) { game_.enemyMoney_ -= money; }
+    //void removeEnemyMoney(int money) { game_.enemyMoney_ -= money; }
 
     GameGrid& getGrid() { return game_.grid_; }
 };

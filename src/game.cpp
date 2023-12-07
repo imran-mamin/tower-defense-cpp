@@ -40,4 +40,4 @@ GameGrid& Game::GetGrid() { return grid_; }
 
 int Game::GetLevel() { return level_; }
 
-const std::uint32_t &Game::PlayerMoney() const { return playerMoney_; }
+const std::uint64_t &Game::PlayerMoney() const { return playerMoney_; }

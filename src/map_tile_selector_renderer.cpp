@@ -46,8 +46,6 @@ void MapTileSelectorRenderer::Draw() {
 	int yPos = mousePosition.y / gameGrid_.TileWidth();
 	int xPos = mousePosition.x / gameGrid_.TileWidth();
 	
-	/* TODO: Check also starting position. Because a menu could be spawned somewhere else. */
-	
 	/* Check whether we are inside the game grid area. */
 	if (mousePosition.x >= 0 && mousePosition.y >= 0 && (std::uint32_t) xPos <= gameGrid_.Width() && (std::uint32_t) yPos <= gameGrid_.Height()) {
 		Tile &selectedTile = gameGrid_.TileAtCoordinate(xPos, yPos);
