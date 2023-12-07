@@ -82,8 +82,8 @@ void Missile::update() {
             this->position_.y += this->travel_speed();
             
             // Is missile still on the screen?
-            bool isOutHeight = ((this->getPosition().y > this->game_.GetGrid().Height() * this->game_.GetGrid().TileWidth()) || (this->getPosition().y < 0));
-            bool isOutWidth = ((this->getPosition().x > this->game_.GetGrid().Width() * this->game_.GetGrid().TileWidth()) || (this->getPosition().x < 0));
+            bool isOutHeight = ((this->getPosition().y > this->game_.GetGrid().Height() * this->game_.GetGrid().TileWidth() - 1) || (this->getPosition().y < 0));
+            bool isOutWidth = ((this->getPosition().x > this->game_.GetGrid().Width() * this->game_.GetGrid().TileWidth() - 1) || (this->getPosition().x < 0));
 
             if (isOutWidth || isOutHeight) {
                 // Remove missile object from the vector objects_.
