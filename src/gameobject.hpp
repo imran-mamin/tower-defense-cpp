@@ -14,12 +14,12 @@ class GameObject {
     Pos getPosition() const { return position_; }
 
     void takeDamage(std::uint32_t damage) {
-		if (damage > health_) {
-	    	health_ = 0;
-		}
-		else {
-	    	health_ -= damage;
-		}
+      if (damage > health_) {
+          health_ = 0;
+      }
+      else {
+          health_ -= damage;
+      }
     }
 
 	template <typename T>
