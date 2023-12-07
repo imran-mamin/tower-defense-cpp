@@ -10,7 +10,7 @@ class MusicManager {
       std::cerr << "Error loading music." << std::endl;
     }
     music.setVolume(100);
-    music.play();
+    music.pause();
   }
 
   void toggleMusic() {
