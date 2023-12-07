@@ -290,14 +290,11 @@ TEST(CannonClass, update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
 
-    Pos p2;
-    p2.x = gg.EnemyPath().at(0).a.x;
-    p2.y = gg.EnemyPath().at(0).a.y;
-
+    Pos p2 = Pos { 60, 228};
     FootSoldier* fs = new FootSoldier(4, 2, 2, 2, game, p2);
     game.AddObject(fs);
 
-    Pos canPos = Pos{ 20, 240 };
+    Pos canPos = Pos{ 60, 200 };
     Cannon* cn = new GreenCannon(game, canPos);
     game.AddObject(cn);
 
