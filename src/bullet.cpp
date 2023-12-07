@@ -1,7 +1,6 @@
 #include "bullet.hpp"
 
 void Bullet::update() {
-    std::cout << "Bullet update()-method called" << std::endl;
     // Find the vector between starting point and end point.
     Pos vec = Pos{ (endPos_.x - startPos_.x), (endPos_.y - startPos_.y) };
     float vecLength = sqrt((vec.x * vec.x) + (vec.y * vec.y));
@@ -17,25 +16,21 @@ void Bullet::update() {
         std::vector<Enemy*> enemies = this->getEnemiesWithinRadius();
 
         if (!enemies.empty()) {
-            std::cout << "!enemies.empty() = " << !enemies.empty() << std::endl;
             enemies.at(0)->takeDamage(this->damage());
-            this->health_ = 0;
+            health_ = 0;
             break;
         }
 
         // Update bullet's position.
-        this->position_.x += unitVec.x;
-        this->position_.y += unitVec.y;
+        position_.x += unitVec.x;
+        position_.y += unitVec.y;
 
         // Check that the Bullet is still on the screen.
         bool inX = ((0 <= this->position_.x) && (this->position_.x < (this->getGrid().Width() * this->getGrid().TileWidth() - 1)));
         bool inY = ((0 <= this->position_.y) && (this->position_.y < (this->getGrid().Height() * this->getGrid().TileWidth() - 1)));
-         std::cout << "inX = " << inX << "   " << "inY = " << inY << std::endl;
-         std::cout << "Pos = (" << position_.x << ", " << position_.y << ")" << std::endl;
+
         if (!(inX && inY)) {
-            this->health_ = 0;
-            std::cout << "if block" << std::endl;
-            std::cout << "Pos = (" << position_.x << ", " << position_.y << ")" << std::endl;
+            health_ = 0;
             break;
         }
 

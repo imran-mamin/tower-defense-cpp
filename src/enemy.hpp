@@ -1,6 +1,7 @@
 #pragma once
 #include "gameobject.hpp"
 
+#include <assert.h>
 
 class Enemy: public GameObject {
 protected:
@@ -15,6 +16,8 @@ public:
             : GameObject(game, position, maxHP), speed_(speed), value_(value), price_(price) {};
     
     virtual ~Enemy() {};
+
+    void update();
 
     int getPrevVecIndex() const {
         return prevVecIndex_;
