@@ -12,14 +12,13 @@
 #include "music_manager.hpp"
 #include "time.hpp"
 #include "path.hpp"
-
-const int weaponPanelWidth = 68;
+#include "weapon_toolbar_renderer.hpp"
 
 int main() {
   int windowWidth = 20 * 64;
   int windowHeight = 12 * 64;
 
-  sf::RenderWindow window(sf::VideoMode(windowWidth + weaponPanelWidth, windowHeight),
+  sf::RenderWindow window(sf::VideoMode(windowWidth + WeaponToolbarWidthPx, windowHeight),
                           "TestiPiirto");
   window.setFramerateLimit(ticksPerSecond);
 
