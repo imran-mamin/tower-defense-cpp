@@ -23,11 +23,15 @@ void Game::Update() {
 		(*it)->update();
 	}
 
-  	/* Remove any dead game object. */
-	for (auto it = objects_.begin(); it != objects_.end(); it++) {
+  	/* Remove any dead game objects. */
+	auto it = objects_.begin();
+	while (it != objects_.end()) {
 		if ((*it)->Health() == 0) {
 			delete *it;
 			it = objects_.erase(it);
+		}
+		else {
+			it++;
 		}
 	}
 }
