@@ -32,6 +32,7 @@ if(SFML_FOUND)
   target_link_libraries(${PROJECT_NAME} PRIVATE sfml-network sfml-audio sfml-graphics sfml-window sfml-system)
 endif()
 
+# We had problems on MacOS with the below functionalities.
 if (NOT APPLE)
 	# Fetch Google Test
 	include(FetchContent)
