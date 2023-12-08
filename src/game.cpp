@@ -62,10 +62,10 @@ void Game::Update() {
 				AddObject(new Soldier4(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Tank1:
-				// AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
+				AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Tank2:
-				// AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
+				AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Plane1:
 				AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
