@@ -25,6 +25,8 @@ const std::string obstacleTilesKey = "obstacles";
 const std::string playerStartCashKey = "player_start_cash";
 const std::string enemyPathKey = "enemy_path";
 const std::string enemyWavesKey = "enemy_waves";
+const std::string enemyWaveDurationSecondsKey = "duration_seconds";
+const std::string enemyWaveEnemiesKey = "enemies";
 
 MapInfo ParseMap(const std::string &path) {
   std::ifstream is(path);
@@ -43,7 +45,7 @@ MapInfo ParseMap(const std::string &path) {
     std::vector<std::pair<std::uint16_t, std::pair<std::uint16_t, std::uint16_t>>>
         obstacleTiles;
     std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
-	std::vector<std::pair<std::uint32_t, std::vector<std::string>>> enemyWaves_;
+	std::vector<EnemyWave> enemyWaves;
     std::uint64_t playerStartCash;
 
     /* Read the input. */
@@ -59,7 +61,29 @@ MapInfo ParseMap(const std::string &path) {
 	}
     data.at(playerStartCashKey).get_to(playerStartCash);
 	data.at(enemyPathKey).get_to(enemyPath_);
-	data.at(enemyWavesKey).get_to(enemyWaves_);
+
+	/* Read the enemy waves. */
+	for (const auto &wave : data[enemyWavesKey]) {
+		std::uint32_t waveDurationSeconds;
+		std::vector<std::string> enemyNames;
+
+		wave.at(enemyWaveDurationSecondsKey).get_to(waveDurationSeconds);
+		wave.at(enemyWaveEnemiesKey).get_to(enemyNames);
+
+		std::vector<EnemyType> enemies;
+		for (auto enemyName : enemyNames) {
+			if (stringToEnemyTypeMapping.find(enemyName) == stringToEnemyTypeMapping.end()) {
+				throw std::runtime_error(std::string("Unknown enemy type '") + enemyName + std::string("' found in the enemy wave in file '") + path + "'.");
+			}
+			
+			enemies.push_back(stringToEnemyTypeMapping.at(enemyName));
+		}
+		
+		enemyWaves.push_back(EnemyWave(waveDurationSeconds, enemies));
+	}
+
+
+	//data.at(enemyWavesKey).get_to(enemyWaves_);
 
     /* ===== Validate the input. ===== */
 
@@ -136,20 +160,6 @@ MapInfo ParseMap(const std::string &path) {
 
       enemyPath.push_back(Vec2D{a, b});
     }
-
-	/* TODO: Validate input for enemy waves. */
-	std::vector<EnemyWave> enemyWaves;
-	for (auto enemyWave : enemyWaves_) {
-		std::vector<EnemyType> enemies;
-		for (auto enemyName : enemyWave.second) {
-			if (stringToEnemyTypeMapping.find(enemyName) == stringToEnemyTypeMapping.end()) {
-				throw std::runtime_error(std::string("Unknown enemy type '") + enemyName + std::string("' found in the enemy wave in file '") + path + "'.");
-			}
-			enemies.push_back(stringToEnemyTypeMapping.at(enemyName));
-		}
-
-		enemyWaves.push_back(EnemyWave(enemyWave.first, enemies));
-	}
 
     return MapInfo{tileWidth,     mapWidth,  mapHeight,      backgroundTiles,
                    obstacleTiles, playerStartCash, enemyPath, enemyWaves };
