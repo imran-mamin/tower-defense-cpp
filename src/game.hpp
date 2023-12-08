@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 
+#include "enemy_wave.hpp"
 #include "gamegrid.hpp"
 // #include "gameobject.hpp"
 
@@ -10,8 +11,7 @@ class GameObject;  // Forward declaration
 
 class Game {
  public:
-  Game(const GameGrid& grid);
-  Game(const GameGrid& grid, int level, MapInfo mapInfo);
+  Game(const GameGrid &grid, std::uint32_t level, MapInfo mapInfo);
   ~Game();
 
   void Update();
@@ -30,12 +30,14 @@ class Game {
     playerMoney_ -= money <= playerMoney_ ? money : playerMoney_;
   }
 
- protected:
+ private:
   friend class GameObject;
-  int level_;
   bool gameOver = false;
+  bool gameWon = false;
   GameGrid grid_;
-  // int enemyMoney_;
+  std::uint32_t level_;
   std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
+  std::vector<EnemyWave> enemyWaves_;
+  EnemyWave currentEnemyWave_;
 };

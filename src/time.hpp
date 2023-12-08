@@ -28,6 +28,8 @@ class FiniteTimer {
 		}
 	}
 
+	bool Finished() const { return finishCallbackCalled; }
+
    private:
 	const std::uint32_t ttlTicksInBeginning_;
 	std::uint32_t ttlTicks_;
