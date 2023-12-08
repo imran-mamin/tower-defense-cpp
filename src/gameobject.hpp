@@ -53,16 +53,5 @@ class GameObject {
     /* Should be always within the range [0, 360). */
     float rotationAngleDeg_ = 0;
 
-    void addPlayerMoney(int money) { game_.playerMoney_ += money; }
-
-    void removePlayerMoney(int money) { game_.playerMoney_ -= money; }
-
-    void gameOver() {
-      game_.gameOver = true;
-    }
-    //void addEnemyMoney(int money) { game_.enemyMoney_ += money; }
-
-    //void removeEnemyMoney(int money) { game_.enemyMoney_ -= money; }
-
     GameGrid& getGrid() { return game_.grid_; }
 };
