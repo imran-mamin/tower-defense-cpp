@@ -11,7 +11,7 @@ bool Enemy::isAlive() const {
 void Enemy::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
     if (this->isAlive()) {
-        const std::vector<Vec2D> path = this->getGrid().EnemyPath();
+        const std::vector<Vec2D> path = getGrid(game_).EnemyPath();
         int i = 0;
 
         prevPos_ = position_;
@@ -124,8 +124,7 @@ void Enemy::update() {
                     outInSpeed = 0;
                     prevVecIndex_ = j;
                 }
-                // assert(outInSpeed <= 0); // This is for TODO above.
-                gameOver();  
+                assert(outInSpeed <= 0); // This is for TODO above.
             }
 
             // Set rotation angle in degrees according to the direction variable above.
