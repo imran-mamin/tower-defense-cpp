@@ -11,7 +11,6 @@ class GameObject;  // Forward declaration
 
 class Game {
  public:
-  Game(const GameGrid &grid);
   Game(const GameGrid &grid, std::uint32_t level, MapInfo mapInfo);
   ~Game();
 
@@ -33,10 +32,12 @@ class Game {
 
  private:
   friend class GameObject;
-  std::uint32_t level_;
   bool gameOver = false;
+  bool gameWon = false;
   GameGrid grid_;
+  std::uint32_t level_;
   std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
   std::vector<EnemyWave> enemyWaves_;
+  EnemyWave currentEnemyWave_;
 };

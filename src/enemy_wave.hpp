@@ -13,6 +13,10 @@ class EnemyWave {
     EnemyWave(const std::uint32_t durationSeconds, std::vector<EnemyType> enemyVector)
 	: enemyVector_(enemyVector), waveTimer_(durationSeconds, 1.0 * durationSeconds / enemyVector_.size(), [&](float){enemyIsReady_ = true;}, [&](){}), enemyIsReady_(true) {}
 
+	EnemyWave &operator=(const EnemyWave &) {
+		return *this;
+	}
+
 	void UpdateTimer() { waveTimer_.Update(); }
 
     bool hasNext() const;
