@@ -6,6 +6,8 @@
 #include "enemy_wave.hpp"
 #include "gamegrid.hpp"
 #include "footsoldier.hpp"
+#include "tank.hpp"
+#include "attackplane.hpp"
 #include "gameobject.hpp"
 
 class Game {
