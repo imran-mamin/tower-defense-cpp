@@ -14,7 +14,6 @@ void FighterPlane::update() {
 
 int FighterPlane::sell() {
     int p = this->price_;
-    this->addPlayerMoney(p);
     this->onDestroy();
     return p;
 };
