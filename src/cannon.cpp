@@ -157,7 +157,7 @@ void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
     int bulletSpeed = 40;
-    int radius = 2;
+    int radius = 4;
 
     Vec2D collisionVec = findCollisionVec(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
     Pos collisionPos = findCollisionPos(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);

@@ -20,9 +20,9 @@ Game::~Game() {
 
 void Game::Update() {
   	/* Update the game objects. */
-	for (auto it = objects_.begin(); it != objects_.end(); it++) {
-		(*it)->update();
-	}
+  for (int i = 0; i < objects_.size(); i++) {
+    objects_.at(i)->update();
+  }
 
   	/* Remove any dead game objects. */
 	auto it = objects_.begin();
