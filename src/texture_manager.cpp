@@ -33,7 +33,7 @@ TextureManager::TextureManager() {
 						sf::Texture t;
 						t.loadFromFile(subdirEntry.path());
 						textures_[textureId] = t;
-						std::cout << "Successfully loaded texture '" << filename << "'." << std::endl;
+						// std::cout << "Successfully loaded texture '" << filename << "'." << std::endl;
 					}
 					catch (const std::exception & /* e */) {
 						/* Ignore errors. Assume that they are non fatal and come from non texture files that happen to be there. E.g. .DS_Store etc.*/
