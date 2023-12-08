@@ -29,9 +29,9 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     Pos p2;
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
-    // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
+    // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
     MissileLauncher* ml = new MissileLauncher(20, 2, 100, game, p1);
-    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    // (int speed, int value, int price, int hp, Game& game, Pos position)
     FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p2);
     game.AddObject(fs);
     game.AddObject(ml);
@@ -45,7 +45,6 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     EXPECT_EQ(v.size(), 1);
 }
 
-/*
 // --------------------- TEST FOOTSOLDIER CLASS --------------------------
 
 // Enemy should be on the first vec2D in enemyPath.
@@ -56,7 +55,7 @@ TEST(FootSoldierClass, Update) {
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
-    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    // (int speed, int value, int price, int hp, Game& game, Pos position)
     FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p);
     game.AddObject(fs);
     
@@ -65,7 +64,7 @@ TEST(FootSoldierClass, Update) {
     }
 
     EXPECT_EQ(fs->getPosition().x, 36);
-    EXPECT_EQ(fs->getPosition().y, 224);
+    EXPECT_EQ(fs->getPosition().y, 640);
     EXPECT_EQ(fs->GetRotation(), 0);
 }
 
@@ -77,20 +76,20 @@ TEST(FootSoldierClass, Update2) {
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
-    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    // (int speed, int value, int price, int hp, Game& game, Pos position)
     FootSoldier* fs = new FootSoldier(20, 6, 6, 18, game, p);
     game.AddObject(fs);
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 11; i++) {
         fs->update();
     }
 
-    EXPECT_EQ(fs->getPosition().x, 60);
-    EXPECT_EQ(fs->getPosition().y, 244);
-    EXPECT_EQ(fs->GetRotation(), 90);
+    EXPECT_EQ(fs->getPosition().x, 192);
+    EXPECT_EQ(fs->getPosition().y, 612);
+    EXPECT_EQ(fs->GetRotation(), 270);
 }
 
-
+/*
 // Enemy should be on the third vec2D in enemyPath.
 TEST(FootSoldierClass, Update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
