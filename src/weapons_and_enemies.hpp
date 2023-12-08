@@ -26,10 +26,10 @@ enum class EnemyType{
 };
 
 const std::map<std::string, EnemyType> stringToEnemyTypeMapping =  {
-	std::make_pair("Soldier1", EnemyType::Soldier1),
-	std::make_pair("Soldier2", EnemyType::Soldier2),
-	std::make_pair("Soldier3", EnemyType::Soldier3),
-	std::make_pair("Soldier4", EnemyType::Soldier4),
+	std::make_pair("FootSoldier1", EnemyType::Soldier1),
+	std::make_pair("FootSoldier2", EnemyType::Soldier2),
+	std::make_pair("FootSoldier3", EnemyType::Soldier3),
+	std::make_pair("FootSoldier4", EnemyType::Soldier4),
 	std::make_pair("Tank1", EnemyType::Tank1),
 	std::make_pair("Tank2", EnemyType::Tank2),
 	std::make_pair("Plane1", EnemyType::Plane1),
