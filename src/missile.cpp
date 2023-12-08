@@ -1,8 +1,10 @@
+#include <memory>
+
 #include "missile.hpp"
 #include "enemy.hpp"
 #include "vec2d.hpp"
-#include <memory>
-
+#include "utility_func_game.hpp"
+#include "gamegrid.hpp"
 
 /**
  * Every time update()-method is called, the position of the Missile object,
@@ -16,7 +18,7 @@
 
 void Missile::update() {
     bool isAlive = false;
-    for (const auto & obj : this->game_.Objects()) {
+    for (const auto & obj : getObjects(game_)) {
         // Attempt to cast to Enemy*
         if (const auto enemy = dynamic_cast<const Enemy *>(obj); enemy) {
             if (enemy == target_) {
@@ -82,8 +84,8 @@ void Missile::update() {
             this->position_.y += this->travel_speed();
             
             // Is missile still on the screen?
-            bool isOutHeight = ((this->getPosition().y > this->game_.GetGrid().Height() * this->game_.GetGrid().TileWidth() - 1) || (this->getPosition().y < 0));
-            bool isOutWidth = ((this->getPosition().x > this->game_.GetGrid().Width() * this->game_.GetGrid().TileWidth() - 1) || (this->getPosition().x < 0));
+            bool isOutHeight = ((this->getPosition().y > getGrid(game_)->Height() * getGrid(game_)->TileWidth() - 1) || (this->getPosition().y < 0));
+            bool isOutWidth = ((this->getPosition().x > getGrid(game_)->Width() * getGrid(game_)->TileWidth() - 1) || (this->getPosition().x < 0));
 
             if (isOutWidth || isOutHeight) {
                 // Remove missile object from the vector objects_.

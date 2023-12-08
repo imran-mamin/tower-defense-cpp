@@ -8,6 +8,7 @@
 #include "cannon.hpp"
 #include "missilelauncher.hpp"
 #include "weapons_and_enemies.hpp"
+#include "utility_func_game.hpp"
 
 void TowerSelector::OnClickAction() {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(renderWindow_);
@@ -47,19 +48,19 @@ void TowerSelector::OnClickAction() {
 		    const Pos selectedTilePos = game_.GetGrid().AbsoluteCoordinateToClosestTilePosition(mousePos.x, mousePos.y);
 
 		    if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::GreenCannon) && playerMoney >= GreenCannonPrice) {
-				game_.AddObject(new GreenCannon(game_, selectedTilePos));
+				addObject(&game_, new GreenCannon(&game_, selectedTilePos));
 				game_.RemoveMoney(GreenCannonPrice);
 		    	selectedTile.occupy();
 		    	selectedTower_.reset();
 		    }
 			else if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::RedCannon) && playerMoney >= RedCannonPrice) {
-				game_.AddObject(new RedCannon(game_, selectedTilePos));
+				addObject(&game_, new RedCannon(&game_, selectedTilePos));
 				game_.RemoveMoney(RedCannonPrice);
 		    	selectedTile.occupy();
 		    	selectedTower_.reset();
 		    }
 			else if (selectedTower_.value() == weaponToTileIDMapping.at(WeaponType::MissileLauncher1) && playerMoney >= BasicMissileLauncherPrice) {
-				game_.AddObject(new BasicMissileLauncher(game_, selectedTilePos));
+				addObject(&game_, new BasicMissileLauncher(&game_, selectedTilePos));
 				game_.RemoveMoney(BasicMissileLauncherPrice);
 		    	selectedTile.occupy();
 		    	selectedTower_.reset();

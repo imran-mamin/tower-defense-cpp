@@ -11,7 +11,7 @@ private:
     double explosionRadius_;
     
 public:
-    Missile(Game& game, int travel_speed, int damage, int radius, Enemy* target, Pos position, double exp_radius = 0)
+    Missile(Game* game, int travel_speed, int damage, int radius, Enemy* target, Pos position, double exp_radius = 0)
         : Projectile(game, travel_speed, damage, radius, position), target_(target), explosionRadius_(exp_radius) {};
     // Vec2D speed_vec;
     void update();

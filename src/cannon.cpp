@@ -3,7 +3,7 @@
 
 #include "cannon.hpp"
 #include "bullet.hpp"
-
+#include "utility_func_game.hpp"
 
 /**
  * This method finds the length of path from enemy's current position to pos p according
@@ -159,11 +159,11 @@ void Cannon::fire() {
     int bulletSpeed = 40;
     int radius = 4;
 
-    Vec2D collisionVec = findCollisionVec(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), this->getPosition(), bulletSpeed);
-    Pos collisionPos = findCollisionPos(e, e->getPrevVecIndex(), game_.GetGrid().EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
+    Vec2D collisionVec = findCollisionVec(e, e->getPrevVecIndex(), getGrid(game_)->EnemyPath(), this->getPosition(), bulletSpeed);
+    Pos collisionPos = findCollisionPos(e, e->getPrevVecIndex(), getGrid(game_)->EnemyPath(), collisionVec, this->getPosition(), bulletSpeed, radius);
     // Bullet(Game& game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
-    game_.AddObject(new Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos));
-    
+    addObject(game_ ,new Bullet(game_, bulletSpeed, 6, radius, position_, collisionPos));
+
 };
 
 void Cannon::update() {
@@ -185,7 +185,6 @@ void Cannon::update() {
 
 int Cannon::sell() {
     int p = this->price_;
-    this->addPlayerMoney(p);
     // Destroy the object, when it's sold out.
     this->onDestroy();
     return p;

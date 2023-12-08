@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include <cmath>
 
 #include "pos.hpp"
 
@@ -47,7 +48,6 @@ class GameObject {
 	  std::uint32_t health_;
     Game* game_;
     Pos position_;
-
     /* Current rotation (in degrees) angle of the GameObject-instance. */
     /* This is needed for the sprite rotation. */
     /* For further information, see SFML documentation for method

@@ -30,9 +30,9 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(20, 2, 100, game, p1);
+    MissileLauncher* ml = new MissileLauncher(20, 2, 100, &game, p1);
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p2);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, &game, p2);
     game.AddObject(fs);
     game.AddObject(ml);
     
@@ -56,7 +56,7 @@ TEST(FootSoldierClass, Update) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, &game, p);
     game.AddObject(fs);
     
     for (int i = 0; i < 2; i++) {
@@ -77,7 +77,7 @@ TEST(FootSoldierClass, Update2) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(20, 6, 6, 18, game, p);
+    FootSoldier* fs = new FootSoldier(20, 6, 6, 18, &game, p);
     game.AddObject(fs);
 
     for (int i = 0; i < 11; i++) {
@@ -98,7 +98,7 @@ TEST(FootSoldierClass, Update3) {
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(7, 6, 6, 18, game, p);
+    FootSoldier* fs = new FootSoldier(7, 6, 6, 18, &game, p);
     game.AddObject(fs);
 
     for (int i = 0; i < 101; i++) {
@@ -120,7 +120,7 @@ TEST(FootSoldierClass, Update4) {
     p.x = gg.EnemyPath().at(1).a.x;
     p.y = gg.EnemyPath().at(1).a.y;
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, &game, p);
     game.AddObject(fs);
 
     for (int i = 0; i < 80; i++) {
@@ -135,7 +135,6 @@ TEST(FootSoldierClass, Update4) {
 
 
 // ----------------- TEST MISSILE CLASS --------------------
-// TODO: Checkout the commented unit test
 
 TEST(MissileClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
@@ -147,9 +146,9 @@ TEST(MissileClass, update) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(100, 2, 100, game, p1);
+    MissileLauncher* ml = new MissileLauncher(100, 2, 100, &game, p1);
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p2);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, &game, p2);
     game.AddObject(fs);
     game.AddObject(ml);
 
@@ -173,9 +172,9 @@ TEST(MissileClass, update2) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(100, 2, 100, game, p1);
+    MissileLauncher* ml = new MissileLauncher(100, 2, 100, &game, p1);
     // (int speed, int value, int price, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 6, game, p2);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 6, &game, p2);
     game.AddObject(fs);
     game.AddObject(ml);
 
@@ -197,11 +196,11 @@ TEST(CannonClass, update) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
 
-    FootSoldier* fs = new FootSoldier(18, 6, 6, 6, game, p2);
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 6, &game, p2);
     game.AddObject(fs);
 
     Pos canPos = Pos{ 20, 500 };
-    Cannon* cn = new GreenCannon(game, canPos);
+    Cannon* cn = new GreenCannon(&game, canPos);
     game.AddObject(cn);
 
     game.Objects().at(1)->update();
@@ -217,11 +216,11 @@ TEST(CannonClass, update2) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
 
-    FootSoldier* fs = new FootSoldier(2, 2, 2, 2, game, p2);
+    FootSoldier* fs = new FootSoldier(2, 2, 2, 2, &game, p2);
     game.AddObject(fs);
 
     Pos canPos = Pos{ 2, 620 };
-    Cannon* cn = new GreenCannon(game, canPos);
+    Cannon* cn = new GreenCannon(&game, canPos);
     game.AddObject(cn);
 
     game.Update();
@@ -237,11 +236,11 @@ TEST(CannonClass, update3) {
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
 
-    FootSoldier* fs = new FootSoldier(4, 2, 2, 2, game, p2);
+    FootSoldier* fs = new FootSoldier(4, 2, 2, 2, &game, p2);
     game.AddObject(fs);
 
     Pos canPos = Pos{ 0, 650 };
-    Cannon* cn = new GreenCannon(game, canPos);
+    Cannon* cn = new GreenCannon(&game, canPos);
     game.AddObject(cn);
 
     game.Update();

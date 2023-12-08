@@ -50,7 +50,7 @@ void Game::Update() {
 		EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
 		switch (enemyType) {
 			case EnemyType::Soldier1:
-			AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
+			// AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
 			break;
 			case EnemyType::Soldier2:
 			break;

@@ -13,7 +13,7 @@ const std::uint32_t RedCannonPrice = 4000;
 
 class Cannon : public Tower {
    protected:
-    Cannon(int radius, int fireRate, int price, Game &game, Pos position, std::uint32_t health)
+    Cannon(int radius, int fireRate, int price, Game* game, Pos position, std::uint32_t health)
 	: Tower(radius, fireRate, price, game, position, health) {}
 
    public:
@@ -26,14 +26,14 @@ class Cannon : public Tower {
 
 class GreenCannon : public Cannon {
    public:
-    GreenCannon(Game &game, Pos position)
+    GreenCannon(Game* game, Pos position)
 	: Cannon(64 * 4, 3, GreenCannonPrice, game, position, 100) {}
     ~GreenCannon() = default;
 };
 
 class RedCannon : public Cannon {
    public:
-    RedCannon(Game &game, Pos position)
+    RedCannon(Game* game, Pos position)
 	: Cannon(64 * 7, 1, RedCannonPrice, game, position, 300) {}
     ~RedCannon() = default;
 };

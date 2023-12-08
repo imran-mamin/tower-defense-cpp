@@ -12,7 +12,7 @@ class MissileLauncher : public Tower {
    // TODO: Make protected.
 	//protected:
 	public:
-    MissileLauncher(int radius, int fireRate, int price, Game &game,
+    MissileLauncher(int radius, int fireRate, int price, Game* game,
 		    Pos position)
 	: Tower(radius, fireRate, price, game, position, 250){};
 
@@ -27,6 +27,6 @@ class MissileLauncher : public Tower {
 
 class BasicMissileLauncher : public MissileLauncher {
    public:
-	BasicMissileLauncher(Game &game, Pos position) : MissileLauncher(64 * 10, 3, BasicMissileLauncherPrice, game, position) {}
+	BasicMissileLauncher(Game* game, Pos position) : MissileLauncher(64 * 10, 3, BasicMissileLauncherPrice, game, position) {}
 };
 

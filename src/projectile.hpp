@@ -19,7 +19,7 @@ public:
      * @param damage damage caused by projectile (int)
      * @param radius radius of damage (int)
     */
-    explicit Projectile(Game& game, int travel_speed, int damage, int radius, Pos position)
+    explicit Projectile(Game* game, int travel_speed, int damage, int radius, Pos position)
             : GameObject(game, position, 1), travel_speed_(travel_speed), damage_(damage), radius_(radius) {};
     
 

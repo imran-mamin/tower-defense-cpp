@@ -1,4 +1,7 @@
 #include "enemy.hpp"
+#include "utility_func_game.hpp"
+#include "vec2d.hpp"
+#include "gamegrid.hpp"
 
 int Enemy::GetSpeed() const {
     return speed_;
@@ -11,7 +14,7 @@ bool Enemy::isAlive() const {
 void Enemy::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
     if (this->isAlive()) {
-        const std::vector<Vec2D> path = getGrid(game_).EnemyPath();
+        const std::vector<Vec2D>& path = getGrid(game_)->EnemyPath();
         int i = 0;
 
         prevPos_ = position_;
