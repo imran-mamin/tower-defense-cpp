@@ -22,7 +22,7 @@
 // Enemy should be on the first vec2D in enemyPath.
 TEST(TowerClass, getEnemiesWithinRadius) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
     
     Pos p1 = Pos{ 0, 620 };
 
@@ -50,7 +50,7 @@ TEST(TowerClass, getEnemiesWithinRadius) {
 // Enemy should be on the first vec2D in enemyPath.
 TEST(FootSoldierClass, Update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
@@ -71,7 +71,7 @@ TEST(FootSoldierClass, Update) {
 // Enemy should be on the second vec2D in enemyPath.
 TEST(FootSoldierClass, Update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
@@ -92,7 +92,7 @@ TEST(FootSoldierClass, Update2) {
 // Enemy should be on the third vec2D in enemyPath.
 TEST(FootSoldierClass, Update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
@@ -114,7 +114,7 @@ TEST(FootSoldierClass, Update3) {
 // Enemy should be on the fourth vec2D in enemyPath.
 TEST(FootSoldierClass, Update4) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p;
     p.x = gg.EnemyPath().at(1).a.x;
@@ -139,7 +139,7 @@ TEST(FootSoldierClass, Update4) {
 
 TEST(MissileClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
     
     Pos p1 = Pos{ 0, 620 };
 
@@ -165,7 +165,7 @@ TEST(MissileClass, update) {
 
 TEST(MissileClass, update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
     
     Pos p1 = Pos{ 20, 620 };
 
@@ -191,7 +191,7 @@ TEST(MissileClass, update2) {
 // ----------- TEST CANNON CLASS -------------
 TEST(CannonClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p2;
     p2.x = gg.EnemyPath().at(0).a.x;
@@ -211,7 +211,7 @@ TEST(CannonClass, update) {
 
 TEST(CannonClass, update2) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p2;
     p2.x = gg.EnemyPath().at(0).a.x;
@@ -231,7 +231,7 @@ TEST(CannonClass, update2) {
 
 TEST(CannonClass, update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg);
+    Game game = Game(gg, 1, testMapInfoObject1());
 
     Pos p2;
     p2.x = gg.EnemyPath().at(0).a.x;
