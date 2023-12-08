@@ -68,10 +68,10 @@ void Game::Update() {
 				// AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Plane1:
-				// AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
+				AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Plane2:
-				// AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
+				AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
 				break;
 			default:
 				throw std::runtime_error("Unknown enemy type.");
