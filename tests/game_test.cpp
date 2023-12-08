@@ -1,14 +1,14 @@
-#include "game.hpp"
+#include "../src/game.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <stdexcept>
 #include <vector>
 
-#include "enemy_wave.hpp"
-#include "gamegrid.hpp"
-#include "gameobject.hpp"
-#include "weapons_and_enemies.hpp"
+#include "../src/enemy_wave.hpp"
+#include "../src/gamegrid.hpp"
+#include "../src/gameobject.hpp"
+#include "../src/weapons_and_enemies.hpp"
 
 /* Helper. */
 EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave> &enemyWaves) {
@@ -50,10 +50,8 @@ void Game::Update() {
 		EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
 		switch (enemyType) {
 			case EnemyType::Soldier1:
-				AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Soldier2:
-				AddObject(new Soldier2(this, grid_.EnemyPath().at(0).a));
 				break;
 			case EnemyType::Soldier3:
 			break;
