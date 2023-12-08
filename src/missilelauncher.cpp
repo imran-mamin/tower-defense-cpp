@@ -52,7 +52,6 @@ void MissileLauncher::update() {
 
 int MissileLauncher::sell() {
     int p = this->price_;
-    this->addPlayerMoney(p);
     this->onDestroy();
     return p;
 }

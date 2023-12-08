@@ -185,7 +185,6 @@ void Cannon::update() {
 
 int Cannon::sell() {
     int p = this->price_;
-    this->addPlayerMoney(p);
     // Destroy the object, when it's sold out.
     this->onDestroy();
     return p;
