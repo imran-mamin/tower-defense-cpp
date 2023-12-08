@@ -89,42 +89,26 @@ TEST(FootSoldierClass, Update2) {
     EXPECT_EQ(fs->GetRotation(), 270);
 }
 
-/*
 // Enemy should be on the third vec2D in enemyPath.
 TEST(FootSoldierClass, Update3) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
 
-    std::cout << "EnemyPath()" << std::endl;
-    for (int i = 0; i < gg.EnemyPath().size(); i++) {
-        std::cout << "Start (x, y): (" << gg.EnemyPath().at(i).a.x << ", " << gg.EnemyPath().at(i).a.y << ")" << std::endl;
-        std::cout << "End (x, y): (" << gg.EnemyPath().at(i).b.x << ", " << gg.EnemyPath().at(i).b.y << ")" << std::endl;
-    }
-    
-    std::cout << "EnemPath() ended" << std::endl;
     Pos p;
     p.x = gg.EnemyPath().at(0).a.x;
     p.y = gg.EnemyPath().at(0).a.y;
-    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
+    // (int speed, int value, int price, int hp, Game& game, Pos position)
     FootSoldier* fs = new FootSoldier(7, 6, 6, 18, game, p);
     game.AddObject(fs);
 
-    std::cout << "Enemy position at the start" << std::endl;
-    std::cout << "(x, y) = (" << fs->getPosition().x << ", " << fs->getPosition().y << ")" << std::endl;
-    
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 101; i++) {
         fs->update();
-
-        std::cout << "iteration " << i << "done" << std::endl;
-        std::cout << std::endl;
     }
-    std::cout << "Enemy position at the end" << std::endl;
-    std::cout << "(x, y) = (" << fs->getPosition().x << ", " << fs->getPosition().y << ")" << std::endl;
-  
-    // (58, 260)
-    EXPECT_EQ(fs->getPosition().x, 58);
-    EXPECT_EQ(fs->getPosition().y, 260);
-    EXPECT_EQ(fs->GetRotation(), 180);
+ 
+    // (195, 128)
+    EXPECT_EQ(fs->getPosition().x, 195);
+    EXPECT_EQ(fs->getPosition().y, 128);
+    EXPECT_EQ(fs->GetRotation(), 0);
 }
 
 // Enemy should be on the fourth vec2D in enemyPath.
@@ -132,40 +116,24 @@ TEST(FootSoldierClass, Update4) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
 
-    std::cout << "EnemyPath()" << std::endl;
-    for (int i = 0; i < gg.EnemyPath().size(); i++) {
-        std::cout << "Start (x, y): (" << gg.EnemyPath().at(i).a.x << ", " << gg.EnemyPath().at(i).a.y << ")" << std::endl;
-        std::cout << "End (x, y): (" << gg.EnemyPath().at(i).b.x << ", " << gg.EnemyPath().at(i).b.y << ")" << std::endl;
-    }
-    
-    std::cout << "EnemPath() ended" << std::endl;
-
     Pos p;
-    p.x = gg.EnemyPath().at(0).a.x;
-    p.y = gg.EnemyPath().at(0).a.y;
-    // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(7, 6, 6, 18, game, p);
+    p.x = gg.EnemyPath().at(1).a.x;
+    p.y = gg.EnemyPath().at(1).a.y;
+    // (int speed, int value, int price, int hp, Game& game, Pos position)
+    FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p);
     game.AddObject(fs);
 
-    std::cout << "Enemy position at the start" << std::endl;
-    std::cout << "(x, y) = (" << fs->getPosition().x << ", " << fs->getPosition().y << ")" << std::endl;
-    
-    for (int i = 0; i < 23; i++) {
+    for (int i = 0; i < 80; i++) {
         fs->update();
-
-        std::cout << "iteration " << i << "done" << std::endl;
-        std::cout << std::endl;
     }
-    std::cout << "Enemy position at the end" << std::endl;
-    std::cout << "(x, y) = (" << fs->getPosition().x << ", " << fs->getPosition().y << ")" << std::endl;
-  
-    // (0, 255)
-    EXPECT_EQ(fs->getPosition().x, 0);
-    EXPECT_EQ(fs->getPosition().y, 255);
-    EXPECT_EQ(fs->GetRotation(), 270);
+
+    // (1088, 160)
+    EXPECT_EQ(fs->getPosition().x, 1088);
+    EXPECT_EQ(fs->getPosition().y, 160);
+    EXPECT_EQ(fs->GetRotation(), 90);
 }
 
-
+/*
 // ----------------- TEST MISSILE CLASS --------------------
 // TODO: Checkout the commented unit test
 
