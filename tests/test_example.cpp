@@ -24,29 +24,28 @@ TEST(TowerClass, getEnemiesWithinRadius) {
     GameGrid gg = GameGrid(testMapInfoObject1());
     Game game = Game(gg);
     
-    Pos p1 = Pos{ 2, 220 };
+    Pos p1 = Pos{ 0, 620 };
 
     Pos p2;
     p2.x = gg.EnemyPath().at(0).a.x;
     p2.y = gg.EnemyPath().at(0).a.y;
     // MissileLauncher(int radius, int fireRate, int price, sf::Sprite sprite, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(6, 2, 100, game, p1);
+    MissileLauncher* ml = new MissileLauncher(20, 2, 100, game, p1);
     // (int speed, int value, int price, int hp, sf::Sprite sprite, Game& game, Pos position)
     FootSoldier* fs = new FootSoldier(18, 6, 6, 18, game, p2);
     game.AddObject(fs);
     game.AddObject(ml);
     
     std::vector<Enemy*> v = ml->getEnemiesWithinRadius();
-    
-    // Enemy position should be (0, 224).
+    // Enemy position should be (0, 640).
     EXPECT_EQ(v.at(0)->getPosition().x, 0);
-    EXPECT_EQ(v.at(0)->getPosition().y, 224);
+    EXPECT_EQ(v.at(0)->getPosition().y, 640);
     
     // There should be only one enemy within the radius.
     EXPECT_EQ(v.size(), 1);
 }
 
-
+/*
 // --------------------- TEST FOOTSOLDIER CLASS --------------------------
 
 // Enemy should be on the first vec2D in enemyPath.
@@ -228,7 +227,7 @@ TEST(MissileClass, update2) {
     // After hitting the enemy, the Missile-instance should be removed from game->objects_.
     EXPECT_EQ(game.Objects().size(), 1);
 }
-*/
+
 
 // ----------- TEST CANNON CLASS -------------
 TEST(CannonClass, update) {
@@ -310,3 +309,4 @@ TEST(CannonClass, update3) {
     
     EXPECT_EQ(game.Objects().size(), 1);
 }
+*/

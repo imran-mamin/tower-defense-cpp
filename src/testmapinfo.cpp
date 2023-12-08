@@ -34,7 +34,6 @@ MapInfo testMapInfoObject1() {
                 }
         }
 
-        //TODO: Create better enemy path.
         std::vector<Vec2D> enemyPath;
         enemyPath.push_back(Vec2D{ Pos{0, 640}, Pos{192, 640} });
         enemyPath.push_back(Vec2D{ Pos{192, 640}, Pos{192, 128} });
