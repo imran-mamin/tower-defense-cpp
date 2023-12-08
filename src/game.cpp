@@ -1,15 +1,15 @@
 #include "game.hpp"
 
+#include <cstddef>
 #include <cstdint>
 
+#include "gamegrid.hpp"
 #include "gameobject.hpp"
 
-Game::Game(const GameGrid& grid) : level_(0), grid_(grid){};
+Game::Game(const GameGrid &grid) : grid_(grid), level_(0) {}
 
-Game::Game(const GameGrid& grid, int level, MapInfo mapInfo)
-    : level_(level), grid_(grid) {
-  // enemyMoney_ = mapInfo.enemyStartCash;
-  playerMoney_ = mapInfo.playerStartCash;
+Game::Game(const GameGrid &grid, std::uint32_t level, MapInfo mapInfo)
+    : level_(level), grid_(grid), playerMoney_(mapInfo.playerStartCash), enemyWaves_(mapInfo.enemyWaves) {
 };
 
 Game::~Game() {
@@ -20,7 +20,7 @@ Game::~Game() {
 
 void Game::Update() {
   	/* Update the game objects. */
-  for (int i = 0; i < objects_.size(); i++) {
+  for (std::size_t i = 0; i < objects_.size(); i++) {
     objects_.at(i)->update();
   }
 
