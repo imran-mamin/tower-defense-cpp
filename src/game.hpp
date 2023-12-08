@@ -5,6 +5,7 @@
 
 #include "enemy_wave.hpp"
 #include "gamegrid.hpp"
+#include "footsoldier.hpp"
 // #include "gameobject.hpp"
 
 class GameObject;  // Forward declaration
