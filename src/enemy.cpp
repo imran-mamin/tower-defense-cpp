@@ -69,7 +69,6 @@ void Enemy::update() {
         // Find the vector2D that contains enemy's current position.
         std::size_t currVecIndex = findCurrentPath(this, path);
         const Vec2D currVec = path.at(currVecIndex);
-        std::cout << "currVecIndex = " << currVecIndex << std::endl; 
         // Find a current vector in form of (4i + 2j) for example, which is a point.
         Pos vec1 = Pos{ (currVec.b.x - currVec.a.x), (currVec.b.y - currVec.a.y) };
         const float vec1Length = sqrt((vec1.x * vec1.x) + (vec1.y * vec1.y));
@@ -104,19 +103,11 @@ void Enemy::update() {
                 Pos unitPathVec = Pos{ (pathVec.x / pathVecLength), (pathVec.y / pathVecLength) };
                 
                 // Update the direction of the enemy.
-                if (unitPathVec.y < 0) {
-                    direction = 'N';
-                } else if (unitPathVec.x > 0) {
-                    direction = 'E';
-                } else if (unitPathVec.y > 0) {
-                    direction = 'S';
-                } else {
-                    direction = 'W';
-                }
-
+                direction = checkDirection(unitPathVec);
+                
                 // Update enemy's position.
-                this->position_.x += outInSpeed * unitPathVec.x;
-                this->position_.y += outInSpeed * unitPathVec.y;
+                position_.x += outInSpeed * unitPathVec.x;
+                position_.y += outInSpeed * unitPathVec.y;
 
                 // If it goes also out of pathPoints vec2D then continue.
                 bool isOutX = (unitPathVec.x > 0) ? (this->position_.x > pathPoints.b.x) : (this->position_.x < pathPoints.b.x);
