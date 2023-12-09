@@ -9,7 +9,7 @@ void EnemyWave::UpdateTimer() {
   }
 }
 
-bool EnemyWave::hasNext() const { return enemyVector_.size() != 0; }
+bool EnemyWave::hasEnemy() const { return enemyVector_.size() != 0; }
 
 bool EnemyWave::isNextEnemyReady() const { return enemyIsReady_; }
 

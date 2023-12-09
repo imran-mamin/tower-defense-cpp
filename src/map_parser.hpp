@@ -6,6 +6,7 @@
 #include <exception>
 #include <string>
 #include <tuple>
+#include <queue>
 #include <vector>
 
 #include "vec2d.hpp"
@@ -22,7 +23,7 @@ struct MapInfo {
   /* Enemy path consisting from vectors. */
   std::uint64_t playerStartCash;
   std::vector<Vec2D> enemyPath;
-  std::vector<EnemyWave> enemyWaves;
+  std::queue<EnemyWave> enemyWaves;
 };
 
 class MapParserError : public std::exception {

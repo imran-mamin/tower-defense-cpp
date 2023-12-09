@@ -2,19 +2,23 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <iostream>
+#include <queue>
 #include <stdexcept>
 #include <vector>
 
+#include "attackplane.hpp"
 #include "enemy_wave.hpp"
 #include "footsoldier.hpp"
 #include "gamegrid.hpp"
 #include "gameobject.hpp"
+#include "tank.hpp"
 #include "weapons_and_enemies.hpp"
 
 /* Helper. */
 EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave>& enemyWaves) {
   try {
-    EnemyWave e = enemyWaves.at(0);
+    EnemyWave e = enemyWaves.front();
     enemyWaves.erase(enemyWaves.begin());
     return e;
   } catch (const std::out_of_range&) {
@@ -27,7 +31,9 @@ Game::Game(const GameGrid& grid, std::uint32_t level, MapInfo mapInfo)
       level_(level),
       playerMoney_(mapInfo.playerStartCash),
       enemyWaves_(mapInfo.enemyWaves),
-      currentEnemyWave_(GetFirstEnemyWaveFromTheList(enemyWaves_)){};
+      currentEnemyWave_(mapInfo.enemyWaves.front()) {
+  enemyWaves_.pop();
+};
 
 Game::~Game() {
   for (auto gameObject : objects_) {
@@ -36,48 +42,53 @@ Game::~Game() {
 }
 
 void Game::Update() {
-	/* Try to get an enemy from the wave and update the enemy wave. */
-	if (!currentEnemyWave_.hasNext() && !gameWon) {
-		if (enemyWaves_.empty()) {
-			gameWon = true;
-		}
-		else {
-			currentEnemyWave_ = GetFirstEnemyWaveFromTheList(enemyWaves_);
-		}
-	}
-	else if (currentEnemyWave_.isNextEnemyReady()) {
-		// TODO: Add enemies to the list of gameobjects.
-		EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
-		switch (enemyType) {
-			case EnemyType::Soldier1:
-				AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Soldier2:
-				AddObject(new Soldier2(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Soldier3:
-				AddObject(new Soldier3(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Soldier4:
-				AddObject(new Soldier4(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Tank1:
-				AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Tank2:
-				AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Plane1:
-				AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
-				break;
-			case EnemyType::Plane2:
-				AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
-				break;
-			default:
-				throw std::runtime_error("Unknown enemy type.");
-			break;
-		}
-	}
+  /* Try to get an enemy from the wave and update the enemy wave. */
+
+  // Reaching last waves and no enemy left.
+  if (enemyWaves_.empty() && !currentEnemyWave_.hasEnemy()) {
+    gameWon = true;
+  }
+
+  // If current wave is finished, get the next one.
+  if (!currentEnemyWave_.hasEnemy() && !enemyWaves_.empty()) {
+    // FIXME: The currentEnemyWave_ is not changing here.
+    currentEnemyWave_ = enemyWaves_.front();
+    enemyWaves_.pop();
+  }
+
+  if (currentEnemyWave_.isNextEnemyReady()) {
+    // TODO: Add enemies to the list of gameobjects.
+    EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
+    switch (enemyType) {
+      case EnemyType::Soldier1:
+        AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Soldier2:
+        AddObject(new Soldier2(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Soldier3:
+        AddObject(new Soldier3(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Soldier4:
+        AddObject(new Soldier4(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Tank1:
+        AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Tank2:
+        AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Plane1:
+        AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
+        break;
+      case EnemyType::Plane2:
+        AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
+        break;
+      default:
+        throw std::runtime_error("Unknown enemy type.");
+        break;
+    }
+  }
 
 	if (!gameWon && !gameOver) {
 		currentEnemyWave_.UpdateTimer();

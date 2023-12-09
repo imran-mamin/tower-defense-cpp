@@ -76,6 +76,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown soldier type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<Tank>(gameObject)) {
 			if (isOfType<Tank1>(gameObject)) {
@@ -87,6 +88,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown tank type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<AttackPlane>(gameObject)) {
 			if (isOfType<Plane1>(gameObject)) {
@@ -98,6 +100,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown tank type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<Missile>(gameObject)) {
 			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
@@ -114,7 +117,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		/*
 		 * 2. Set the sprite position and rotate it according to the game object rotation.
 		 */
-		currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		currentSprite.setRotation(gameObject->GetRotation());
 

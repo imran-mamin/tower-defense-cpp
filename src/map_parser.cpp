@@ -10,6 +10,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <queue>
 
 #include "enemy_wave.hpp"
 #include "json.hpp"
@@ -45,7 +46,7 @@ MapInfo ParseMap(const std::string &path) {
     std::vector<std::pair<std::uint16_t, std::pair<std::uint16_t, std::uint16_t>>>
         obstacleTiles;
     std::vector<std::vector<std::vector<std::uint32_t>>> enemyPath_;
-	std::vector<EnemyWave> enemyWaves;
+	  std::queue<EnemyWave> enemyWaves;
     std::uint64_t playerStartCash;
 
     /* Read the input. */
@@ -79,7 +80,7 @@ MapInfo ParseMap(const std::string &path) {
 			enemies.push_back(stringToEnemyTypeMapping.at(enemyName));
 		}
 		
-		enemyWaves.push_back(EnemyWave(waveDurationSeconds, enemies));
+    enemyWaves.push(EnemyWave(waveDurationSeconds, enemies));
 	}
 
 

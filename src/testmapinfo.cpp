@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <tuple>
+#include <queue>
 #include <vector>
 
 #include "map_parser.hpp"
@@ -45,11 +46,11 @@ MapInfo testMapInfoObject1() {
 
         std::vector<std::pair<u_int16_t, std::pair<u_int16_t, u_int16_t>>> obstacleTiles = {{135, {0, 0}}, {134, {640, 512}}};
         std::vector<EnemyType> enemyTypes;
-        std::vector<EnemyWave> enemyWaves;
+        std::queue<EnemyWave> enemyWaves;
         for (int i = 0; i < 60; i++) {
                 enemyTypes.push_back(EnemyType::Soldier1);
         }
-        enemyWaves.push_back(EnemyWave(60, enemyTypes));
+        enemyWaves.push(EnemyWave(60, enemyTypes));
         /*
         enemyPath.push_back(Vec2D{ Pos{ 0, 224 }, Pos{ 60, 224 } });
         enemyPath.push_back(Vec2D{ Pos{ 60, 224 }, Pos{ 60, 260 } });

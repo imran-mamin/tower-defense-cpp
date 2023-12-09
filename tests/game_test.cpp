@@ -11,10 +11,10 @@
 #include "../src/weapons_and_enemies.hpp"
 
 /* Helper. */
-EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave> &enemyWaves) {
+EnemyWave GetFirstEnemyWaveFromTheList(std::queue<EnemyWave> &enemyWaves) {
 	try {
-		EnemyWave e = enemyWaves.at(0);
-		enemyWaves.erase(enemyWaves.begin());
+		EnemyWave e = enemyWaves.front();
+		enemyWaves.pop();
 		return e;
 	}
 	catch (const std::out_of_range &) {
@@ -37,7 +37,7 @@ Game::~Game() {
 
 void Game::Update() {
 	/* Try to get an enemy from the wave and update the enemy wave. */
-	if (!currentEnemyWave_.hasNext() && !gameWon) {
+	if (!currentEnemyWave_.hasEnemy() && !gameWon) {
 		if (enemyWaves_.empty()) {
 			gameWon = true;
 		}

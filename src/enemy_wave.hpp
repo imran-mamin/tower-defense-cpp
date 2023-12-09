@@ -22,7 +22,7 @@ class EnemyWave {
 
   void UpdateTimer();
 
-  bool hasNext() const;
+  bool hasEnemy() const;
   bool isNextEnemyReady() const;
   EnemyType getNextEnemyType();
 
