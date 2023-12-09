@@ -51,6 +51,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown cannon type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<MissileLauncher>(gameObject)) {
 			if (isOfType<BasicMissileLauncher>(gameObject)) {
@@ -59,6 +60,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown missile launcher type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<FootSoldier>(gameObject)) {
 			if (isOfType<Soldier1>(gameObject)) {
@@ -102,13 +104,19 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			}
 			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
-		else if (isOfType<Missile>(gameObject)) {
-			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
-			currentSprite.setTexture(currentTexture);
-		}
-		else if (isOfType<Bullet>(gameObject)) {
-			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
-			currentSprite.setTexture(currentTexture);
+		else if (isOfType<Projectile>(gameObject)) {
+			if (isOfType<Missile>(gameObject)) {
+				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
+				currentSprite.setTexture(currentTexture);
+			}
+			else if (isOfType<Bullet>(gameObject)) {
+				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
+				currentSprite.setTexture(currentTexture);
+			}
+			else {
+				throw std::runtime_error("Unknown projectile type.");
+			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else {
 			throw GameObjectRendererError("Unsupported gameobject type.");
