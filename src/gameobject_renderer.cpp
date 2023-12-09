@@ -78,6 +78,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		/*
 		 * 2. Set the sprite position and rotate it according to the game object rotation.
 		 */
+		currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		currentSprite.setRotation(gameObject->GetRotation());
 
