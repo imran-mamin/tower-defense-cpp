@@ -6,6 +6,7 @@
 #include "game.hpp"
 #include "missilelauncher.hpp"
 #include "tank.hpp"
+#include "attackplane.hpp"
 #include "texture_manager.hpp"
 #include "weapons_and_enemies.hpp"
 #include <SFML/Graphics.hpp>
@@ -58,19 +59,44 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			}
 		}
 		else if (isOfType<FootSoldier>(gameObject)) {
-			// FIXME: Select correct footsoldier texture. Currently does not differentiate between the four of them.
-			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier1));
-			currentSprite.setTexture(currentTexture);
+			if (isOfType<Soldier1>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier1)));
+			}
+			else if (isOfType<Soldier2>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier2)));
+			}
+			if (isOfType<Soldier3>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier3)));
+			}
+			else if (isOfType<Soldier4>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier4)));
+			}
+			else {
+				throw std::runtime_error("Unknown soldier type.");
+			}
 		}
 		else if (isOfType<Tank>(gameObject)) {
-			// FIXME: Select correct tank texture. Currently does not differentiate between Tank1 and Tank2.
-			sf::Texture &currentTexture = textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1));
-			currentSprite.setTexture(currentTexture);
+			if (isOfType<Tank1>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1)));
+			}
+			else if (isOfType<Tank2>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank2)));
+			}
+			else {
+				throw std::runtime_error("Unknown tank type.");
+			}
 		}
-		// TODO: Enemy plane.
-		//else if (dynamic_cast<const >()) {
-		//
-		//}
+		else if (isOfType<AttackPlane>(gameObject)) {
+			if (isOfType<Plane1>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Plane1)));
+			}
+			else if (isOfType<Plane2>(gameObject)) {
+				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Plane2)));
+			}
+			else {
+				throw std::runtime_error("Unknown tank type.");
+			}
+		}
 		else {
 			throw GameObjectRendererError("Unsupported gameobject type.");
 		}
