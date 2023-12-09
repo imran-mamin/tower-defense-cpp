@@ -89,7 +89,7 @@ void Missile::update() {
         // The angle between direction vector w and vector v is theta.
         // (30.0 is the degrees between vectors (0, -1) and v).
         // theta should be between 0 and 180 degrees.
-        float theta = GetRotation() - 30.0;// std::min(this->GetRotation() - 30.0, 360.0 - (this->GetRotation() - 30.0));
+        float theta = std::abs(GetRotation() - 30.0);// std::min(this->GetRotation() - 30.0, 360.0 - (this->GetRotation() - 30.0));
         float thetaInRad = theta * (M_PI / 180.0);
         // Let's use rotation matrix.
         w.x = (v.x * std::cos(thetaInRad) + v.y * std::sin(thetaInRad)); 
