@@ -65,7 +65,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else if (isOfType<Soldier2>(gameObject)) {
 				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier2)));
 			}
-			if (isOfType<Soldier3>(gameObject)) {
+			else if (isOfType<Soldier3>(gameObject)) {
 				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier3)));
 			}
 			else if (isOfType<Soldier4>(gameObject)) {
@@ -74,6 +74,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown soldier type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<Tank>(gameObject)) {
 			if (isOfType<Tank1>(gameObject)) {
@@ -85,6 +86,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown tank type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
 		else if (isOfType<AttackPlane>(gameObject)) {
 			if (isOfType<Plane1>(gameObject)) {
@@ -96,7 +98,9 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			else {
 				throw std::runtime_error("Unknown tank type.");
 			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
+		// FIXME: Error because missing projectile texture
 		else {
 			throw GameObjectRendererError("Unsupported gameobject type.");
 		}
@@ -104,7 +108,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		/*
 		 * 2. Set the sprite position and rotate it according to the game object rotation.
 		 */
-		currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		currentSprite.setRotation(gameObject->GetRotation());
 

@@ -1,7 +1,8 @@
 #pragma once
 #include <cstdint>
-#include <vector>
 #include <iostream>
+#include <queue>
+#include <vector>
 
 #include "enemy_wave.hpp"
 #include "gamegrid.hpp"
@@ -12,7 +13,7 @@ class GameObject;  // Forward declaration
 
 class Game {
  public:
-  Game(const GameGrid &grid, std::uint32_t level, MapInfo mapInfo);
+  Game(const GameGrid& grid, std::uint32_t level, MapInfo mapInfo);
   ~Game();
 
   void Update();
@@ -39,6 +40,6 @@ class Game {
   std::uint32_t level_;
   std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
-  std::vector<EnemyWave> enemyWaves_;
+  std::queue<EnemyWave> enemyWaves_;
   EnemyWave currentEnemyWave_;
 };
