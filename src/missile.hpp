@@ -9,6 +9,7 @@ class Missile: public Projectile {
 private:
     Enemy* target_;
     double explosionRadius_;
+    Pos lastDirection_;
 
 public:
     Missile(Game* game, int travel_speed, int damage, int radius, Enemy* target, Pos position, double exp_radius = 0)

@@ -39,12 +39,13 @@ void Missile::update() {
 
         // Find unit vector of vectorToTarget.
         Pos unitVec = Pos{ (vectorToTarget.x / vectorToTargetLength), (vectorToTarget.y / vectorToTargetLength) };
-        
+        lastDirection_ = unitVec;
         // Set the rotation of missile.
         Pos unitVecN = Pos{ 0, -1 };
 
         // Calculate dot product of unitVec and unitVecN.
-        float dotP = unitVec.y * unitVecN.y;
+        float dotP = unitVec.x * unitVecN.x + unitVec.y * unitVecN.y;
+        
         // Calculate the rotation angle.
         float angleInRad = std::acos(dotP);
         float angleInDeg = angleInRad * (180.0 / M_PI);
@@ -54,6 +55,7 @@ void Missile::update() {
         } else {
             this->SetAngle(angleInDeg);
         }
+
         // Check, whether the enemy is within missile radius on every position update.
         int i = 0;
 
@@ -78,6 +80,27 @@ void Missile::update() {
         }
         
     } else {
+        int i = 0;
+        while (i < travel_speed()) {
+            // The missile will cause damage to all enemies within the given missile radius.
+            std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
+            if (!enemiesWithinRadius.empty()) {
+                auto it = enemiesWithinRadius.begin();
+                while (it != enemiesWithinRadius.end()) {
+                    (*it)->takeDamage(this->damage());
+                    it++;
+                }
+                // Remove missile object from the vector objects_.
+                health_ = 0;
+                break;
+            }
+            // Update missile's position.
+            position_.x += lastDirection_.x;
+            position_.y += lastDirection_.y;
+            i++;
+        }
+        
+        /*
         // TODO: Improve this, so that missile goes straight.
         // Suppose we have a right-angled triangle, with a = 1, b = sqrt(3) and hypotenuse = 2.
         // Now, the angle between a and hypotenuse is 60 degrees (pi / 3 in rad).
@@ -98,7 +121,7 @@ void Missile::update() {
         position_.x += travel_speed() * w.x;
         position_.y += travel_speed() * w.y;
         // Check, whether the enemy is within missile radius on every position update.
-        /*int i = 0;
+        int i = 0;
 
         while (i < this->travel_speed()) {
             // The missile will cause damage to all enemies within the given missile radius.
