@@ -25,12 +25,17 @@ class Game {
   GameGrid& GetGrid();
   int GetLevel();
 
+  std::uint32_t CurrentEnemyWaveNumber() const { return currentEnemyWaveNumber_; }
+
   /* Operations for money. */
   const std::uint64_t& PlayerMoney() const;
   void AddMoney(std::uint32_t money) { playerMoney_ += money; }
   void RemoveMoney(std::uint32_t money) {
     playerMoney_ -= money <= playerMoney_ ? money : playerMoney_;
   }
+
+  bool GameOver() const { return gameOver; }
+  bool GameWon() const { return gameWon; }
 
  private:
   bool gameOver = false;
@@ -40,6 +45,10 @@ class Game {
   std::uint64_t playerMoney_;
   std::vector<GameObject*> objects_;
   std::queue<EnemyWave> enemyWaves_;
+
+  std::uint32_t currentEnemyWaveNumber_ = 1;
   EnemyWave currentEnemyWave_;
 
+  bool hasNextWave() const { return !enemyWaves_.empty(); }
+  void NextEnemyWave();
 };

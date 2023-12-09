@@ -19,7 +19,7 @@ int main() {
   int windowHeight = 12 * 64;
 
   sf::RenderWindow window(sf::VideoMode(windowWidth + WeaponToolbarWidthPx, windowHeight),
-                          "TestiPiirto");
+                          "Clash Of Armies");
   window.setFramerateLimit(ticksPerSecond);
 
   std::vector<std::pair<int, std::string>> levels =

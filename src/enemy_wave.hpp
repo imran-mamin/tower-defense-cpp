@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <queue>
 #include <stdexcept>
 #include <vector>
 
@@ -14,9 +15,12 @@ class EnemyWave {
   EnemyWave(const std::uint32_t durationSeconds,
             std::vector<EnemyType> enemyVector)
       : enemyIsReady_(true),
-        enemyVector_(enemyVector),
         waveTimer_(durationSeconds,
-                   1.0 * durationSeconds / enemyVector_.size()) {}
+                   1.0 * durationSeconds / enemyVector.size()) {
+			for (EnemyType e : enemyVector) {
+				enemyQueue_.push(e);
+			}
+		}
 
   EnemyWave &operator=(const EnemyWave &) { return *this; }
 
@@ -28,7 +32,7 @@ class EnemyWave {
 
  private:
   bool enemyIsReady_;
-  std::vector<EnemyType> enemyVector_;
+  std::queue<EnemyType> enemyQueue_;
   FiniteTimer waveTimer_;
 };
 
