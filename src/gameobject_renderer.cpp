@@ -10,6 +10,7 @@
 #include "bullet.hpp"
 #include "attackplane.hpp"
 #include "texture_manager.hpp"
+#include "tower.hpp"
 #include "weapons_and_enemies.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -28,7 +29,8 @@ bool isOfType(const GameObject *g) {
 }
 
 /* Helper to render a vector of gameobjects. */
-void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObject *> &gameObjects) {
+void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
+	const std::vector<GameObject *> &gameObjects = game.Objects();
 	TextureManager &textureManager = TextureManager::GetInstance();
 
 	//for (const std::unique_ptr<GameObject> &gameObject : gameObjects) {
@@ -40,60 +42,68 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		 */
 
 		/* Note: C++17 allows to assignment inside if statement (visible in the block scope only). */
-		//if (dynamic_cast<const std::unique_ptr<Cannon> &>(gameObject)) {
-		if (isOfType<Cannon>(gameObject)) {
-			if (isOfType<GreenCannon>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannon)));
+		if (isOfType<Tower>(gameObject)) {
+			if (isOfType<Cannon>(gameObject)) {
+				if (isOfType<GreenCannon>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannon)));
+				}
+				else if (isOfType<RedCannon>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::RedCannon)));
+				}
+				else {
+					throw std::runtime_error("Unknown cannon type.");
+				}
+				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
-			else if (isOfType<RedCannon>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::RedCannon)));
+			else if (isOfType<MissileLauncher>(gameObject)) {
+				if (isOfType<BasicMissileLauncher>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::MissileLauncher1)));
+				}
+				else {
+					throw std::runtime_error("Unknown missile launcher type.");
+				}
+				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
-			else {
-				throw std::runtime_error("Unknown cannon type.");
-			}
-			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
+
+			/* 2. Set the sprite position. */
+			sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
+			centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
+			centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
+			currentSprite.setPosition(centerPosition);
 		}
-		else if (isOfType<MissileLauncher>(gameObject)) {
-			if (isOfType<BasicMissileLauncher>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::MissileLauncher1)));
+		else {
+			if (isOfType<FootSoldier>(gameObject)) {
+				if (isOfType<Soldier1>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier1)));
+				}
+				else if (isOfType<Soldier2>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier2)));
+				}
+				else if (isOfType<Soldier3>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier3)));
+				}
+				else if (isOfType<Soldier4>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier4)));
+				}
+				else {
+					throw std::runtime_error("Unknown soldier type.");
+				}
+				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
-			else {
-				throw std::runtime_error("Unknown missile launcher type.");
+			else if (isOfType<Tank>(gameObject)) {
+				if (isOfType<Tank1>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1)));
+				}
+				else if (isOfType<Tank2>(gameObject)) {
+					currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank2)));
+				}
+				else {
+					throw std::runtime_error("Unknown tank type.");
+				}
+				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
-			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-		}
-		else if (isOfType<FootSoldier>(gameObject)) {
-			if (isOfType<Soldier1>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier1)));
-			}
-			else if (isOfType<Soldier2>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier2)));
-			}
-			else if (isOfType<Soldier3>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier3)));
-			}
-			else if (isOfType<Soldier4>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Soldier4)));
-			}
-			else {
-				throw std::runtime_error("Unknown soldier type.");
-			}
-			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-		}
-		else if (isOfType<Tank>(gameObject)) {
-			if (isOfType<Tank1>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1)));
-			}
-			else if (isOfType<Tank2>(gameObject)) {
-				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank2)));
-			}
-			else {
-				throw std::runtime_error("Unknown tank type.");
-			}
-			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-		}
-		else if (isOfType<AttackPlane>(gameObject)) {
-			if (isOfType<Plane1>(gameObject)) {
+			else if (isOfType<AttackPlane>(gameObject)) {
+				if (isOfType<Plane1>(gameObject)) {
 				currentSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Plane1)));
 			}
 			else if (isOfType<Plane2>(gameObject)) {
@@ -103,33 +113,36 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 				throw std::runtime_error("Unknown tank type.");
 			}
 			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-		}
-		else if (isOfType<Projectile>(gameObject)) {
-			if (isOfType<Missile>(gameObject)) {
-				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
-				currentSprite.setTexture(currentTexture);
 			}
-			else if (isOfType<Bullet>(gameObject)) {
-				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
-				currentSprite.setTexture(currentTexture);
+			else if (isOfType<Projectile>(gameObject)) {
+				if (isOfType<Missile>(gameObject)) {
+					sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
+					currentSprite.setTexture(currentTexture);
+				}
+				else if (isOfType<Bullet>(gameObject)) {
+					sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
+					currentSprite.setTexture(currentTexture);
+				}
+				else {
+					throw std::runtime_error("Unknown projectile type.");
+				}
+				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
 			else {
-				throw std::runtime_error("Unknown projectile type.");
+				throw GameObjectRendererError("Unsupported gameobject type.");
 			}
-			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-		}
-		else {
-			throw GameObjectRendererError("Unsupported gameobject type.");
+
+			/* 2. Set the sprite position. */
+			currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		}
 
 		/*
-		 * 2. Set the sprite position and rotate it according to the game object rotation.
+		 * 3. Rotate the sprite according to the game object rotation.
 		 */
-		currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		currentSprite.setRotation(gameObject->GetRotation());
 
 		/*
-		 * 3. Draw the sprite.
+		 * 4. Draw the sprite.
 		 */
 		renderWindow.draw(currentSprite);
 	}
@@ -138,7 +151,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 }
 
 void GameObjectRenderer::Draw() {
-	renderGameObjects(renderWindow_, game_.Objects());
+	renderGameObjects(renderWindow_, game_);
 	// TODO: Animation rendering here. 1. filter by animation type. 2. render them.
 }
 
