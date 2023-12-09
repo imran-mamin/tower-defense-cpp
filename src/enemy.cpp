@@ -11,13 +11,47 @@ bool Enemy::isAlive() const {
     return this->health_ > 0;
 }
 
+
+std::size_t findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
+    // This variable will be returned by this method.
+    std::size_t currIndex = 0;
+
+    // Find the vector Vec2D, where this position occurs.
+    for (std::size_t j = 0; j < path.size(); j++) {
+        bool betweenAandB = false;
+        // Calculate the difference between ending point and starting point of current Vec2D.
+        float diffX = path.at(j).b.x - path.at(j).a.x;
+        float diffY = path.at(j).b.y - path.at(j).b.y;
+
+        if ((diffX == 0) && (diffY > 0)) {
+            // Is the y-coordinate of the enemy on the interval [a.y, b.y).
+            betweenAandB = (path.at(j).a.y <= e->getPosition().y) && (e->getPosition().y < path.at(j).b.y);
+        } else if ((diffX > 0) && (diffY == 0)) {
+            // Is the x-coordinate of the enemy on the interval [a.x, b.x).
+            betweenAandB = (path.at(j).a.x <= e->getPosition().x) && (e->getPosition().x < path.at(j).b.x);
+        } else if ((diffX == 0) && (diffY < 0)) {
+            // Is the y-coordinate of the enemy on the interval (b.y, a.y].
+            betweenAandB = (path.at(j).b.y < e->getPosition().y) && (e->getPosition().y <= path.at(j).a.y);
+        } else if ((diffX < 0) && (diffY == 0)) {
+            // Is the x-coordinate of the enemy on the interval (b.x, a.x].
+            betweenAandB = (path.at(j).b.x < e->getPosition().x) && (e->getPosition().x <= path.at(j).a.x);
+        }
+
+        if (betweenAandB) {
+            currIndex = j;
+            break;
+        }
+    }
+    return currIndex;
+}
+
+
 void Enemy::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
     if (this->isAlive()) {
         const std::vector<Vec2D>& path = getGrid(game_)->EnemyPath();
         int i = 0;
 
-        prevPos_ = position_;
         // Find the vector2D that contains enemy's current position.
         while (i < (int)path.size()) {
             const Vec2D currVec = path.at(i);
@@ -124,7 +158,6 @@ void Enemy::update() {
                     }
                     // If it doesn't go into if-block, then the next path vector2D is found.
                     outInSpeed = 0;
-                    prevVecIndex_ = j;
                 }
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
@@ -147,7 +180,6 @@ void Enemy::update() {
                 default:
                     throw std::runtime_error("Unknown direction!");
             }
-            this->prevVecIndex_ = i;
             break;
         }
     }
