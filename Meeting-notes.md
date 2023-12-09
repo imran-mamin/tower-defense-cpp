@@ -69,6 +69,8 @@ Cannon class and start working on gameloop.
 - Imran: Fixed mostly, but still partially the bug around path type resolvation from the enemy path. Works
 on implementing the update and fire methods in Cannon class.
 
+- Aleksi: Added obstacle generation.
+
 - Leevi:
 	* Changed a lot of code in gameloop. Fixed bugs in Game class. Improved / fixed the GameObjectRenderer.
 	* Fixed the bug that allows to set tiles over the path.
@@ -119,4 +121,5 @@ Valerie:
 		* This fixed also the bug where all clicks to the menu buttons weren't registered.
 	* Fixed bug where the menu was rendered on the tile grid.
 	* Overall a lot of other changes too ~+400LoC ~-200LoC.
-	
+
+- Aleksi: Created 4 more maps.
