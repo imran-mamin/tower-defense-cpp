@@ -132,8 +132,12 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 				throw GameObjectRendererError("Unsupported gameobject type.");
 			}
 
+			sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
+			centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
+			centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
+			currentSprite.setPosition(centerPosition);
 			/* 2. Set the sprite position. */
-			currentSprite.setPosition(gameObject->getPosition().ToVector2f());
+			// currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		}
 
 		/*
