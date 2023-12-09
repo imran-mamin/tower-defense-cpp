@@ -126,6 +126,7 @@ void Enemy::update() {
                     outInSpeed = 0;
                     prevVecIndex_ = j;
                 }
+                setGameOver(game_);
                 assert(outInSpeed <= 0); // This is for TODO above.
             }
 

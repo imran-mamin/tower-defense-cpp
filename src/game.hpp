@@ -37,6 +37,8 @@ class Game {
   bool GameOver() const { return gameOver; }
   bool GameWon() const { return gameWon; }
 
+  void setOver() { gameOver = true; }
+  
  private:
   bool gameOver = false;
   bool gameWon = false;

@@ -12,3 +12,4 @@ const std::vector<GameObject*> getObjects(Game* game);
 
 void addObject(Game* game, GameObject* obj);
 
+void setGameOver(Game* game);
