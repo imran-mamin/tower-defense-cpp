@@ -13,3 +13,7 @@ const std::vector<GameObject*> getObjects(Game* game) {
     return game->Objects();
 }
 
+void setGameOver(Game* game) {
+    game->setOver();
+}
+

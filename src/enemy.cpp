@@ -126,7 +126,8 @@ void Enemy::update() {
                     outInSpeed = 0;
                     prevVecIndex_ = j;
                 }
-                assert(outInSpeed <= 0); // This is for TODO above.
+                setGameOver(game_);
+                // assert(outInSpeed <= 0); // This is for TODO above.
             }
 
             // Set rotation angle in degrees according to the direction variable above.
