@@ -1,7 +1,6 @@
 #pragma once
 #include "enemy.hpp"
 
-// TODO: Implement methods
 class Tank: public Enemy {
 private:
 
@@ -15,13 +14,13 @@ public:
 class Tank1: public Tank {
 public:
     Tank1(Game* game, Pos position)
-    : Tank(40, 200, 400, 1000, game, position) {}
+    : Tank(2, 200, 400, 1000, game, position) {}
     ~Tank1() = default;
 };
 
 class Tank2: public Tank {
 public:
     Tank2(Game* game, Pos position)
-    : Tank(50, 200, 400, 1200, game, position) {}
+    : Tank(4, 200, 400, 1200, game, position) {}
     ~Tank2() = default;
 };

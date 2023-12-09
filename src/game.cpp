@@ -6,33 +6,33 @@
 #include <vector>
 
 #include "enemy_wave.hpp"
+#include "footsoldier.hpp"
 #include "gamegrid.hpp"
 #include "gameobject.hpp"
 #include "weapons_and_enemies.hpp"
 
 /* Helper. */
-EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave> &enemyWaves) {
-	try {
-		EnemyWave e = enemyWaves.at(0);
-		enemyWaves.erase(enemyWaves.begin());
-		return e;
-	}
-	catch (const std::out_of_range &) {
-		throw std::runtime_error("No more enemy waves available.");
-	}
+EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave>& enemyWaves) {
+  try {
+    EnemyWave e = enemyWaves.at(0);
+    enemyWaves.erase(enemyWaves.begin());
+    return e;
+  } catch (const std::out_of_range&) {
+    throw std::runtime_error("No more enemy waves available.");
+  }
 }
 
 Game::Game(const GameGrid& grid, std::uint32_t level, MapInfo mapInfo)
     : grid_(grid),
-	  level_(level),
+      level_(level),
       playerMoney_(mapInfo.playerStartCash),
       enemyWaves_(mapInfo.enemyWaves),
-	  currentEnemyWave_(GetFirstEnemyWaveFromTheList(enemyWaves_)) {};
+      currentEnemyWave_(GetFirstEnemyWaveFromTheList(enemyWaves_)){};
 
 Game::~Game() {
-    for (auto gameObject : objects_) {
-	delete gameObject;
-    }
+  for (auto gameObject : objects_) {
+    delete gameObject;
+  }
 }
 
 void Game::Update() {
@@ -86,19 +86,18 @@ void Game::Update() {
     /* Update the game objects. */
     for (std::size_t i = 0; i < objects_.size(); i++) {
 		objects_.at(i)->update();
-    }
 
-    /* Remove any dead game objects. */
-    auto it = objects_.begin();
-    	while (it != objects_.end()) {
-		if ((*it)->Health() == 0) {
-	   		delete *it;
-			 it = objects_.erase(it);
-		} else {
-
-		it++;
+		/* Remove any dead game objects. */
+		auto it = objects_.begin();
+		while (it != objects_.end()) {
+			if ((*it)->Health() == 0) {
+			delete *it;
+			it = objects_.erase(it);
+			} else {
+			it++;
+			}
 		}
-    }
+	}
 }
 
 const std::vector<GameObject*>& Game::Objects() { return objects_; }
