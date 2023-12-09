@@ -27,6 +27,6 @@ class MissileLauncher : public Tower {
 
 class BasicMissileLauncher : public MissileLauncher {
    public:
-	BasicMissileLauncher(Game* game, Pos position) : MissileLauncher(64 * 10, 3, BasicMissileLauncherPrice, game, position) {}
+	BasicMissileLauncher(Game* game, Pos position) : MissileLauncher(64 * 10, 6, BasicMissileLauncherPrice, game, position) {}// MissileLauncher(64 * 10, 3, BasicMissileLauncherPrice, game, position) {}
 };
 

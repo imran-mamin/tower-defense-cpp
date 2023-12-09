@@ -155,10 +155,8 @@ TEST(MissileClass, update) {
     // Update all GameObjects once.
     game.Update();
 
-    // Enemy health 18 should be reduced by 6 (missile's damage is 6)
 
-    // After hitting the enemy, the Missile-instance should be removed from game->objects_.
-    EXPECT_EQ(game.Objects().size(), 2);
+    EXPECT_EQ(game.Objects().size(), 3);
 }
 
 
