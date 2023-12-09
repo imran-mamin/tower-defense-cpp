@@ -61,28 +61,28 @@ void Game::Update() {
     EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
     switch (enemyType) {
       case EnemyType::Soldier1:
-        AddObject(new Soldier1(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Soldier2:
-        AddObject(new Soldier2(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Soldier2(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Soldier3:
-        AddObject(new Soldier3(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Soldier3(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Soldier4:
-        AddObject(new Soldier4(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Soldier4(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Tank1:
-        AddObject(new Tank1(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Tank2:
-        AddObject(new Tank2(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Plane1:
-        AddObject(new Plane1(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
         break;
       case EnemyType::Plane2:
-        AddObject(new Plane2(*this, grid_.EnemyPath().at(0).a));
+        AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
         break;
       default:
         throw std::runtime_error("Unknown enemy type.");
@@ -90,25 +90,25 @@ void Game::Update() {
     }
   }
 
-  if (!gameWon && !gameOver) {
-    currentEnemyWave_.UpdateTimer();
-  }
+	if (!gameWon && !gameOver) {
+		currentEnemyWave_.UpdateTimer();
+	}
 
-  /* Update the game objects. */
-  for (std::size_t i = 0; i < objects_.size(); i++) {
-    objects_.at(i)->update();
-  }
+    /* Update the game objects. */
+    for (std::size_t i = 0; i < objects_.size(); i++) {
+		objects_.at(i)->update();
 
-  /* Remove any dead game objects. */
-  auto it = objects_.begin();
-  while (it != objects_.end()) {
-    if ((*it)->Health() == 0) {
-      delete *it;
-      it = objects_.erase(it);
-    } else {
-      it++;
-    }
-  }
+		/* Remove any dead game objects. */
+		auto it = objects_.begin();
+		while (it != objects_.end()) {
+			if ((*it)->Health() == 0) {
+			delete *it;
+			it = objects_.erase(it);
+			} else {
+			it++;
+			}
+		}
+	}
 }
 
 const std::vector<GameObject*>& Game::Objects() { return objects_; }

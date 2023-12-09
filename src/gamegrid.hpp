@@ -29,7 +29,7 @@ class GameGrid {
     return obstacleTiles_;
   }
 
-  const std::vector<Vec2D> &EnemyPath() { return enemyPath_; }
+  const std::vector<Vec2D> &EnemyPath() const { return enemyPath_; }
 
   std::uint32_t Width() const { return width_; }
   std::uint32_t Height() const { return height_; }

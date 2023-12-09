@@ -1,4 +1,6 @@
 #include "bullet.hpp"
+#include "utility_func_game.hpp"
+#include "gamegrid.hpp"
 
 void Bullet::update() {
     // Find the vector between starting point and end point.
@@ -26,8 +28,8 @@ void Bullet::update() {
         position_.y += unitVec.y;
 
         // Check that the Bullet is still on the screen.
-        bool inX = ((0 <= this->position_.x) && (this->position_.x < (this->getGrid().Width() * this->getGrid().TileWidth() - 1)));
-        bool inY = ((0 <= this->position_.y) && (this->position_.y < (this->getGrid().Height() * this->getGrid().TileWidth() - 1)));
+        bool inX = ((0 <= this->position_.x) && (this->position_.x < (getGrid(game_)->Width() * getGrid(game_)->TileWidth() - 1)));
+        bool inY = ((0 <= this->position_.y) && (this->position_.y < (getGrid(game_)->Height() * getGrid(game_)->TileWidth() - 1)));
 
         if (!(inX && inY)) {
             health_ = 0;

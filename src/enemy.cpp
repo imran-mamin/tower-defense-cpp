@@ -1,4 +1,7 @@
 #include "enemy.hpp"
+#include "utility_func_game.hpp"
+#include "vec2d.hpp"
+#include "gamegrid.hpp"
 
 int Enemy::GetSpeed() const {
     return speed_;
@@ -11,7 +14,7 @@ bool Enemy::isAlive() const {
 void Enemy::update() {
     // In case the enemy is alive, advance enemy position by one tick according to the path.
     if (this->isAlive()) {
-        const std::vector<Vec2D> path = this->getGrid().EnemyPath();
+        const std::vector<Vec2D>& path = getGrid(game_)->EnemyPath();
         int i = 0;
 
         prevPos_ = position_;
@@ -71,7 +74,6 @@ void Enemy::update() {
                 direction = 'W';
             }
 
-            this->prevVecIndex_ = i;
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
@@ -125,7 +127,7 @@ void Enemy::update() {
                     prevVecIndex_ = j;
                 }
                 assert(outInSpeed <= 0); // This is for TODO above.
-             }
+            }
 
             // Set rotation angle in degrees according to the direction variable above.
             // Enemy's direction is 'E' at the start.
@@ -145,7 +147,7 @@ void Enemy::update() {
                 default:
                     throw std::runtime_error("Unknown direction!");
             }
-
+            this->prevVecIndex_ = i;
             break;
         }
     }

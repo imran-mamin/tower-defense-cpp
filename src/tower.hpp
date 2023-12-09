@@ -26,7 +26,7 @@ public:
      * @param radius the radius of damage caused by projectile (int)
     */
 
-    explicit Tower(int radius, int fireRate, int price, Game& game, Pos position, std::uint32_t health)
+    explicit Tower(int radius, int fireRate, int price, Game* game, Pos position, std::uint32_t health)
             : GameObject(game, position, health), radius_(radius), fireRate_(fireRate), fireIntervalCounter_(0), price_(price) {};
 
     /**

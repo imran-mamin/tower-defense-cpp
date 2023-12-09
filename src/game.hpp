@@ -6,10 +6,10 @@
 
 #include "enemy_wave.hpp"
 #include "gamegrid.hpp"
-// #include "footsoldier.hpp"
-// #include "gameobject.hpp"
-
-class GameObject;  // Forward declaration
+#include "footsoldier.hpp"
+#include "tank.hpp"
+#include "attackplane.hpp"
+#include "gameobject.hpp"
 
 class Game {
  public:
@@ -33,7 +33,6 @@ class Game {
   }
 
  private:
-  friend class GameObject;
   bool gameOver = false;
   bool gameWon = false;
   GameGrid grid_;
@@ -42,4 +41,5 @@ class Game {
   std::vector<GameObject*> objects_;
   std::queue<EnemyWave> enemyWaves_;
   EnemyWave currentEnemyWave_;
+
 };

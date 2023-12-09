@@ -1,5 +1,7 @@
-#include "projectile.hpp"
 #include <cstddef>
+
+#include "projectile.hpp"
+#include "utility_func_game.hpp"
 
 // Calculate the distance between this and the enemy object using formula:
 // sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
@@ -8,7 +10,7 @@ const std::vector<Enemy*> Projectile::getEnemiesWithinRadius() {
     // Filter vector based on type (Enemy).
     std::vector<Enemy*> enemies;
 
-    for (GameObject* obj : this->game_.Objects()) {
+    for (GameObject* obj : getObjects(game_)) {
         // Attempt to cast to Enemy*
         if (Enemy* enemy = dynamic_cast<Enemy*>(obj)) {
             enemies.push_back(enemy);

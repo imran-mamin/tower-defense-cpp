@@ -1,5 +1,7 @@
 #include <assert.h>
+
 #include "missilelauncher.hpp"
+#include "utility_func_game.hpp"
 
 void MissileLauncher::fire() {
     assert(!this->getEnemiesWithinRadius().empty());
@@ -10,7 +12,7 @@ void MissileLauncher::fire() {
     Pos p = this->getPosition();
 
     // Add missile to vector.
-    this->game_.AddObject(new Missile(this->game_, 40, 6, 18, e, p, 4)); 
+    addObject(game_, new Missile(game_, 6, 6, 18, e, p, 4)); 
 
     // Find the rotation angle of the missilelauncher.
     // Unit vector pointing to North according to the picture.

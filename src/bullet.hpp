@@ -12,7 +12,7 @@ private:
   Pos startPos_;
 
 public:
-  Bullet(Game& game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
+  Bullet(Game* game, int travel_speed, int damage, int radius, Pos position, Pos endPos)
       : Projectile(game, travel_speed, damage, radius, position), endPos_(endPos), startPos_(position) {};
 
   // Destructor implementation

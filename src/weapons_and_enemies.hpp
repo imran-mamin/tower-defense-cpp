@@ -25,6 +25,11 @@ enum class EnemyType{
 	Plane2
 };
 
+enum class ProjectileType{
+	Missile,
+	Bullet
+};
+
 const std::map<std::string, EnemyType> stringToEnemyTypeMapping =  {
 	std::make_pair("FootSoldier1", EnemyType::Soldier1),
 	std::make_pair("FootSoldier2", EnemyType::Soldier2),
@@ -55,3 +60,7 @@ const std::map<EnemyType, std::uint16_t> enemyToTileIDMapping = {
 	std::make_pair(EnemyType::Plane2, 270)
 };
 
+const std::map<ProjectileType, std::uint16_t> projectileToTileIDMapping = {
+	std::make_pair(ProjectileType::Missile, 250),
+	std::make_pair(ProjectileType::Bullet, 271)
+};

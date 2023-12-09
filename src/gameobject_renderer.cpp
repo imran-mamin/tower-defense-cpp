@@ -6,6 +6,8 @@
 #include "game.hpp"
 #include "missilelauncher.hpp"
 #include "tank.hpp"
+#include "missile.hpp"
+#include "bullet.hpp"
 #include "attackplane.hpp"
 #include "texture_manager.hpp"
 #include "weapons_and_enemies.hpp"
@@ -100,7 +102,14 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 			}
 			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 		}
-		// FIXME: Error because missing projectile texture
+		else if (isOfType<Missile>(gameObject)) {
+			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
+			currentSprite.setTexture(currentTexture);
+		}
+		else if (isOfType<Bullet>(gameObject)) {
+			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
+			currentSprite.setTexture(currentTexture);
+		}
 		else {
 			throw GameObjectRendererError("Unsupported gameobject type.");
 		}

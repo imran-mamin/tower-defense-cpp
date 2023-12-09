@@ -2,13 +2,16 @@
 
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include <cmath>
 
-#include "game.hpp"
 #include "pos.hpp"
+
+// Forward declaration
+class Game;
 
 class GameObject {
    public:
-    GameObject(Game& game, Pos position, std::uint32_t health = 1)
+    GameObject(Game* game, Pos position, std::uint32_t health = 1)
 	  : health_(health), game_(game), position_(position){};
 
     Pos getPosition() const { return position_; }
@@ -43,15 +46,13 @@ class GameObject {
 
    protected:
 	  std::uint32_t health_;
-    Game& game_;
+    Game* game_;
     Pos position_;
-
     /* Current rotation (in degrees) angle of the GameObject-instance. */
     /* This is needed for the sprite rotation. */
     /* For further information, see SFML documentation for method
      * sf::Transformable::rotate. */
     /* Should be always within the range [0, 360). */
     float rotationAngleDeg_ = 0;
-
-    GameGrid& getGrid() { return game_.grid_; }
+    
 };

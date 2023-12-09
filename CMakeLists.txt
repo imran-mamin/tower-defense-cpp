@@ -31,6 +31,7 @@ if (APPLE)
 else()
   # Add the source files to the library
   file(GLOB_RECURSE LIB_SOURCES src/*.cpp)
+  list(REMOVE_ITEM LIB_SOURCES "src/game.cpp")
   file(GLOB_RECURSE MAIN_SOURCES main.cpp)
 
   # Create a library from the source files
