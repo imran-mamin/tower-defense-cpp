@@ -6,6 +6,8 @@
 #include "game.hpp"
 #include "missilelauncher.hpp"
 #include "tank.hpp"
+#include "missile.hpp"
+#include "bullet.hpp"
 #include "texture_manager.hpp"
 #include "weapons_and_enemies.hpp"
 #include <SFML/Graphics.hpp>
@@ -71,6 +73,14 @@ void renderGameObjects(sf::RenderWindow &renderWindow, const std::vector<GameObj
 		//else if (dynamic_cast<const >()) {
 		//
 		//}
+		else if (isOfType<Missile>(gameObject)) {
+			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
+			currentSprite.setTexture(currentTexture);
+		}
+		else if (isOfType<Bullet>(gameObject)) {
+			sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
+			currentSprite.setTexture(currentTexture);
+		}
 		else {
 			throw GameObjectRendererError("Unsupported gameobject type.");
 		}
