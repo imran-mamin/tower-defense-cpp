@@ -131,8 +131,8 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
             }
           }
           break;
-		default:
-		  break;
+        default:
+          break;
       }
     }
 
