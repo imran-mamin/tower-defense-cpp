@@ -19,6 +19,10 @@ public:
 
     void update();
 
+	int Value() const {
+		return value_;
+	}
+
     int getPrevVecIndex() const {
         return prevVecIndex_;
     }

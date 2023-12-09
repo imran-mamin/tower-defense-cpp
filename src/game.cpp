@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "attackplane.hpp"
+#include "enemy.hpp"
 #include "enemy_wave.hpp"
 #include "footsoldier.hpp"
 #include "gamegrid.hpp"
@@ -18,7 +19,7 @@
 /* Helper. */
 EnemyWave GetFirstEnemyWaveFromTheList(std::vector<EnemyWave>& enemyWaves) {
   try {
-    EnemyWave e = enemyWaves.front();
+    EnemyWave e = enemyWaves.at(0);
     enemyWaves.erase(enemyWaves.begin());
     return e;
   } catch (const std::out_of_range&) {
@@ -102,6 +103,11 @@ void Game::Update() {
 		auto it = objects_.begin();
 		while (it != objects_.end()) {
 			if ((*it)->Health() == 0) {
+				/* Give the player cash for the kill. */
+				if (const Enemy *enemy = dynamic_cast<const Enemy *>(*it); enemy) {
+					playerMoney_ += enemy->Value();
+				}
+
 			delete *it;
 			it = objects_.erase(it);
 			} else {
