@@ -27,7 +27,7 @@ class Cannon : public Tower {
 class GreenCannon : public Cannon {
    public:
     GreenCannon(Game* game, Pos position)
-	: Cannon(64 * 4, 3, GreenCannonPrice, game, position, 100) {}
+	: Cannon(64 * 4, 20, GreenCannonPrice, game, position, 100) {}
     ~GreenCannon() = default;
 };
 

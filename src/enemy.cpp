@@ -74,7 +74,6 @@ void Enemy::update() {
                 direction = 'W';
             }
 
-            this->prevVecIndex_ = i;
             // Advance enemy's position.
             this->position_.x += this->speed_ * unitVec1.x;
             this->position_.y += this->speed_ * unitVec1.y;
@@ -148,7 +147,7 @@ void Enemy::update() {
                 default:
                     throw std::runtime_error("Unknown direction!");
             }
-
+            this->prevVecIndex_ = i;
             break;
         }
     }
