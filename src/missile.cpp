@@ -40,6 +40,16 @@ void Missile::update() {
         // Find unit vector of vectorToTarget.
         Pos unitVec = Pos{ (vectorToTarget.x / vectorToTargetLength), (vectorToTarget.y / vectorToTargetLength) };
         
+        // Set the rotation of missile.
+        Pos unitVecN = Pos{ 0, -1 };
+
+        // Calculate dot product of unitVec and unitVecN.
+        float dotP = unitVec.y * unitVecN.y;
+        // Calculate the rotation angle.
+        float angleInRad = std::acos(dotP);
+        float angleInDeg = angleInRad * (180.0 / M_PI);
+        this->SetAngle(360.0 - angleInDeg);
+
         // Check, whether the enemy is within missile radius on every position update.
         int i = 0;
 
