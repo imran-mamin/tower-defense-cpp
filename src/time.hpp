@@ -7,67 +7,90 @@
 /* Ticks per second, or to put it into other words, frames per second. */
 const std::uint32_t ticksPerSecond = 60;
 
+class SimpleTimer {
+   public:
+    SimpleTimer(const float ttlSeconds)
+	: ttlTicks_(ttlSeconds * ticksPerSecond),
+	  ticksLeft_(ttlTicks_) {}
+
+    void Update() {
+		if (ticksLeft_ != 0) {
+		    ticksLeft_--;
+		}
+    }
+
+    void Reset() {
+		ticksLeft_ = ttlTicks_;
+	}
+
+    bool Finished() const { return ticksLeft_ == 0; }
+
+   private:
+    const std::uint32_t ttlTicks_;
+    std::uint32_t ticksLeft_;
+};
+
 class FiniteTimer {
- public:
-  FiniteTimer(float ttlSeconds, const float updateIntervalSeconds)
-      : ttlTicks_(ttlSeconds * ticksPerSecond),
-        updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond) {}
+   public:
+    FiniteTimer(const float ttlSeconds, const float updateIntervalSeconds)
+	: ttlTicks_(ttlSeconds * ticksPerSecond),
+	  updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond) {}
 
-  bool Update() {
-    // Removing callback due to reference issue, resolving to quick fix first
-    // Returning true if tick hits updateInterval
+    bool Update() {
+	// Removing callback due to reference issue, resolving to quick fix
+	// first Returning true if tick hits updateInterval
 
-    if (ttlTicks_ > 0) {
-      ttlTicks_--;
+	if (ttlTicks_ > 0) {
+	    ttlTicks_--;
 
-      if (ttlTicks_ % updateIntervalTicks_ == 0) {
-        return true;
-      }
+	    if (ttlTicks_ % updateIntervalTicks_ == 0) {
+		return true;
+	    }
+	}
+	/* Timer finished. */
+	else if (!finishCallbackCalled) {
+	    finishCallbackCalled = true;
+	    return true;
+	}
+
+	return false;
     }
-    /* Timer finished. */
-    else if (!finishCallbackCalled) {
-      finishCallbackCalled = true;
-	  return true;
-    }
 
-    return false;
-  }
+    bool Finished() const { return finishCallbackCalled; }
 
-  bool Finished() const { return finishCallbackCalled; }
+   private:
+    std::uint32_t ttlTicks_;
 
- private:
-  std::uint32_t ttlTicks_;
-
-  // Note: The user of timer must take the accuracy into account here.
-  std::uint32_t updateIntervalTicks_;
-  bool finishCallbackCalled = false;
+    // Note: The user of timer must take the accuracy into account here.
+    std::uint32_t updateIntervalTicks_;
+    bool finishCallbackCalled = false;
 };
 
 class CircularTimer {
- public:
-  CircularTimer(float ttlSeconds, const float updateIntervalSeconds,
-                std::function<void(void)> updateCallback)
-      : ttlTicksInBeginning_(ttlSeconds * ticksPerSecond),
-        ttlTicks_(ttlTicksInBeginning_),
-        updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond),
-        onUpdateCallback_(updateCallback) {}
+   public:
+    CircularTimer(float ttlSeconds, const float updateIntervalSeconds,
+		  std::function<void(void)> updateCallback)
+	: ttlTicksInBeginning_(ttlSeconds * ticksPerSecond),
+	  ttlTicks_(ttlTicksInBeginning_),
+	  updateIntervalTicks_(updateIntervalSeconds * ticksPerSecond),
+	  onUpdateCallback_(updateCallback) {}
 
-  void Update() {
-    if (ttlTicks_ > 0) {
-      if (ttlTicks_ % updateIntervalTicks_ == 0) {
-        onUpdateCallback_();
-      }
+    void Update() {
+	if (ttlTicks_ > 0) {
+	    if (ttlTicks_ % updateIntervalTicks_ == 0) {
+		onUpdateCallback_();
+	    }
 
-      ttlTicks_--;
-    } else {
-      onUpdateCallback_();
-      ttlTicks_ = 0;
+	    ttlTicks_--;
+	} else {
+	    onUpdateCallback_();
+	    ttlTicks_ = 0;
+	}
     }
-  }
 
- private:
-  const std::uint32_t ttlTicksInBeginning_;
-  std::uint32_t ttlTicks_;
-  std::uint32_t updateIntervalTicks_;
-  std::function<void(void)> onUpdateCallback_;
+   private:
+    const std::uint32_t ttlTicksInBeginning_;
+    std::uint32_t ttlTicks_;
+    std::uint32_t updateIntervalTicks_;
+    std::function<void(void)> onUpdateCallback_;
 };
