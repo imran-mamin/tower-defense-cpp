@@ -131,3 +131,6 @@ Valerie:
 
 - Aleksi:
 	* Added game lose/win/exit handling and highscore page and fixed tower target selection so towers shoot the enemy who is farthest in the track.
+
+- Imran:
+	* Modified and added a lot of stuff, for example add Cannon-instance rotation, rewrite the fire()-method, add 'ESC'-key handling, fix bugs and warnings, etc. All the modifications can be found in version.aalto.fi in the commit log.
