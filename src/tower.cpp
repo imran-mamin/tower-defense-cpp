@@ -5,15 +5,17 @@
 #include "enemy.hpp"
 #include "utility_func_game.hpp"
 
-// Calculate the distance between this and the enemy object using formula:
-// sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
-// If it is less than radius, then add it to the vector of enemies within the
-// radius.
+// Function for comparing the travel distance of enemies to get the enemy
+// farthest in the track.
 template <typename T>
 bool CompareTravel(T e1, T e2) {
   return e1->TravelDistance() > e2->TravelDistance();
 }
 
+// Calculate the distance between this and the enemy object using formula:
+// sqrt((x_1 - x_2)^2 + (y_1 - y_2)^2)
+// If it is less than radius, then add it to the vector of enemies within the
+// radius.
 const std::vector<Enemy*> Tower::getEnemiesWithinRadius() {
   // Filter vector based on type (Enemy).
   std::vector<Enemy*> enemies;
