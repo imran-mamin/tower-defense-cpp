@@ -2,6 +2,7 @@
 #include "utility_func_game.hpp"
 #include "vec2d.hpp"
 #include "gamegrid.hpp"
+#include <cstddef>
 
 int Enemy::GetSpeed() const {
     return speed_;
@@ -20,7 +21,7 @@ int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path, Game* game) 
     int currIndex = -1;
 
     // Find the vector Vec2D, where this position occurs.
-    for (int j = 0; j < (int)path.size(); j++) {
+    for (int j = 0; j < (int) path.size(); j++) {
         bool betweenAandB = false;
         // Calculate the difference between ending point and starting point of current Vec2D.
         float diffX = path.at(j).b.x - path.at(j).a.x;
@@ -59,7 +60,6 @@ int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path, Game* game) 
         setGameOver(game);
     }
     
-    assert(currIndex != -1);
     return currIndex;
 }
 
@@ -92,7 +92,7 @@ std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out, const in
     // Since this method is called, when the enemy goes out of the current Vec2D, we start from
     // currIndex + 1.
     int i = currIndex + 1;
-    for (i; i < (int)path.size(); i++) {
+    for (; i < (int)path.size(); i++) {
         float distAB = std::abs((path.at(i).b.x - path.at(i).a.x) + (path.at(i).b.y - path.at(i).a.y));
 
         // If current distance AB is smaller than offset, then remove offset from remaining and

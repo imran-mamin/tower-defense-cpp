@@ -51,6 +51,7 @@ class Game {
   std::uint32_t currentEnemyWaveNumber_ = 1;
   EnemyWave currentEnemyWave_;
 
+  bool HasEnemiesOnCurrentWave() const;
   bool hasNextWave() const { return !enemyWaves_.empty(); }
   void NextEnemyWave();
 };

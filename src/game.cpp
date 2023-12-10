@@ -16,6 +16,17 @@
 #include "tank.hpp"
 #include "weapons_and_enemies.hpp"
 
+/* Helper. */
+bool Game::HasEnemiesOnCurrentWave() const {
+	for (const GameObject *gameObject : objects_) {
+		if (dynamic_cast<const Enemy *>(gameObject)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void Game::NextEnemyWave() {
     try {
 		currentEnemyWave_ = enemyWaves_.front();
@@ -46,7 +57,7 @@ void Game::Update() {
 	  /* Try to get an enemy from the wave and update the enemy wave. */
 
     // Reaching last waves and no enemy left.
-    if (!currentEnemyWave_.hasEnemy()) {
+    if (!currentEnemyWave_.hasEnemy() && !HasEnemiesOnCurrentWave()) {
       if (hasNextWave()) {
         NextEnemyWave();
       }

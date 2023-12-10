@@ -5,6 +5,7 @@
 #include "gameobject_renderer.hpp"
 #include "game.hpp"
 #include "missilelauncher.hpp"
+#include "projectile.hpp"
 #include "tank.hpp"
 #include "missile.hpp"
 #include "bullet.hpp"
@@ -42,7 +43,21 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		 */
 
 		/* Note: C++17 allows to assignment inside if statement (visible in the block scope only). */
-		if (isOfType<Tower>(gameObject)) {
+		if (isOfType<Projectile>(gameObject)) {
+			if (isOfType<Missile>(gameObject)) {
+				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
+				currentSprite.setTexture(currentTexture);
+			}
+			else if (isOfType<Bullet>(gameObject)) {
+				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
+				currentSprite.setTexture(currentTexture);
+			}
+			else {
+				throw std::runtime_error("Unknown projectile type.");
+			}
+			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
+		}
+		else if (isOfType<Tower>(gameObject)) {
 			if (isOfType<Cannon>(gameObject)) {
 				if (isOfType<GreenCannon>(gameObject)) {
 					currentSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannon)));
@@ -140,27 +155,13 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 			}
 			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
 			}
-			else if (isOfType<Projectile>(gameObject)) {
-				if (isOfType<Missile>(gameObject)) {
-					sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
-					currentSprite.setTexture(currentTexture);
-				}
-				else if (isOfType<Bullet>(gameObject)) {
-					sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
-					currentSprite.setTexture(currentTexture);
-				}
-				else {
-					throw std::runtime_error("Unknown projectile type.");
-				}
-				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
-			}
 			else {
 				throw GameObjectRendererError("Unsupported gameobject type.");
 			}
 
 			sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
-			centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
-			centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
+			//centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
+			//centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
 			currentSprite.setPosition(centerPosition);
 			/* 2. Set the sprite position. */
 			// currentSprite.setPosition(gameObject->getPosition().ToVector2f());

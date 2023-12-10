@@ -15,14 +15,14 @@ class EnemyWave {
   EnemyWave(const std::uint32_t durationSeconds,
             std::vector<EnemyType> enemyVector)
       : enemyIsReady_(true),
-        waveTimer_(durationSeconds,
-                   1.0 * durationSeconds / enemyVector.size()) {
+        waveTimer_(durationSeconds, 1.0 * durationSeconds / enemyVector.size())
+		{
 			for (EnemyType e : enemyVector) {
 				enemyQueue_.push(e);
 			}
 		}
 
-  EnemyWave &operator=(const EnemyWave &) { return *this; }
+  //EnemyWave &operator=(const EnemyWave &) { return *this; }
 
   void UpdateTimer();
 

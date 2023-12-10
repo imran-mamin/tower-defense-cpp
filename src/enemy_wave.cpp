@@ -33,3 +33,4 @@ EnemyType EnemyWave::getNextEnemyType() {
     throw EnemyWaveError("No more enemies available.");
   }
 }
+
