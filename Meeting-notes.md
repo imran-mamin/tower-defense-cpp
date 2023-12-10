@@ -128,3 +128,6 @@ Valerie:
 ## 8.12.2023 - 10.12.2023
 - Leevi:
 	* Added a lot of stuff that can be found from the commit log.
+
+- Aleksi:
+	* Added game lose/win/exit handling and highscore page and fixed tower target selection so towers shoot the enemy who is farthest in the track.
