@@ -138,7 +138,7 @@ std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out,
     }
   }
 
-  // TODO: Instead of assert the flag gameOver should be set.
+  // The flag gameOver should be set.
   if (updatePos == e->getPosition()) {
     setGameOver(game);
   }
@@ -154,6 +154,7 @@ void Enemy::update() {
 
     // Find the vector2D that contains enemy's current position.
     int currVecIndex = findCurrentPath(this, path, game_);
+
     const Vec2D currVec = path.at(currVecIndex);
     // Find a current vector in form of (4i + 2j) for example, which is a point.
     Pos vec1 = Pos{(currVec.b.x - currVec.a.x), (currVec.b.y - currVec.a.y)};

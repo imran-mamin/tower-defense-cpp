@@ -122,6 +122,7 @@ int main() {
           exitButton.draw(window);
           window.display();
         }
+        break;
       }
       // Game lose page
       case 4: {
@@ -166,6 +167,7 @@ int main() {
           exitButton.draw(window);
           window.display();
         }
+        break;
       }
       default:
         // Main Menu Screen
