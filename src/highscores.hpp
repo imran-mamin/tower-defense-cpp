@@ -26,11 +26,14 @@ class HighScores {
     }
 
 	/* Add a new highscore and save it. */
-    void AddNewScore(std::uint64_t highscore);
+    void AddNewScore(const std::uint32_t level, const std::uint64_t highscore);
+	const std::vector<std::uint64_t> &HighScoresOrdered(std::uint32_t level) const { return highScores_.at(level); }
 
    private:
     std::map<std::uint32_t, std::vector<std::uint64_t>> highScores_;
     const std::string path_;
+
+	void SortDecreasingOrder(const std::uint32_t level);
 };
 
 class HighScoreReadingError : public std::runtime_error {
