@@ -21,12 +21,13 @@ const std::vector<Enemy*> Tower::getEnemiesWithinRadius() {
     // Find all the enemies within the given radius.
     std::vector<Enemy*> enemiesWithinRadius;
 
-    for (std::size_t i = 0; i < enemies.size(); i++) {
-        int sqrtEq = std::pow((this->position_.x - enemies.at(i)->getPosition().x), 2) + std::pow((this->position_.y - enemies.at(i)->getPosition().y), 2);
+    // Add enemies to enemiesWithinRadius in reverse order.
+    for (auto it = enemies.rbegin(); it != enemies.rend(); it++) {
+        int sqrtEq = std::pow((position_.x - (*it)->getPosition().x), 2) + std::pow((position_.y - (*it)->getPosition().y), 2);
         double distance = std::sqrt(static_cast<double>(sqrtEq));
 
-        if (this->radius_ >= distance) {
-            enemiesWithinRadius.push_back(enemies.at(i));
+        if (radius_ >= distance) {
+            enemiesWithinRadius.push_back(*it);
         }
     }
 
