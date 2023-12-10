@@ -37,84 +37,81 @@ Game::Game(const GameGrid& grid, std::uint32_t level, MapInfo mapInfo)
 
 Game::~Game() {
     for (auto gameObject : objects_) {
-	delete gameObject;
+	    delete gameObject;
     }
 }
 
 void Game::Update() {
-    if (!gameOver) {
-	/* Try to get an enemy from the wave and update the enemy wave. */
+  if (!gameOver) {
+	  /* Try to get an enemy from the wave and update the enemy wave. */
 
-	// Reaching last waves and no enemy left.
-	if (!currentEnemyWave_.hasEnemy()) {
-		if (hasNextWave()) {
-			NextEnemyWave();
-		}
-		else {
-			gameOver = true;
-			gameWon = true;
-		}
-	}
+    // Reaching last waves and no enemy left.
+    if (!currentEnemyWave_.hasEnemy()) {
+      if (hasNextWave()) {
+        NextEnemyWave();
+      }
+      else {
+        gameOver = true;
+        gameWon = true;
+      }
+    }
 
-	if (currentEnemyWave_.isNextEnemyReady()) {
-	    // TODO: Add enemies to the list of gameobjects.
-	    EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
-	    switch (enemyType) {
-		case EnemyType::Soldier1:
-		    AddObject(new Soldier1(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Soldier2:
-		    AddObject(new Soldier2(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Soldier3:
-		    AddObject(new Soldier3(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Soldier4:
-		    AddObject(new Soldier4(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Tank1:
-		    AddObject(new Tank1(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Tank2:
-		    AddObject(new Tank2(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Plane1:
-		    AddObject(new Plane1(this, grid_.EnemyPath().at(0).a));
-		    break;
-		case EnemyType::Plane2:
-		    AddObject(new Plane2(this, grid_.EnemyPath().at(0).a));
-		    break;
-		default:
-		    throw std::runtime_error("Unknown enemy type.");
-		    break;
-	    }
-	}
+    if (currentEnemyWave_.isNextEnemyReady()) {
+      EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
+      switch (enemyType) {
+        case EnemyType::Soldier1:
+          objects_.insert(objects_.begin(), new Soldier1(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Soldier2:
+          objects_.insert(objects_.begin(), new Soldier2(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Soldier3:
+          objects_.insert(objects_.begin(), new Soldier3(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Soldier4:
+          objects_.insert(objects_.begin(), new Soldier4(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Tank1:
+          objects_.insert(objects_.begin(), new Tank1(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Tank2:
+          objects_.insert(objects_.begin(), new Tank2(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Plane1:
+          objects_.insert(objects_.begin(), new Plane1(this, grid_.EnemyPath().at(0).a));
+          break;
+        case EnemyType::Plane2:
+          objects_.insert(objects_.begin(), new Plane2(this, grid_.EnemyPath().at(0).a));
+          break;
+        default:
+          throw std::runtime_error("Unknown enemy type.");
+          break;
+      }
+    }
 
+    /* Update the game objects. */
+    for (std::size_t i = 0; i < objects_.size(); i++) {
+        objects_.at(i)->update();
 
-	/* Update the game objects. */
-	for (std::size_t i = 0; i < objects_.size(); i++) {
-	    objects_.at(i)->update();
+        /* Remove any dead game objects. */
+        auto it = objects_.begin();
+        while (it != objects_.end()) {
+          if ((*it)->Health() == 0) {
+              /* Give the player cash for the kill. */
+              if (const Enemy* enemy = dynamic_cast<const Enemy*>(*it); enemy) {
+                playerMoney_ += enemy->Value();
+              }
 
-	    /* Remove any dead game objects. */
-	    auto it = objects_.begin();
-	    while (it != objects_.end()) {
-		if ((*it)->Health() == 0) {
-		    /* Give the player cash for the kill. */
-		    if (const Enemy* enemy = dynamic_cast<const Enemy*>(*it);
-			enemy) {
-			playerMoney_ += enemy->Value();
-		    }
-
-		    delete *it;
-		    it = objects_.erase(it);
-		} else {
-		    it++;
-		}
-	    }
-	}
+              delete *it;
+              it = objects_.erase(it);
+          } else {
+              it++;
+          }
+        }
+    }
 	
 		currentEnemyWave_.UpdateTimer();
-    }
+  }
 }
 
 const std::vector<GameObject*>& Game::Objects() { return objects_; }
