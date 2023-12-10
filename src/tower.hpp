@@ -36,6 +36,8 @@ public:
     /* Comment: Shouldn't this belong to Game / Level class? This doesn't seem to be Tower's responsibility. */
     const std::vector<Enemy*> getEnemiesWithinRadius();
     
+    int getRadius() { return radius_; };
+
    /**
      * @brief Destructor of Tower object.
      */

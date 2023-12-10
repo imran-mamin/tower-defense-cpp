@@ -54,6 +54,19 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 					throw std::runtime_error("Unknown cannon type.");
 				}
 				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
+				
+				// Add circle to display Cannon radius.
+				Cannon* cn = dynamic_cast<Cannon*>(gameObject);
+				sf::Vector2f centerPosition(cn->getPosition().x, cn->getPosition().y);
+				// Create a circle shape
+				sf::CircleShape circle(cn->getRadius());
+				// Set the position of the circle
+				circle.setPosition(centerPosition.x - cn->getRadius(), centerPosition.y - cn->getRadius());
+				// Set a color for the circle
+				sf::Color fillColor = sf::Color::Red;
+				fillColor.a = 60;
+				circle.setFillColor(fillColor);
+				renderWindow.draw(circle);
 			}
 			else if (isOfType<MissileLauncher>(gameObject)) {
 				if (isOfType<BasicMissileLauncher>(gameObject)) {
@@ -63,6 +76,18 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 					throw std::runtime_error("Unknown missile launcher type.");
 				}
 				currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
+			
+				MissileLauncher* ml = dynamic_cast<MissileLauncher*>(gameObject);
+				sf::Vector2f centerPosition(ml->getPosition().x, ml->getPosition().y);
+				// Create a circle shape
+				sf::CircleShape circle(ml->getRadius());
+				// Set the position of the circle
+				circle.setPosition(centerPosition.x - ml->getRadius(), centerPosition.y - ml->getRadius());
+				// Set a color for the circle
+				sf::Color fillColor = sf::Color::Red;
+				fillColor.a = 60;
+				circle.setFillColor(fillColor);
+				renderWindow.draw(circle);
 			}
 
 			/* 2. Set the sprite position. */
@@ -70,6 +95,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 			centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
 			centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
 			currentSprite.setPosition(centerPosition);
+
 		}
 		else {
 			if (isOfType<FootSoldier>(gameObject)) {
