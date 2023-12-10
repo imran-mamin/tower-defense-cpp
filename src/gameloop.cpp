@@ -93,6 +93,11 @@ int GameLoop::Play() {
             towerSelector.OnClickAction();
           }
           break;
+        case sf::Event::KeyPressed:
+          // Check, whether the Esc-key is pressed. If so, return to level-selection screen.
+          if (gameEvent.key.code == sf::Keyboard::Escape) {
+            return 0;
+          }
       }
     }
 

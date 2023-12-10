@@ -64,8 +64,8 @@ int main() {
 
         loop.Play();
 
-        // Back to main menu on game exit
-        page = 0;
+        // Back to level-selection menu if Esc-key is pressed.
+        page = 1;
         break;
       }
       default:
