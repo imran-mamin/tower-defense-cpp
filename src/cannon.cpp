@@ -9,8 +9,8 @@
 void Cannon::fire() {
     assert(this->getEnemiesWithinRadius().size() > 0);
     Enemy* e = this->getEnemiesWithinRadius().at(0);
-    int bulletSpeed = 40;
-    int radius = 4;
+    int bulletSpeed = 160;
+    int radius = 16;
     
     // Initialize unit vector pointing to north (e.g. 0i - 1j).
     Pos unitVecN = Pos{ 0, -1 };
