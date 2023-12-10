@@ -24,15 +24,10 @@ HighScores::HighScores(const std::string &path) : path_(path) {
 
 		data.at(levelAndHighscores[0]).get_to(level);
 		std::cout << "success" << std::endl;
-		data.at(level).get_to(highscores);
+		data.at(level).get_to(highScores_[level]);
 		
-		highScores_[level] = std::vector<HighScore>();
-		for (auto highscore : highscores) {
-			highScores_[level].push_back(HighScore(highscore));
-		}
-
 		/* Sort the scores in descending order. */
-		std::sort(highScores_[level].begin(), highScores_[level].end(), [](HighScore h1, HighScore h2){ return h1.Score() > h2.Score(); });
+		std::sort(highScores_[level].begin(), highScores_[level].end(), [](std::uint64_t h1, std::uint64_t h2){ return h1 > h2; });
 	}
 
 }

@@ -10,17 +10,6 @@
 
 const std::uint32_t maxHighscoreCountPerLevel = 10;
 
-class HighScore {
-   public:
-    HighScore(std::uint64_t score)
-	: score_(score) {}
-
-    std::uint64_t Score() const { return score_; }
-
-   private:
-    const std::uint64_t score_;
-};
-
 class HighScores {
    public:
 	/* Load the highscores. */
@@ -28,19 +17,19 @@ class HighScores {
 
     /* Return highscores for the wanted level or an empty vector if there are no
      * highscores for that level. */
-    std::vector<HighScore> LevelHighscores(const std::uint32_t level) {
+    std::vector<std::uint64_t> LevelHighscores(const std::uint32_t level) {
 		if (highScores_.count(level)) {
 		    return highScores_.at(level);
 		}
 
-		return std::vector<HighScore>();
+		return std::vector<std::uint64_t>();
     }
 
 	/* Add a new highscore and save it. */
-    void AddNewScore(HighScore highscore);
+    void AddNewScore(std::uint64_t highscore);
 
    private:
-    std::map<std::uint32_t, std::vector<HighScore>> highScores_;
+    std::map<std::uint32_t, std::vector<std::uint64_t>> highScores_;
     const std::string path_;
 };
 
