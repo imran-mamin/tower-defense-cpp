@@ -71,7 +71,7 @@ int GameLoop::Play() {
                               selectedTower);
   renderers.push_back(std::move(weaponToolBarRenderer));
   renderers.push_back(std::make_unique<LevelInfoRenderer>(
-      window_, grid, font, game_.PlayerMoney(), level));
+      window_, game_, font, level));
 
   sf::View applicationView(
       sf::FloatRect(0, 0, windowWidth + WeaponToolbarWidthPx, windowHeight));
@@ -97,7 +97,15 @@ int GameLoop::Play() {
     }
 
     /* 2. Update Game(Objects). */
-    game_.Update();
+	if (!game_.GameOver()) {
+    	game_.Update();
+	}
+	else if (game_.GameWon()) {
+		// TODO: Implement: Game won.
+	}
+	else {
+		// TODO: Implement: Game lost.
+	}
 
     /* 3. Do rendering. */
     window_.clear(sf::Color(200, 200, 200));

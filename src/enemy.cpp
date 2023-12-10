@@ -15,7 +15,7 @@ bool Enemy::isAlive() const {
  * This method finds the current Vec2D of the Enemy 'e' and returns
  * an index of that Vec2D-instance in path.
 */
-int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
+int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path, Game* game) {
     // This variable will be returned by this method.
     int currIndex = -1;
 
@@ -54,8 +54,12 @@ int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
         }
     }
     
-    // TODO: Instead of assert the flag gameOver should be set.
-    assert(currIndex != -1);
+    if (currIndex == -1) {
+        std::cout << "b" << std::endl;
+        setGameOver(game);
+    }
+    
+    // assert(currIndex != -1);
     return currIndex;
 }
 
@@ -127,7 +131,8 @@ std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out, const in
 
     // TODO: Instead of assert the flag gameOver should be set.
     if (updatePos == e->getPosition()) {
-        assert(false);
+        std::cout << "a" << std::endl;
+        setGameOver(game);
     }
 
     return std::make_pair(updatePos, dir);
@@ -139,7 +144,7 @@ void Enemy::update() {
         const std::vector<Vec2D>& path = getGrid(game_)->EnemyPath();
 
         // Find the vector2D that contains enemy's current position.
-        int currVecIndex = findCurrentPath(this, path);
+        int currVecIndex = findCurrentPath(this, path, game_);
         const Vec2D currVec = path.at(currVecIndex);
         // Find a current vector in form of (4i + 2j) for example, which is a point.
         Pos vec1 = Pos{ (currVec.b.x - currVec.a.x), (currVec.b.y - currVec.a.y) };

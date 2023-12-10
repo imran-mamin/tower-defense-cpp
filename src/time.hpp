@@ -27,6 +27,7 @@ class FiniteTimer {
     /* Timer finished. */
     else if (!finishCallbackCalled) {
       finishCallbackCalled = true;
+	  return true;
     }
 
     return false;
@@ -36,6 +37,7 @@ class FiniteTimer {
 
  private:
   std::uint32_t ttlTicks_;
+
   // Note: The user of timer must take the accuracy into account here.
   std::uint32_t updateIntervalTicks_;
   bool finishCallbackCalled = false;

@@ -1,7 +1,7 @@
 
 #include "levelinfo_renderer.hpp"
 
-#include "gamegrid.hpp"
+#include "game.hpp"
 #include "renderer.hpp"
 #include "texture_manager.hpp"
 #include <SFML/Graphics.hpp>
@@ -12,20 +12,19 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <cstdint>
 #include <iostream>
+#include <string>
 
 const std::uint32_t characterSize = 50;
 const std::uint32_t shadowTextXOffset = 2;
 const std::uint32_t shadowTextYOffset = 2;
 
 LevelInfoRenderer::LevelInfoRenderer(sf::RenderWindow &renderWindow,
-				     GameGrid &gameGrid, sf::Font &font,
-				     const std::uint64_t &playerMoney,
+				     Game &game, sf::Font &font,
 					 const std::uint32_t level)
     : Renderer(renderWindow),
-      gameGrid_(gameGrid),
+      game_(game),
       textureManager_(TextureManager::GetInstance()),
       font_(font),
-      playerMoney_(playerMoney),
 	  level_(level) {}
 
 
@@ -62,12 +61,12 @@ sf::Text CreateMoneyText(const GameGrid &gameGrid, const sf::Font &font, const s
 }
 
 // TODO: Also draw the wave name here. E.g. "level 1: enemy wave 2".
-sf::Text CreateLevelNameText(const sf::Font &font, const std::uint32_t level) {
+sf::Text CreateLevelNameText(const sf::Font &font, const std::uint32_t level, const std::uint32_t wave) {
 	sf::Text levelNameText;
   	levelNameText.setFont(font);
 	levelNameText.setCharacterSize(40);
   	levelNameText.setFillColor(sf::Color::White);
-  	levelNameText.setString("Level " + std::to_string(level));
+  	levelNameText.setString("Level " + std::to_string(level) + " : Wave " + std::to_string(wave));
   	
 	levelNameText.setPosition(20, 10);
 	
@@ -76,10 +75,10 @@ sf::Text CreateLevelNameText(const sf::Font &font, const std::uint32_t level) {
 
 void LevelInfoRenderer::Draw() {
 	/* Create the money text. */
-	sf::Text moneyText = CreateMoneyText(gameGrid_, font_, playerMoney_);
+	sf::Text moneyText = CreateMoneyText(game_.GetGrid(), font_, game_.PlayerMoney());
 	sf::Text moneyTextShadow = CreateShadowText(moneyText);
 	/* Create the level name text. */
-	sf::Text levelNameText = CreateLevelNameText(font_, level_);
+	sf::Text levelNameText = CreateLevelNameText(font_, level_, game_.CurrentEnemyWaveNumber());
 	sf::Text levelNameTextShadow = CreateShadowText(levelNameText);
 
 	/* Draw the texts. */
