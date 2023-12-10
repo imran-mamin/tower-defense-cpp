@@ -76,10 +76,9 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 				// Create a circle shape
 				sf::CircleShape circle(cn->getRadius());
 				// Set the position of the circle
-				circle.setPosition(centerPosition.x - cn->getRadius(), centerPosition.y - cn->getRadius());
+				circle.setPosition(centerPosition.x  - cn->getRadius() + game.GetGrid().TileWidth() / 2, centerPosition.y - cn->getRadius() + game.GetGrid().TileWidth() / 2);
 				// Set a color for the circle
-				sf::Color fillColor = sf::Color::Red;
-				fillColor.a = 60;
+				sf::Color fillColor = sf::Color(0x80, 0x80, 0x80, 0x10);
 				circle.setFillColor(fillColor);
 				renderWindow.draw(circle);
 			}
@@ -97,7 +96,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 				// Create a circle shape
 				sf::CircleShape circle(ml->getRadius());
 				// Set the position of the circle
-				circle.setPosition(centerPosition.x - ml->getRadius(), centerPosition.y - ml->getRadius());
+				circle.setPosition(centerPosition.x + ml->getRadius(), centerPosition.y + ml->getRadius());
 				// Set a color for the circle
 				sf::Color fillColor = sf::Color::Red;
 				fillColor.a = 60;
