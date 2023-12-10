@@ -108,10 +108,10 @@ void Game::Update() {
 					playerMoney_ += enemy->Value();
 				}
 
-			delete *it;
-			it = objects_.erase(it);
+        delete *it;
+        it = objects_.erase(it);
 			} else {
-			it++;
+			  it++;
 			}
 		}
 	}
