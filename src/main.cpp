@@ -72,8 +72,10 @@ int main() {
           page = 1;
         } else if (exitCode == 1) {
           page = 3;
-        } else {
+        } else if (exitCode == 2) {
           page = 4;
+        } else {
+          assert(false);
         }
         break;
       }
@@ -87,8 +89,8 @@ int main() {
 
         ButtonText exitButton(
             sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
-            sf::Vector2f(500, 350), onClick, "WOW you won very nice gg ez",
-            font);
+            sf::Vector2f(350, 200), onClick, "You Won", font);
+        exitButton.text.setCharacterSize(30);
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -131,8 +133,8 @@ int main() {
 
         ButtonText exitButton(
             sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
-            sf::Vector2f(500, 350), onClick, "Get Good kid", font);
-
+            sf::Vector2f(350, 200), onClick, "You Lost", font);
+        exitButton.text.setCharacterSize(30);
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -161,7 +163,6 @@ int main() {
                 break;
             }
           }
-          window.clear();
           exitButton.draw(window);
           window.display();
         }

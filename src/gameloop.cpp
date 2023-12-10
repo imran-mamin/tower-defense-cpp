@@ -61,7 +61,6 @@ int GameLoop::Play() {
   renderers.push_back(std::make_unique<MapTileSelectorRenderer>(
       window_, grid, textureManager, selectedTower));
   /* For debug purposes. */
-  renderers.push_back(std::make_unique<EnemyPathRenderer>(window_, grid));
   renderers.push_back(std::make_unique<GameObjectRenderer>(window_, game_));
   // TODO: Pass mouse evenet straight to toolbar renderer.
   std::unique_ptr<WeaponToolbarRenderer> weaponToolBarRenderer =
@@ -94,8 +93,10 @@ int GameLoop::Play() {
           }
           break;
         case sf::Event::KeyPressed:
-          // Check, whether the Esc-key is pressed. If so, return to level-selection screen.
+          // Check, whether the Esc-key is pressed. If so, return to
+          // level-selection screen.
           if (gameEvent.key.code == sf::Keyboard::Escape) {
+            game_.SetExitCode(3);
             return 0;
           }
       }
@@ -107,7 +108,7 @@ int GameLoop::Play() {
     } else if (game_.GameWon()) {
       break;
     } else {
-      // TODO: Implement: Game lost.
+      break;
     }
 
     /* 3. Do rendering. */
