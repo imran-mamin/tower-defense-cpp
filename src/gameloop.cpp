@@ -78,6 +78,14 @@ int GameLoop::Play() {
 
   window_.setView(applicationView);
 
+  // GameOver
+  sf::Texture gameWonTex;
+  if (!gameWonTex.loadFromFile("../rsrc/background/gg.png")) {
+    std::cout << "error loading gamewon" << std::endl;
+  }
+  sf::Sprite gameWonSpr(gameWonTex);
+  gameWonSpr.setPosition(0, 0);
+
   // Load window
   while (window_.isOpen()) {
     /* 1. Process user events. */
@@ -105,7 +113,8 @@ int GameLoop::Play() {
     if (!game_.GameOver()) {
       game_.Update();
     } else if (game_.GameWon()) {
-      // TODO: Implement: Game won.
+      window_.clear();
+      window_.draw(gameWonSpr);
     } else {
       // TODO: Implement: Game lost.
     }
