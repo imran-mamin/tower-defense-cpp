@@ -315,44 +315,57 @@
 	    ]
 	},
 	{
-	    "duration_seconds": 120,
+	    "duration_seconds": 20,
 	    "enemies": [
-		"Tank1",
-		"Tank1",
-		"Tank1",
-		"Tank1",
-		"Tank1",
-		"Tank1",
-		"FootSoldier2",
-		"FootSoldier2",
-		"FootSoldier2",
-		"FootSoldier2",
-		"FootSoldier2",
-		"FootSoldier2",
-		"Tank1",
-		"Tank2",
-		"Tank2",
-		"Tank1",
-		"Tank2",
-		"FootSoldier2",
-		"Tank2",
-		"Tank2",
-		"Tank2",
-		"Tank2",
-		"Tank2",
-		"Tank2",
-		"Tank1",
-		"FootSoldier2",
-		"Tank1",
-		"FootSoldier2",
-		"Tank1",
-		"FootSoldier2",
-		"Tank1",
-		"Tank1",
-		"Tank1",
-		"FootSoldier3",
-		"FootSoldier3",
-		"Tank2"
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier1",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier1",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier1",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier1",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier1",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier3",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier3",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier3",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier3",
+			"FootSoldier1",	"FootSoldier1",	"FootSoldier2",	"FootSoldier1",	"FootSoldier3"
+		]
+	},
+	{
+		"duration_seconds" : 15,
+		"enemies" : [
+			"FootSoldier2",	"FootSoldier2",	"FootSoldier3",	"FootSoldier2",	"FootSoldier2",
+			"FootSoldier2",	"FootSoldier2",	"FootSoldier3",	"FootSoldier2",	"FootSoldier2",
+			"FootSoldier2",	"FootSoldier2",	"FootSoldier3",	"FootSoldier2",	"FootSoldier2",
+			"FootSoldier2",	"FootSoldier2",	"FootSoldier3",	"FootSoldier2",	"FootSoldier4"
+		]
+	},
+	{
+		"duration_seconds" : 10,
+		"enemies" : [
+			"Tank1", "Tank1", "Tank1", "Tank1", "Tank1"
+		]
+	},
+	{
+		"duration_seconds" : 40,
+		"enemies" : [
+			"FootSoldier3",
+			"Tank1",
+			"FootSoldier3",
+			"Tank1",
+			"FootSoldier3",
+			"Tank1",
+			"FootSoldier3",
+			"Tank1",
+			"FootSoldier2",
+			"Tank1",
+			"FootSoldier2",
+			"Tank1",
+			"FootSoldier2",
+			"FootSoldier3",
+			"FootSoldier3",
+			"FootSoldier3",
+			"FootSoldier4",
+			"FootSoldier4",
+			"Tank2"
 	    ]
 	}
     ]
