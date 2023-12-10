@@ -59,7 +59,7 @@ int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path, Game* game) 
         setGameOver(game);
     }
     
-    // assert(currIndex != -1);
+    assert(currIndex != -1);
     return currIndex;
 }
 
