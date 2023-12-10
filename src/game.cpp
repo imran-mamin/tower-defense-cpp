@@ -67,7 +67,7 @@ void Game::Update() {
       }
     }
 
-    if (currentEnemyWave_.isNextEnemyReady()) {
+    if (currentEnemyWave_.hasEnemy() && currentEnemyWave_.isNextEnemyReady()) {
       EnemyType enemyType = currentEnemyWave_.getNextEnemyType();
       switch (enemyType) {
         case EnemyType::Soldier1:
