@@ -35,6 +35,12 @@ int main() {
 
   std::pair<int, int> resp;
 
+  // Text Font
+  sf::Font font;
+  if (!font.loadFromFile("../fonts/pixieboy.ttf")) {
+    std::cout << "Error in font loading" << std::endl;
+  }
+
   while (window.isOpen()) {
     switch (page) {
       case 1:
@@ -82,15 +88,15 @@ int main() {
       // Game won page
       case 3: {
         auto onClick = [&page]() { page = 0; };
-        sf::Font font;
-        if (!font.loadFromFile("../fonts/pixieboy.ttf")) {
-          std::cout << "Error in font loading" << std::endl;
-        }
+        auto hsClick = [&page]() { page = 5; };
 
         ButtonText exitButton(
             sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
             sf::Vector2f(350, 200), onClick, "You Won", font);
         exitButton.text.setCharacterSize(30);
+        ButtonText hsButton(
+            sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f + 180),
+            sf::Vector2f(200, 100), hsClick, "Highscores", font);
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -106,6 +112,7 @@ int main() {
                 mousePos =
                     window.mapPixelToCoords(sf::Mouse::getPosition(window));
                 exitButton.handleHover(mousePos);
+                hsButton.handleHover(mousePos);
                 break;
 
               case sf::Event::MouseButtonPressed:
@@ -113,6 +120,7 @@ int main() {
                   mousePos =
                       window.mapPixelToCoords(sf::Mouse::getPosition(window));
                   exitButton.handleClick(mousePos);
+                  hsButton.handleClick(mousePos);
                 }
                 break;
               default:
@@ -120,6 +128,7 @@ int main() {
             }
           }
           exitButton.draw(window);
+          hsButton.draw(window);
           window.display();
         }
         break;
@@ -127,20 +136,59 @@ int main() {
       // Game lose page
       case 4: {
         auto onClick = [&page]() { page = 0; };
-        sf::Font font;
-        if (!font.loadFromFile("../fonts/pixieboy.ttf")) {
-          std::cout << "Error in font loading" << std::endl;
-        }
+        auto hsClick = [&page]() { page = 5; };
 
         ButtonText exitButton(
             sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
             sf::Vector2f(350, 200), onClick, "You Lost", font);
         exitButton.text.setCharacterSize(30);
+        ButtonText hsButton(
+            sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f + 180),
+            sf::Vector2f(200, 100), hsClick, "Highscores", font);
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
         while (page == 4) {
+          while (window.pollEvent(event)) {
+            switch (event.type) {
+              case sf::Event::Closed:
+                window.close();
+                break;
+
+              case sf::Event::MouseMoved:
+                mousePos =
+                    window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                exitButton.handleHover(mousePos);
+                hsButton.handleHover(mousePos);
+                break;
+
+              case sf::Event::MouseButtonPressed:
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                  mousePos =
+                      window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                  exitButton.handleClick(mousePos);
+                  hsButton.handleClick(mousePos);
+                }
+                break;
+              default:
+                break;
+            }
+          }
+          exitButton.draw(window);
+          hsButton.draw(window);
+          window.display();
+        }
+        break;
+      }
+      case 5: {
+        auto onClick = [&page]() { page = 0; };
+        ButtonText exitButton(sf::Vector2f(50, 50), sf::Vector2f(120, 80),
+                              onClick, "BACK", font);
+        sf::Event event;
+        sf::Vector2f mousePos =
+            window.mapPixelToCoords(sf::Mouse::getPosition(window));
+        while (page == 5) {
           while (window.pollEvent(event)) {
             switch (event.type) {
               case sf::Event::Closed:
@@ -164,6 +212,7 @@ int main() {
                 break;
             }
           }
+          window.clear();
           exitButton.draw(window);
           window.display();
         }

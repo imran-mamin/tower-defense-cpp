@@ -44,6 +44,11 @@ int MenuHome::run(sf::RenderWindow& window) {
       sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f + 100),
       sf::Vector2f(200, 50), onExit, "Quit", font);
 
+  auto onHS = [&page]() { page = 5; };
+  ButtonText hsButton(
+      sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f + 200),
+      sf::Vector2f(200, 50), onHS, "HighScores", font);
+
   auto onMute = [this]() {
     musicManager.toggleMusic();
     musicButton.setTexture(musicManager.isMusicOn() ? textureMusicOn
@@ -73,6 +78,7 @@ int MenuHome::run(sf::RenderWindow& window) {
           mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
           playButton.handleHover(mousePos);
           exitButton.handleHover(mousePos);
+          hsButton.handleHover(mousePos);
           musicButton.handleHover(mousePos);
           break;
 
@@ -81,11 +87,12 @@ int MenuHome::run(sf::RenderWindow& window) {
             mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             playButton.handleClick(mousePos);
             exitButton.handleClick(mousePos);
+            hsButton.handleClick(mousePos);
             musicButton.handleClick(mousePos);
           }
           break;
-		default:
-		  break;
+        default:
+          break;
       }
     }
     window.clear();
@@ -94,6 +101,7 @@ int MenuHome::run(sf::RenderWindow& window) {
     musicButton.draw(window);
     playButton.draw(window);
     exitButton.draw(window);
+    hsButton.draw(window);
 
     window.display();
   }
