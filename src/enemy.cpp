@@ -168,8 +168,11 @@ void Enemy::update() {
     char direction = checkDirection(unitVec1);
 
     // Advance enemy's position.
+    int prevX = position_.x;
+    int prevY = position_.y;
     position_.x += speed_ * unitVec1.x;
     position_.y += speed_ * unitVec1.y;
+    Travel(std::abs(prevX - position_.x) + std::abs(prevY - position_.y));
 
     // Check that the enemy doesn't go further than the end point of a path
     // vector.
