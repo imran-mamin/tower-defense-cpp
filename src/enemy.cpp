@@ -12,12 +12,12 @@ bool Enemy::isAlive() const {
 }
 
 
-std::size_t findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
+int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
     // This variable will be returned by this method.
-    std::size_t currIndex = 0;
+    int currIndex = -1;
 
     // Find the vector Vec2D, where this position occurs.
-    for (std::size_t j = 0; j < path.size(); j++) {
+    for (int j = 0; j < (int)path.size(); j++) {
         bool betweenAandB = false;
         // Calculate the difference between ending point and starting point of current Vec2D.
         float diffX = path.at(j).b.x - path.at(j).a.x;
@@ -54,6 +54,7 @@ std::size_t findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path) {
             break;
         }
     }
+    assert(currIndex != -1);
     return currIndex;
 }
 
@@ -73,24 +74,55 @@ char checkDirection(Pos vec) {
     return dir;
 }
 
-Pos advanceEnemyByOut(const Enemy* e, const float out, const std::size_t currIndex, const std::vector<Vec2D>& path, Game* game) {
+std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out, const int currIndex, const std::vector<Vec2D>& path, Game* game) {
     Pos updatePos = e->getPosition();
     float remain = out;
+    char dir;
     // Since this method is called, when the enemy goes out of the current Vec2D, we start from
     // currIndex + 1.
-    int i = (int)currIndex + 1;
-    for (i; i < path.size(); i++) {
+    int i = currIndex + 1;
+    for (i; i < (int)path.size(); i++) {
         float distAB = std::abs((path.at(i).b.x - path.at(i).a.x) + (path.at(i).b.y - path.at(i).a.y));
 
+        // If current distance AB is smaller than offset, then remove offset from remaining and
+        // continue with the next Vec2D.
         if (distAB < remain) {
             remain -= distAB;
             continue;
         }
+        
+        // Find new position of the enemy.
+        float diffX = path.at(i).b.x - path.at(i).a.x;
+        float diffY = path.at(i).b.y - path.at(i).a.y;
 
-        updatePos.x = path.at(i).a.x;
-        updatePos.y = path.at(i).a.y;
+        if ((diffX == 0) && (diffY > 0)) {
+            updatePos.x = path.at(i).a.x;
+            updatePos.y = path.at(i).a.y + remain;
+            dir = checkDirection(Pos{ diffX, diffY });
+            break;
+        } else if ((diffX > 0) && (diffY == 0)) {
+            updatePos.x = path.at(i).a.x + remain;
+            updatePos.y = path.at(i).a.y;
+            dir = checkDirection(Pos{ diffX, diffY });
+            break;
+        } else if ((diffX == 0) && (diffY < 0)) {
+            updatePos.x = path.at(i).a.x;
+            updatePos.y = path.at(i).a.y - remain;
+            dir = checkDirection(Pos{ diffX, diffY });
+            break;
+        } else if ((diffX < 0) && (diffY == 0)) {
+            updatePos.x = path.at(i).a.x - remain;
+            updatePos.y = path.at(i).a.y;
+            dir = checkDirection(Pos{ diffX, diffY });
+            break;
+        }
     }
-    return updatePos;
+    assert(i < path.size());
+    if (updatePos == e->getPosition()) {
+        assert(false);
+    }
+
+    return std::make_pair(updatePos, dir);
 }
 
 void Enemy::update() {
@@ -99,7 +131,7 @@ void Enemy::update() {
         const std::vector<Vec2D>& path = getGrid(game_)->EnemyPath();
 
         // Find the vector2D that contains enemy's current position.
-        std::size_t currVecIndex = findCurrentPath(this, path);
+        int currVecIndex = findCurrentPath(this, path);
         std::cout << "currVecIndex = " << currVecIndex << std::endl;
         const Vec2D currVec = path.at(currVecIndex);
         // Find a current vector in form of (4i + 2j) for example, which is a point.
@@ -123,11 +155,14 @@ void Enemy::update() {
         if (outX || outY) {
             // Check how much enemy goes out.
             float out = (unitVec1.x != 0) ? std::abs(position_.x - currVec.b.x) : std::abs(position_.y - currVec.b.y);
-            Pos updatedPos = advanceEnemyByOut(this, out, currVecIndex, path, game_);
-            // position_.x = updatedPos.x;
-            // position_.y = updatedPos.y;
-            position_.x = currVec.b.x;
-            position_.y = currVec.b.y;
+            std::pair<Pos, char> res = advanceEnemyByOut(this, out, currVecIndex, path, game_);
+            position_.x = res.first.x;
+            position_.y = res.first.y;
+            direction = res.second;
+        
+        }
+            // position_.x = currVec.b.x;
+            // position_.y = currVec.b.y;
             /*// Check how far does the enemy go from the currVec's end point.
             float outInSpeed = (unitVec1.x != 0) ? std::abs((this->position_.x - currVec.b.x) / unitVec1.x) : std::abs((this->position_.y - currVec.b.y) / unitVec1.y);
 
@@ -183,6 +218,5 @@ void Enemy::update() {
                 default:
                     throw std::runtime_error("Unknown direction!");
             }
-        }
     }
 }
