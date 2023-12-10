@@ -122,6 +122,9 @@ void Game::Update() {
     }
 	
 		currentEnemyWave_.UpdateTimer();
+  } else {
+    // TODO: This is for game over.
+    assert(false);
   }
 }
 

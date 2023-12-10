@@ -56,7 +56,6 @@ int findCurrentPath(const Enemy* e, const std::vector<Vec2D>& path, Game* game) 
     }
     
     if (currIndex == -1) {
-        std::cout << "b" << std::endl;
         setGameOver(game);
     }
     
@@ -131,7 +130,6 @@ std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out, const in
 
     // TODO: Instead of assert the flag gameOver should be set.
     if (updatePos == e->getPosition()) {
-        std::cout << "a" << std::endl;
         setGameOver(game);
     }
 

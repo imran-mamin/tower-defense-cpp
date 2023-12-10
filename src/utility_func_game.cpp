@@ -15,5 +15,6 @@ const std::vector<GameObject*> getObjects(Game* game) {
 
 void setGameOver(Game* game) {
     game->setOver();
+    game->Update();
 }
 
