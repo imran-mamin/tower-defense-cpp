@@ -93,7 +93,8 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "unordered_set": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "filesystem": "cpp"
     },
     "editor.codeActionsOnSave": {
         "source.fixAll.format": false,
