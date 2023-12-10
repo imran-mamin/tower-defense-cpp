@@ -97,7 +97,7 @@
         "filesystem": "cpp"
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll.format": false,
+        "source.fixAll.format": "never"
     },
     "editor.formatOnSave": true,
     "files.watcherExclude": {

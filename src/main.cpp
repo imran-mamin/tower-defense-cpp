@@ -89,7 +89,6 @@ int main() {
             sf::Vector2f(windowWidth / 2.0f, windowHeight / 2.5f),
             sf::Vector2f(500, 350), onClick, "WOW you won very nice gg ez",
             font);
-
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
