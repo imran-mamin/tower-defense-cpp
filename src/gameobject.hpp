@@ -25,11 +25,6 @@ class GameObject {
       }
     }
 
-    template <typename T>
-    bool isOfType() {
-      return dynamic_cast<T>(this);
-    }
-
     virtual void update() = 0;
     virtual void onDestroy() = 0;
     virtual ~GameObject(){};

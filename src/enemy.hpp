@@ -7,18 +7,17 @@ class Enemy: public GameObject {
 protected:
     double speed_;
     int value_;
-    // int maxHP_;
+    int maxHP_;
 public:
     explicit Enemy(int speed, int value, int maxHP, Game* game, Pos position)
-            : GameObject(game, position, maxHP), speed_(speed), value_(value) {};
+            : GameObject(game, position, maxHP), speed_(speed), value_(value), maxHP_(maxHP) {};
     
     virtual ~Enemy() {};
 
     void update();
 
-	int Value() const {
-		return value_;
-	}
+	int Value() const {	return value_; }
+	int MaxHP() const { return maxHP_; }
     
     int GetSpeed() const;
     bool isAlive() const;
