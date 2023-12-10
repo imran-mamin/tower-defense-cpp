@@ -45,17 +45,20 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		/* Note: C++17 allows to assignment inside if statement (visible in the block scope only). */
 		if (isOfType<Projectile>(gameObject)) {
 			if (isOfType<Missile>(gameObject)) {
-				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile));
-				currentSprite.setTexture(currentTexture);
+				currentSprite.setTexture(textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Missile)));
 			}
 			else if (isOfType<Bullet>(gameObject)) {
-				sf::Texture &currentTexture = textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet));
-				currentSprite.setTexture(currentTexture);
+				currentSprite.setTexture(textureManager.GetTexture(projectileToTileIDMapping.at(ProjectileType::Bullet)));
 			}
 			else {
 				throw std::runtime_error("Unknown projectile type.");
 			}
 			currentSprite.setOrigin(sf::Vector2f{ 32, 32 });
+			/* 2. Set the sprite position. */
+			sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
+			centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
+			centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
+			currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		}
 		else if (isOfType<Tower>(gameObject)) {
 			if (isOfType<Cannon>(gameObject)) {
@@ -158,12 +161,12 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 				throw GameObjectRendererError("Unsupported gameobject type.");
 			}
 
-			sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
+			//sf::Vector2f centerPosition = gameObject->getPosition().ToVector2f();
 			//centerPosition.x += 1.0 * game.GetGrid().TileWidth() / 2;
 			//centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
-			currentSprite.setPosition(centerPosition);
+			//currentSprite.setPosition(centerPosition);
 			/* 2. Set the sprite position. */
-			// currentSprite.setPosition(gameObject->getPosition().ToVector2f());
+			currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 		}
 
 		/*
