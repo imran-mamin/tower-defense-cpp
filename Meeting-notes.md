@@ -122,4 +122,9 @@ Valerie:
 	* Fixed bug where the menu was rendered on the tile grid.
 	* Overall a lot of other changes too ~+400LoC ~-200LoC.
 
-- Aleksi: Created 4 more maps.
+- Aleksi:
+	* Created 4 more maps.
+
+## 8.12.2023 - 10.12.2023
+- Leevi:
+	* Added a lot of stuff that can be found from the commit log.
