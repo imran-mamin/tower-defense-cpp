@@ -22,7 +22,9 @@ enum class EnemyType{
 	Tank1,
 	Tank2,
 	Plane1,
-	Plane2
+	Plane2,
+	Tank1Cannon,
+	Tank2Cannon
 };
 
 enum class ProjectileType{
@@ -56,6 +58,8 @@ const std::map<EnemyType, std::uint16_t> enemyToTileIDMapping = {
 	std::make_pair(EnemyType::Soldier4, 247),
 	std::make_pair(EnemyType::Tank1, 267),
 	std::make_pair(EnemyType::Tank2, 268),
+	std::make_pair(EnemyType::Tank1Cannon, 290),
+	std::make_pair(EnemyType::Tank2Cannon, 291),
 	std::make_pair(EnemyType::Plane1, 269),
 	std::make_pair(EnemyType::Plane2, 270)
 };

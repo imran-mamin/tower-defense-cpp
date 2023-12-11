@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <memory>
@@ -84,9 +85,9 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		sf::CircleShape circle(cn->getRadius());
 		// Set the position of the circle
 		circle.setPosition(centerPosition.x - cn->getRadius() +
-				       game.GetGrid().TileWidth() / 2,
+				       (float) game.GetGrid().TileWidth() / 2,
 				   centerPosition.y - cn->getRadius() +
-				       game.GetGrid().TileWidth() / 2);
+				       (float) game.GetGrid().TileWidth() / 2);
 		// Set a color for the circle
 		sf::Color fillColor = sf::Color(0x80, 0x80, 0x80, 0x10);
 		circle.setFillColor(fillColor);
@@ -187,10 +188,12 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		    healthBarPosition.x -= 1.0 * healthBarWidth / 2;
 		    healthBarPosition.y -= currentSprite.getLocalBounds().height / 2 - healthBarPadding - healthBarHeight;
 
+			std::cout << "overlay width = " << overlayHealthBarSize.x << std::endl;
 		    sf::RectangleShape healthBarUnderlay(underlayHealthBarSize);
 		    sf::RectangleShape healthBarOverlay(overlayHealthBarSize);
 			healthBarOverlay.setFillColor(sf::Color(0xff * (1 - (1.0 * enemy->Health() / enemy->MaxHP())), 0xff * (1.0 * enemy->Health() / enemy->MaxHP()), 0x00));
-		    healthBarUnderlay.setPosition(healthBarPosition);
+		    healthBarUnderlay.setFillColor(sf::Color::Red);
+			healthBarUnderlay.setPosition(healthBarPosition);
 		    healthBarOverlay.setPosition(healthBarPosition);
 
 		    renderWindow.draw(healthBarUnderlay);
@@ -217,12 +220,39 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		 * 4. Draw the sprite.
 		 */
 		renderWindow.draw(currentSprite);
+
+		/* For tanks draw the cannon on top of them. */
+		if (isOfType<Tank>(gameObject)) {
+			sf::Sprite tankCannonSprite;
+			if (isOfType<Tank1>(gameObject)) {
+				tankCannonSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank1Cannon)));
+			}
+			else if (isOfType<Tank2>(gameObject)) {
+				tankCannonSprite.setTexture(textureManager.GetTexture(enemyToTileIDMapping.at(EnemyType::Tank2Cannon)));
+			}
+			else {
+				throw std::runtime_error("Unknown tank type.");
+			}
+			
+			tankCannonSprite.setRotation(gameObject->GetRotation());
+			sf::Vector2f tankCannonPosition = gameObject->getPosition().ToVector2f();
+			tankCannonPosition.y -= (float) game.GetGrid().TileWidth() / 2;
+			if (tankCannonSprite.getRotation() == 0 || tankCannonSprite.getRotation() == 180) {
+				tankCannonPosition.x -= (float) game.GetGrid().TileWidth() / 2;
+			}
+			else {
+				tankCannonPosition.x += (float) game.GetGrid().TileWidth() / 2;
+			}
+
+			tankCannonSprite.setPosition(tankCannonPosition);
+			renderWindow.draw(tankCannonSprite);
+		}
+
     }
 }
 
 void GameObjectRenderer::Draw() {
     renderGameObjects(renderWindow_, game_);
-    // TODO: Animation rendering here. 1. filter by animation type. 2. render
-    // them.
+    // TODO: Animation rendering here. 1. filter by animation type. 2. render them.
 }
 
