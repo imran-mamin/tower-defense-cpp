@@ -96,7 +96,7 @@ std::pair<Pos, char> advanceEnemyByOut(const Enemy* e, const float out,
                                        Game* game) {
   Pos updatePos = e->getPosition();
   float remain = out;
-  char dir;
+  char dir = 'N';
   // Since this method is called, when the enemy goes out of the current Vec2D,
   // we start from currIndex + 1.
   int i = currIndex + 1;
