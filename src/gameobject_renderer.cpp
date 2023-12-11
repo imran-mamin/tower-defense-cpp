@@ -2,6 +2,7 @@
 #include "gameobject_renderer.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <algorithm>
@@ -180,6 +181,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 
 		/* Draw a healthbar over the game object. */
 		if ((int)enemy->Health() < enemy->MaxHP()) {
+			const float enemyHealthPercentage = 1.0 * enemy->Health() / enemy->MaxHP();
 		    const std::uint32_t healthBarHeight = 6;
 		    const std::uint32_t healthBarWidth = 48;
 
@@ -188,16 +190,18 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 			gameObject->getPosition().ToVector2f();
 		    sf::Vector2f underlayHealthBarSize(healthBarWidth,
 						       healthBarHeight);
-		    sf::Vector2f overlayHealthBarSize(
-			(1.0 * enemy->Health() / enemy->MaxHP()) *
-			    healthBarWidth,
-			healthBarHeight);
+		    sf::Vector2f overlayHealthBarSize(enemyHealthPercentage * healthBarWidth, healthBarHeight);
 		    healthBarPosition.x -= 1.0 * healthBarWidth / 2;
 		    healthBarPosition.y -= ((float) game.GetGrid().TileWidth() / 2 + healthBarHeight);
 
 		    sf::RectangleShape healthBarUnderlay(underlayHealthBarSize);
 		    sf::RectangleShape healthBarOverlay(overlayHealthBarSize);
-			healthBarOverlay.setFillColor(sf::Color(0xff * (1 - (1.0 * enemy->Health() / enemy->MaxHP())), 0xff * (1.0 * enemy->Health() / enemy->MaxHP()), 0x00));
+			if (enemyHealthPercentage > 0.50) {
+				healthBarOverlay.setFillColor(sf::Color(1.0 * 0xff * (1.0 - enemyHealthPercentage), 0xff, 0x00));
+			}
+			else {
+				healthBarOverlay.setFillColor(sf::Color(0xff, 1.0 * 0xff * enemyHealthPercentage, 0x00));
+			}
 		    healthBarUnderlay.setFillColor(sf::Color::Red);
 			healthBarUnderlay.setPosition(healthBarPosition);
 		    healthBarOverlay.setPosition(healthBarPosition);
@@ -208,14 +212,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 	    } else {
 		throw GameObjectRendererError("Unsupported gameobject type.");
 	    }
-
-	    // sf::Vector2f centerPosition =
-	    // gameObject->getPosition().ToVector2f(); centerPosition.x += 1.0 *
-	    // game.GetGrid().TileWidth() / 2; centerPosition.y += 1.0 *
-	    // game.GetGrid().TileWidth() / 2;
-	    // currentSprite.setPosition(centerPosition);
-	    /* 2. Set the sprite position. */
-	    //currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 
 		/*
 		 * 3. Rotate the sprite according to the game object rotation.
