@@ -18,6 +18,7 @@
 # Build instructions
 
 ## Windows
+
 To build and run the program one should proceed with the following steps:
 1. Clone the project to the local environment (repository).
 2. Navigate to the project in the terminal (Ubuntu or other platform depending on the operating system).
@@ -30,10 +31,10 @@ To build and run the program one should proceed with the following steps:
 5. The executable name is ‘ClashofArmies’, so to run the program one should type
 ./ClashOfArmies
 
+## Linux / MacOS
 
-### TODO
-
-## Linux
+* Linux: Install build tools and SFML from your package manager or compile them by hand.
+* MacOS: Install build tools and SFML via brew or get them somehow otherwise.
 
 In the project root directory execute the following commands:
 ```
@@ -48,7 +49,3 @@ make -j$(nproc)
 # To launch the game just run
 ./ClashOfArmies
 ```
-
-## MacOS
-
-### TODO
