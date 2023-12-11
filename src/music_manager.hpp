@@ -9,8 +9,8 @@ class MusicManager {
     if (!music.openFromFile("../rsrc/music/lady-of-the-80s.ogg")) {
       std::cerr << "Error loading music." << std::endl;
     }
-    music.setVolume(100);
-    music.pause();
+    music.setVolume(3);
+    music.play();
   }
 
   void toggleMusic() {
