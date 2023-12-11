@@ -2,6 +2,7 @@
 #include "gameobject_renderer.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <algorithm>
 #include <cstdint>
@@ -65,13 +66,16 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 	    centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
 	    currentSprite.setPosition(gameObject->getPosition().ToVector2f());
 	} else if (isOfType<Tower>(gameObject)) {
+		sf::Sprite towerBaseSprite;
 	    if (isOfType<Cannon>(gameObject)) {
 		if (isOfType<GreenCannon>(gameObject)) {
 		    currentSprite.setTexture(textureManager.GetTexture(
 			weaponToTileIDMapping.at(WeaponType::GreenCannon)));
+			towerBaseSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannonBase)));
 		} else if (isOfType<RedCannon>(gameObject)) {
 		    currentSprite.setTexture(textureManager.GetTexture(
 			weaponToTileIDMapping.at(WeaponType::RedCannon)));
+			towerBaseSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::RedCannonBase)));
 		} else {
 		    throw std::runtime_error("Unknown cannon type.");
 		}
@@ -97,6 +101,7 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		    currentSprite.setTexture(
 			textureManager.GetTexture(weaponToTileIDMapping.at(
 			    WeaponType::MissileLauncher1)));
+			towerBaseSprite.setTexture(textureManager.GetTexture(weaponToTileIDMapping.at(WeaponType::MissileLauncherBase)));
 		} else {
 		    throw std::runtime_error("Unknown missile launcher type.");
 		}
@@ -125,6 +130,9 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 	    centerPosition.y += 1.0 * game.GetGrid().TileWidth() / 2;
 	    currentSprite.setPosition(centerPosition);
 
+		/* Draw the base of the tower. */
+		towerBaseSprite.setPosition(gameObject->getPosition().ToVector2f());
+		renderWindow.draw(towerBaseSprite);
 	} else if (isOfType<Enemy>(gameObject)) {
 	    if (isOfType<FootSoldier>(gameObject)) {
 		if (isOfType<Soldier1>(gameObject)) {
