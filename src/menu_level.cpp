@@ -75,6 +75,8 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
   int windowWidth = window.getSize().x;
   int windowHeight = window.getSize().y;
 
+  int nextWindow = 2;
+
   // Load background image
   sf::Texture backgroundTexture;
   if (!backgroundTexture.loadFromFile("../rsrc/background/menu.jpg")) {
@@ -93,7 +95,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
   }
 
   int gameLevel = 0;
-  auto onLevelSelect = [this, &gameLevel](int selectedLevel) {
+  auto onLevelSelect = [&gameLevel](int selectedLevel) {
     std::cout << "Selected level: " << selectedLevel << std::endl;
     gameLevel = selectedLevel;
   };
@@ -103,11 +105,20 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
   sf::Vector2f mousePos =
       window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
+  auto onClick = [&nextWindow, &gameLevel]() {
+    std::cout << "Exited" << std::endl;
+    nextWindow = 0;
+    gameLevel = 99;
+  };
+
+  ButtonText exitButton(sf::Vector2f(50, 30), sf::Vector2f(100, 70), onClick,
+                        "Back", font);
+
   while (window.isOpen()) {
     sf::Event event;
 
     if (gameLevel != 0) {
-      return std::make_pair(2, gameLevel);
+      return std::make_pair(nextWindow, gameLevel);
     }
 
     while (window.pollEvent(event)) {
@@ -121,6 +132,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
           for (auto& button : levelButtons) {
             button.handleHover(mousePos);
           }
+          exitButton.handleHover(mousePos);
           break;
 
         case sf::Event::MouseButtonPressed:
@@ -129,6 +141,7 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
             for (const auto& button : levelButtons) {
               button.handleClick(mousePos);
             }
+            exitButton.handleClick(mousePos);
           }
           break;
         default:
@@ -142,9 +155,10 @@ std::pair<int, int> MenuLevel::run(sf::RenderWindow& window) {
     for (const auto& button : levelButtons) {
       button.draw(window);
     }
+    exitButton.draw(window);
 
     window.display();
   }
 
-  return std::make_pair(2, gameLevel);
+  return std::make_pair(nextWindow, gameLevel);
 }
