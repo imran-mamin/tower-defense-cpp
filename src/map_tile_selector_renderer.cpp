@@ -47,7 +47,7 @@ void MapTileSelectorRenderer::Draw() {
 	int xPos = mousePosition.x / gameGrid_.TileWidth();
 	
 	/* Check whether we are inside the game grid area. */
-	if (mousePosition.x >= 0 && mousePosition.y >= 0 && (std::uint32_t) xPos <= gameGrid_.Width() && (std::uint32_t) yPos <= gameGrid_.Height()) {
+	if (mousePosition.x >= 0 && mousePosition.y >= 0 && (std::uint32_t) xPos < gameGrid_.Width() && (std::uint32_t) yPos < gameGrid_.Height()) {
 		Tile &selectedTile = gameGrid_.TileAtCoordinate(xPos, yPos);
 		
 		selectorRect_.setPosition(xPos * gameGrid_.TileWidth(), yPos * gameGrid_.TileWidth());
