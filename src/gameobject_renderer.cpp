@@ -174,7 +174,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		if ((int)enemy->Health() < enemy->MaxHP()) {
 		    const std::uint32_t healthBarHeight = 6;
 		    const std::uint32_t healthBarWidth = 48;
-			const std::uint32_t healthBarPadding = 16;
 
 		    /* Set the healthbar position. */
 		    sf::Vector2f healthBarPosition =
