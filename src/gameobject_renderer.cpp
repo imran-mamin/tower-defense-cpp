@@ -85,9 +85,9 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		sf::CircleShape circle(cn->getRadius());
 		// Set the position of the circle
 		circle.setPosition(centerPosition.x - cn->getRadius() +
-				       game.GetGrid().TileWidth() / 2,
+				       (float) game.GetGrid().TileWidth() / 2,
 				   centerPosition.y - cn->getRadius() +
-				       game.GetGrid().TileWidth() / 2);
+				       (float) game.GetGrid().TileWidth() / 2);
 		// Set a color for the circle
 		sf::Color fillColor = sf::Color(0x80, 0x80, 0x80, 0x10);
 		circle.setFillColor(fillColor);
@@ -235,8 +235,17 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 			}
 			
 			tankCannonSprite.setRotation(gameObject->GetRotation());
-			tankCannonSprite.setPosition(gameObject->getPosition().ToVector2f());
-			renderWindow.draw(currentSprite);
+			sf::Vector2f tankCannonPosition = gameObject->getPosition().ToVector2f();
+			tankCannonPosition.y -= (float) game.GetGrid().TileWidth() / 2;
+			if (tankCannonSprite.getRotation() == 0 || tankCannonSprite.getRotation() == 180) {
+				tankCannonPosition.x -= (float) game.GetGrid().TileWidth() / 2;
+			}
+			else {
+				tankCannonPosition.x += (float) game.GetGrid().TileWidth() / 2;
+			}
+
+			tankCannonSprite.setPosition(tankCannonPosition);
+			renderWindow.draw(tankCannonSprite);
 		}
 
     }
@@ -244,7 +253,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 
 void GameObjectRenderer::Draw() {
     renderGameObjects(renderWindow_, game_);
-    // TODO: Animation rendering here. 1. filter by animation type. 2. render
-    // them.
+    // TODO: Animation rendering here. 1. filter by animation type. 2. render them.
 }
 
