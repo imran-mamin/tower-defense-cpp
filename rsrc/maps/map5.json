@@ -512,7 +512,7 @@
             ]
         },
         {
-            "duration_seconds": 13,
+            "duration_seconds": 12,
             "enemies": [
                 "FootSoldier3",
                 "FootSoldier3",
@@ -538,7 +538,7 @@
             ]
         },
         {
-            "duration_seconds": 20,
+            "duration_seconds": 25,
             "enemies": [
                 "Tank1",
                 "Tank1",
@@ -552,6 +552,7 @@
                 "FootSoldier3",
                 "FootSoldier3",
                 "Tank2",
+                "Tank2",
                 "FootSoldier3",
                 "FootSoldier3",
                 "FootSoldier3",
@@ -559,8 +560,25 @@
             ]
         },
         {
-            "duration_seconds": 10,
+            "duration_seconds": 20,
             "enemies": [
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "FootSoldier3",
+                "Tank2",
                 "Tank2",
                 "Tank2",
                 "Tank2"
