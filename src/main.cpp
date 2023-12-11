@@ -8,6 +8,8 @@
 #include "game.hpp"
 #include "gamegrid.hpp"
 #include "gameloop.hpp"
+#include "highscore_renderer.hpp"
+#include "highscores.hpp"
 #include "menu_home.hpp"
 #include "menu_level.hpp"
 #include "music_manager.hpp"
@@ -34,6 +36,8 @@ int main() {
   MenuHome menuHome(musicManager);
 
   std::pair<int, int> resp;
+
+  HighScores highScores("../rsrc/highscores.json");
 
   // Text Font
   sf::Font font;
@@ -72,12 +76,14 @@ int main() {
 
         loop.Play();
 
-        // Getting outcome of loop
+        // Getting outcome of gameloop
         std::uint8_t exitCode = game.GetExitCode();
         if (exitCode == 0 || exitCode == 3) {
           page = 1;
+          // exitCode 1 for game won
         } else if (exitCode == 1) {
           page = 3;
+          highScores.AddNewScore(gameLevel, game.PlayerMoney());
         } else if (exitCode == 2) {
           page = 4;
         } else {
@@ -182,9 +188,13 @@ int main() {
         break;
       }
       case 5: {
+        HighScoreRenderer hsRenderer(window, highScores, levels.size(),
+                                     windowWidth);
+
         auto onClick = [&page]() { page = 0; };
         ButtonText exitButton(sf::Vector2f(50, 50), sf::Vector2f(120, 80),
                               onClick, "BACK", font);
+
         sf::Event event;
         sf::Vector2f mousePos =
             window.mapPixelToCoords(sf::Mouse::getPosition(window));
@@ -213,6 +223,7 @@ int main() {
             }
           }
           window.clear();
+          hsRenderer.Draw();
           exitButton.draw(window);
           window.display();
         }
