@@ -34,6 +34,7 @@ class HighScores {
     const std::string path_;
 
 	void SortDecreasingOrder(const std::uint32_t level);
+	void RemoveAllExcessHighscores();
 };
 
 class HighScoreReadingError : public std::runtime_error {
