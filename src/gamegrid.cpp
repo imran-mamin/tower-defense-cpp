@@ -104,7 +104,7 @@ Pos GameGrid::AbsoluteCoordinateToClosestTilePosition(std::uint32_t x,
 }
 
 Tile &GameGrid::TileAtAbsoluteCoordinate(std::uint32_t x, std::uint32_t y) {
-  if (x > tileWidth_ * width_ || y > tileWidth_ * height_) {
+  if (x >= tileWidth_ * width_ || y >= tileWidth_ * height_) {
     throw std::runtime_error(std::string("Coordinate (") + std::to_string(x) +
                              ", " + std::to_string(y) + ") is out of bounds!");
   }
