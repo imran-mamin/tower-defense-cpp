@@ -137,3 +137,10 @@ Valerie:
 
 - Imran:
 	* Modified and added a lot of stuff, for example add Cannon-instance rotation, rewrite the fire()-method, add 'ESC'-key handling, fix bugs and warnings, etc. All the modifications can be found in version.aalto.fi in the commit log.
+
+## 11.12.2023
+- Leevi:
+	* Fixed off by one bug in gamegrid and map tile selector renderer.
+	* Fixed and made nice finishing touch on the health bar rendering.
+	* Added rendering for tower base.
+
