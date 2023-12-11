@@ -84,7 +84,7 @@ int main() {
         } else if (exitCode == 1) {
           page = 3;
           // Add game winning score to high scores
-          // highScores.AddNewScore(gameLevel, game.PlayerMoney());
+          highScores.AddNewScore(gameLevel, game.PlayerMoney());
         } else if (exitCode == 2) {
           page = 4;
         } else {

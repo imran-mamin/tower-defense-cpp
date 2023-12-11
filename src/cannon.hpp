@@ -35,6 +35,6 @@ class GreenCannon : public Cannon {
 class RedCannon : public Cannon {
  public:
   RedCannon(Game* game, Pos position)
-      : Cannon(64 * 7, 40, RedCannonPrice, game, position, 100) {}
+      : Cannon(64 * 6, 4, RedCannonPrice, game, position, 100) {}
   ~RedCannon() = default;
 };
