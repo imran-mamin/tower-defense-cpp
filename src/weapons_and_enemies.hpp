@@ -9,9 +9,12 @@
 enum class WeaponType {
 	GreenCannon,
 	RedCannon,
+	GreenCannonBase,
+	RedCannonBase,
 	MissileLauncher1,
 	MissileLauncher2,
-	MissileLauncher3
+	MissileLauncher3,
+	MissileLauncherBase
 };
 
 enum class EnemyType{
@@ -46,9 +49,12 @@ const std::map<std::string, EnemyType> stringToEnemyTypeMapping =  {
 const std::map<WeaponType, std::uint16_t> weaponToTileIDMapping = {
 	std::make_pair(WeaponType::GreenCannon, 248),
 	std::make_pair(WeaponType::RedCannon, 249),
+	std::make_pair(WeaponType::GreenCannonBase, 179),
+	std::make_pair(WeaponType::RedCannonBase, 180),
 	std::make_pair(WeaponType::MissileLauncher1, 205),
 	std::make_pair(WeaponType::MissileLauncher2, 204),
-	std::make_pair(WeaponType::MissileLauncher3, 203)
+	std::make_pair(WeaponType::MissileLauncher3, 203),
+	std::make_pair(WeaponType::MissileLauncherBase, 181)
 };
 
 const std::map<EnemyType, std::uint16_t> enemyToTileIDMapping = {
