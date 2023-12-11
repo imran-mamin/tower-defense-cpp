@@ -55,7 +55,7 @@ void HighScoreRenderer::Draw() {
         hsText.setFont(font);
         hsText.setString(std::to_string(levelScores[x]));
         hsText.setPosition(105 + windowWidth_ / levelcount_ * i,
-                           150 + (x * 60));
+                           190 + (x * 60));
         renderWindow_.draw(hsText);
       }
     }
