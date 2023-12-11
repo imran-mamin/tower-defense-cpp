@@ -1,112 +1,155 @@
+#include "missile.hpp"
+
 #include <memory>
 
-#include "missile.hpp"
 #include "enemy.hpp"
-#include "vec2d.hpp"
-#include "utility_func_game.hpp"
 #include "gamegrid.hpp"
+#include "utility_func_game.hpp"
+#include "vec2d.hpp"
 
 /**
  * Every time update()-method is called, the position of the Missile object,
  * should be closer to the target object.
- * 
+ *
  * Corner cases:
- * 1. Other projectile kills the enemy, then the missile just finds kills the closest enemy, or
- *    goes out of the window.
+ * 1. Other projectile kills the enemy, then the missile just finds kills the
+ * closest enemy, or goes out of the window.
  * 2. Target goes out of the window. Then the missile should follow it.
- * */ 
+ * */
 
 void Missile::update() {
-    bool isAlive = false;
-    for (const auto & obj : getObjects(game_)) {
-        // Attempt to cast to Enemy*
-        if (const auto enemy = dynamic_cast<const Enemy *>(obj); enemy) {
-            if (enemy == target_) {
-                isAlive = true;
-                break;
-            }
-        }
+  bool isAlive = false;
+  for (const auto& obj : getObjects(game_)) {
+    // Attempt to cast to Enemy*
+    if (const auto enemy = dynamic_cast<const Enemy*>(obj); enemy) {
+      if (enemy == target_) {
+        isAlive = true;
+        break;
+      }
     }
-    
-    if (isAlive) {
-        Vec2D pathToTarget = Vec2D{ position_, target_->getPosition() };
-        
-        // Find the vector (type Pos) using two positions. (Vector in e.g. 4i + 2j format).
-        Pos vectorToTarget = Pos{ (pathToTarget.b.x - pathToTarget.a.x), (pathToTarget.b.y - pathToTarget.a.y) };
+  }
 
-        // Find the length of the vectorToTarget.
-        float vectorToTargetLength = sqrt((vectorToTarget.x * vectorToTarget.x) + (vectorToTarget.y * vectorToTarget.y));
+  if (isAlive) {
+    Vec2D pathToTarget = Vec2D{position_, target_->getPosition()};
 
-        // Find unit vector of vectorToTarget.
-        Pos unitVec = Pos{ (vectorToTarget.x / vectorToTargetLength), (vectorToTarget.y / vectorToTargetLength) };
-        lastDirection_ = unitVec;
-        // Set the rotation of missile.
-        Pos unitVecN = Pos{ 0, -1 };
+    // Find the vector (type Pos) using two positions. (Vector in e.g. 4i + 2j
+    // format).
+    Pos vectorToTarget = Pos{(pathToTarget.b.x - pathToTarget.a.x),
+                             (pathToTarget.b.y - pathToTarget.a.y)};
 
-        // Calculate dot product of unitVec and unitVecN.
-        float dotP = unitVec.x * unitVecN.x + unitVec.y * unitVecN.y;
-        
-        // Calculate the rotation angle.
-        float angleInRad = std::acos(dotP);
-        float angleInDeg = angleInRad * (180.0 / M_PI);
-        bool enemyOnTheLeftSide = (target_->getPosition().x < position_.x);
-        if (enemyOnTheLeftSide) {
-            this->SetAngle(360.0 - angleInDeg);
-        } else {
-            this->SetAngle(angleInDeg);
-        }
+    // Find the length of the vectorToTarget.
+    float vectorToTargetLength = sqrt((vectorToTarget.x * vectorToTarget.x) +
+                                      (vectorToTarget.y * vectorToTarget.y));
 
-        // Check, whether the enemy is within missile radius on every position update.
-        int i = 0;
+    // Find unit vector of vectorToTarget.
+    Pos unitVec = Pos{(vectorToTarget.x / vectorToTargetLength),
+                      (vectorToTarget.y / vectorToTargetLength)};
+    lastDirection_ = unitVec;
+    // Set the rotation of missile.
+    Pos unitVecN = Pos{0, -1};
 
-        while (i < this->travel_speed()) {
-            // The missile will cause damage to all enemies within the given missile radius.
-            std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
-            if (!enemiesWithinRadius.empty()) {
-                auto it = enemiesWithinRadius.begin();
-                while (it != enemiesWithinRadius.end()) {
-                    (*it)->takeDamage(this->damage());
-                    it++;
-                }
-                // Remove missile object from the vector objects_.
-                health_ = 0;
-                break;
-            }
-            // Update missile's position.
-            position_.x += unitVec.x;
-            position_.y += unitVec.y;
+    // Calculate dot product of unitVec and unitVecN.
+    float dotP = unitVec.x * unitVecN.x + unitVec.y * unitVecN.y;
 
-            i++;
-        }
-        
+    // Calculate the rotation angle.
+    float angleInRad = std::acos(dotP);
+    float angleInDeg = angleInRad * (180.0 / M_PI);
+    bool enemyOnTheLeftSide = (target_->getPosition().x < position_.x);
+    if (enemyOnTheLeftSide) {
+      this->SetAngle(360.0 - angleInDeg);
     } else {
-        int i = 0;
-        while (i < travel_speed()) {
-            // The missile will cause damage to all enemies within the given missile radius.
-            std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
-            if (!enemiesWithinRadius.empty()) {
-                auto it = enemiesWithinRadius.begin();
-                while (it != enemiesWithinRadius.end()) {
-                    (*it)->takeDamage(this->damage());
-                    it++;
-                }
-                // Remove missile object from the vector objects_.
-                health_ = 0;
-                break;
-            }
-            // Update missile's position.
-            position_.x += lastDirection_.x;
-            position_.y += lastDirection_.y;
-            i++;
-        }
- 
-        // Is missile still on the screen?
-        bool isOutHeight = ((this->getPosition().y > getGrid(game_)->Height() * getGrid(game_)->TileWidth() - 1) || (this->getPosition().y < 0));
-        bool isOutWidth = ((this->getPosition().x > getGrid(game_)->Width() * getGrid(game_)->TileWidth() - 1) || (this->getPosition().x < 0));
-
-        if (isOutWidth || isOutHeight) {
-            // Remove missile object from the vector objects_.
-            health_ = 0;
-        }
+      this->SetAngle(angleInDeg);
     }
+
+    // Check, whether the enemy is within missile radius on every position
+    // update.
+    int i = 0;
+
+    while (i < this->travel_speed()) {
+      // The missile will cause damage to all enemies within the given missile
+      // radius.
+      std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
+      if (!enemiesWithinRadius.empty()) {
+        auto it = enemiesWithinRadius.begin();
+        while (it != enemiesWithinRadius.end()) {
+          (*it)->takeDamage(this->damage());
+          it++;
+        }
+        // Remove missile object from the vector objects_.
+        health_ = 0;
+        break;
+      }
+      // Update missile's position.
+      position_.x += unitVec.x;
+      position_.y += unitVec.y;
+
+      i++;
+    }
+
+  } else {
+    int i = 0;
+    while (i < travel_speed()) {
+      // The missile will cause damage to all enemies within the given missile
+      // radius.
+      std::vector<Enemy*> enemiesWithinRadius =
+          this->getEnemiesWithinExplosionRadius();
+      if (!enemiesWithinRadius.empty()) {
+        auto it = enemiesWithinRadius.begin();
+        while (it != enemiesWithinRadius.end()) {
+          (*it)->takeDamage(this->damage());
+          it++;
+        }
+        // Remove missile object from the vector objects_.
+        health_ = 0;
+        break;
+      }
+      // Update missile's position.
+      position_.x += lastDirection_.x;
+      position_.y += lastDirection_.y;
+      i++;
+    }
+
+    // Is missile still on the screen?
+    bool isOutHeight =
+        ((this->getPosition().y >
+          getGrid(game_)->Height() * getGrid(game_)->TileWidth() - 1) ||
+         (this->getPosition().y < 0));
+    bool isOutWidth =
+        ((this->getPosition().x >
+          getGrid(game_)->Width() * getGrid(game_)->TileWidth() - 1) ||
+         (this->getPosition().x < 0));
+
+    if (isOutWidth || isOutHeight) {
+      // Remove missile object from the vector objects_.
+      health_ = 0;
+    }
+  }
+}
+
+const std::vector<Enemy*> Missile::getEnemiesWithinExplosionRadius() {
+  // Filter vector based on type (Enemy).
+  std::vector<Enemy*> enemies;
+
+  for (GameObject* obj : getObjects(game_)) {
+    // Attempt to cast to Enemy*
+    if (Enemy* enemy = dynamic_cast<Enemy*>(obj)) {
+      enemies.push_back(enemy);
+    }
+  }
+
+  // Find all the enemies within the given radius.
+  std::vector<Enemy*> enemiesWithinRadius;
+
+  // Add enemies to enemiesWithinRadius in reverse order.
+  for (auto it = enemies.rbegin(); it != enemies.rend(); it++) {
+    int sqrtEq = std::pow((position_.x - (*it)->getPosition().x), 2) +
+                 std::pow((position_.y - (*it)->getPosition().y), 2);
+    double distance = std::sqrt(static_cast<double>(sqrtEq));
+
+    if (explosionRadius_ <= distance) {
+      enemiesWithinRadius.push_back(*it);
+    }
+  }
+
+  return enemiesWithinRadius;
 }

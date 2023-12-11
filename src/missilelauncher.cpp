@@ -11,9 +11,11 @@ void MissileLauncher::fire() {
   // Missile(Game& game, int travel_speed, int damage, int radius, Enemy target,
   // Pos position, double exp_radius = 0) Create a missile object.
   Pos p = this->getPosition();
+  p.x += 32;
+  p.y += 32;
 
   // Add missile to vector.
-  addObject(game_, new Missile(game_, 6, 200, 180, e, p, 4));
+  addObject(game_, new Missile(game_, 4, 200, 30, e, p, 192));
 
   // Find the rotation angle of the missilelauncher.
   // Unit vector pointing to North according to the picture.
