@@ -39,4 +39,9 @@ class WeaponToolbarRenderer : public Renderer {
   sf::Sprite greenCannonSprite_;
   sf::Sprite redCannonSprite_;
   sf::Sprite basicMissileLauncherSprite_;
+
+  /* Tower base sprites. */
+  sf::Sprite greenCannonBaseSprite_;
+  sf::Sprite redCannonBaseSprite_;
+  sf::Sprite missileLauncherBaseSprite_;
 };

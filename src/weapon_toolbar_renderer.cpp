@@ -2,6 +2,7 @@
 #include "weapon_toolbar_renderer.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
@@ -30,12 +31,18 @@ WeaponToolbarRenderer::WeaponToolbarRenderer(
       weaponToTileIDMapping.at(WeaponType::RedCannon)));
   basicMissileLauncherSprite_ = sf::Sprite(textureManager_.GetTexture(
       weaponToTileIDMapping.at(WeaponType::MissileLauncher1)));
+  greenCannonBaseSprite_ = sf::Sprite(textureManager_.GetTexture(weaponToTileIDMapping.at(WeaponType::GreenCannonBase)));
+  redCannonBaseSprite_ = sf::Sprite(textureManager_.GetTexture(weaponToTileIDMapping.at(WeaponType::RedCannonBase)));
+  missileLauncherBaseSprite_ = sf::Sprite(textureManager_.GetTexture(weaponToTileIDMapping.at(WeaponType::MissileLauncherBase)));
 
   /* Set the sprite positions. */
   greenCannonSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 60);
   redCannonSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 140);
-  basicMissileLauncherSprite_.setPosition(
-      gameGrid_.Width() * gameGrid_.TileWidth(), 220);
+  basicMissileLauncherSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 220);
+
+  greenCannonBaseSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 60);
+  redCannonBaseSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 140);
+  missileLauncherBaseSprite_.setPosition(gameGrid_.Width() * gameGrid_.TileWidth(), 220);
 }
 
 /* Helper. */
@@ -58,6 +65,10 @@ void WeaponToolbarRenderer::Draw() {
   renderWindow_.draw(toolbar);
 
   /* Draw the button sprites. */
+  renderWindow_.draw(greenCannonBaseSprite_);
+  renderWindow_.draw(redCannonBaseSprite_);
+  renderWindow_.draw(missileLauncherBaseSprite_);
+
   renderWindow_.draw(greenCannonSprite_);
   renderWindow_.draw(redCannonSprite_);
   renderWindow_.draw(basicMissileLauncherSprite_);
