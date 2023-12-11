@@ -91,8 +91,7 @@ void Missile::update() {
     while (i < travel_speed()) {
       // The missile will cause damage to all enemies within the given missile
       // radius.
-      std::vector<Enemy*> enemiesWithinRadius =
-          this->getEnemiesWithinExplosionRadius();
+      std::vector<Enemy*> enemiesWithinRadius = this->getEnemiesWithinRadius();
       if (!enemiesWithinRadius.empty()) {
         auto it = enemiesWithinRadius.begin();
         while (it != enemiesWithinRadius.end()) {
@@ -124,32 +123,4 @@ void Missile::update() {
       health_ = 0;
     }
   }
-}
-
-const std::vector<Enemy*> Missile::getEnemiesWithinExplosionRadius() {
-  // Filter vector based on type (Enemy).
-  std::vector<Enemy*> enemies;
-
-  for (GameObject* obj : getObjects(game_)) {
-    // Attempt to cast to Enemy*
-    if (Enemy* enemy = dynamic_cast<Enemy*>(obj)) {
-      enemies.push_back(enemy);
-    }
-  }
-
-  // Find all the enemies within the given radius.
-  std::vector<Enemy*> enemiesWithinRadius;
-
-  // Add enemies to enemiesWithinRadius in reverse order.
-  for (auto it = enemies.rbegin(); it != enemies.rend(); it++) {
-    int sqrtEq = std::pow((position_.x - (*it)->getPosition().x), 2) +
-                 std::pow((position_.y - (*it)->getPosition().y), 2);
-    double distance = std::sqrt(static_cast<double>(sqrtEq));
-
-    if (explosionRadius_ <= distance) {
-      enemiesWithinRadius.push_back(*it);
-    }
-  }
-
-  return enemiesWithinRadius;
 }

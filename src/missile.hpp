@@ -22,6 +22,4 @@ class Missile : public Projectile {
   // Vec2D speed_vec;
   void update();
   void onDestroy(){};
-
-  const std::__1::vector<Enemy*> getEnemiesWithinExplosionRadius();
 };
