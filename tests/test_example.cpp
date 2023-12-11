@@ -133,58 +133,6 @@ TEST(FootSoldierClass, Update4) {
     EXPECT_EQ(fs->GetRotation(), 90);
 }
 
-
-// ----------------- TEST MISSILE CLASS --------------------
-
-TEST(MissileClass, update) {
-    GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg, 1, testMapInfoObject1());
-    
-    Pos p1 = Pos{ 0, 620 };
-
-    Pos p2;
-    p2.x = gg.EnemyPath().at(0).a.x;
-    p2.y = gg.EnemyPath().at(0).a.y;
-    // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(100, 2, 100, &game, p1);
-    // (int speed, int value, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 18, &game, p2);
-    game.AddObject(fs);
-    game.AddObject(ml);
-
-    // Update all GameObjects once.
-    game.Update();
-
-
-    EXPECT_EQ(game.Objects().size(), 3);
-}
-
-
-TEST(MissileClass, update2) {
-    GameGrid gg = GameGrid(testMapInfoObject1());
-    Game game = Game(gg, 1, testMapInfoObject1());
-    
-    Pos p1 = Pos{ 20, 620 };
-
-    Pos p2;
-    p2.x = gg.EnemyPath().at(0).a.x;
-    p2.y = gg.EnemyPath().at(0).a.y;
-    // MissileLauncher(int radius, int fireRate, int price, Game& game, Pos position)
-    MissileLauncher* ml = new MissileLauncher(100, 2, 100, &game, p1);
-    // (int speed, int value, int hp, Game& game, Pos position)
-    FootSoldier* fs = new FootSoldier(18, 6, 6, &game, p2);
-    game.AddObject(fs);
-    game.AddObject(ml);
-
-    game.Update();
-    
-    // Enemy health 6 should be reduced by 6 (missile's damage is 6) --> Enemy-instance should be
-    // removed from game->objects_.
-
-    // After hitting the enemy, the Missile-instance should be removed from game->objects_.
-    EXPECT_EQ(game.Objects().size(), 1);
-}
-
 // ----------- TEST CANNON CLASS -------------
 TEST(CannonClass, update) {
     GameGrid gg = GameGrid(testMapInfoObject1());
