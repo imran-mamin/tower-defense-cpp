@@ -174,7 +174,6 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		if ((int)enemy->Health() < enemy->MaxHP()) {
 		    const std::uint32_t healthBarHeight = 6;
 		    const std::uint32_t healthBarWidth = 48;
-			const std::uint32_t healthBarPadding = 16;
 
 		    /* Set the healthbar position. */
 		    sf::Vector2f healthBarPosition =
@@ -182,13 +181,12 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 		    sf::Vector2f underlayHealthBarSize(healthBarWidth,
 						       healthBarHeight);
 		    sf::Vector2f overlayHealthBarSize(
-			(1.0 * enemy->Health() / enemy->MaxHP()) /
+			(1.0 * enemy->Health() / enemy->MaxHP()) *
 			    healthBarWidth,
 			healthBarHeight);
 		    healthBarPosition.x -= 1.0 * healthBarWidth / 2;
-		    healthBarPosition.y -= currentSprite.getLocalBounds().height / 2 - healthBarPadding - healthBarHeight;
+		    healthBarPosition.y -= ((float) game.GetGrid().TileWidth() / 2 + healthBarHeight);
 
-			std::cout << "overlay width = " << overlayHealthBarSize.x << std::endl;
 		    sf::RectangleShape healthBarUnderlay(underlayHealthBarSize);
 		    sf::RectangleShape healthBarOverlay(overlayHealthBarSize);
 			healthBarOverlay.setFillColor(sf::Color(0xff * (1 - (1.0 * enemy->Health() / enemy->MaxHP())), 0xff * (1.0 * enemy->Health() / enemy->MaxHP()), 0x00));
