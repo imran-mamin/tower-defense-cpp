@@ -8,17 +8,18 @@
 class HighScoreRenderer : public Renderer {
  public:
   HighScoreRenderer(sf::RenderWindow& renderWindow,
-                    const HighScores& highscores,
-                    const std::uint8_t levelcount);
+                    const HighScores& highscores, const std::uint8_t levelcount,
+                    int windowWidth);
 
-  ~WeaponToolbarRenderer() = default;
+  ~HighScoreRenderer() = default;
 
   void Draw() override;
 
   void LoadScores();
 
  private:
-  HighScores& highscores_;
+  HighScores highscores_;
   int levelcount_;
   std::map<std::uint32_t, std::vector<std::uint64_t>> highscoretable_;
-}
+  int windowWidth_;
+};

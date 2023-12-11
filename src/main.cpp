@@ -8,6 +8,7 @@
 #include "game.hpp"
 #include "gamegrid.hpp"
 #include "gameloop.hpp"
+#include "highscore_renderer.hpp"
 #include "highscores.hpp"
 #include "menu_home.hpp"
 #include "menu_level.hpp"
@@ -187,6 +188,9 @@ int main() {
         break;
       }
       case 5: {
+        HighScoreRenderer hsRenderer(window, highScores, levels.size(),
+                                     windowWidth);
+
         auto onClick = [&page]() { page = 0; };
         ButtonText exitButton(sf::Vector2f(50, 50), sf::Vector2f(120, 80),
                               onClick, "BACK", font);
@@ -219,6 +223,7 @@ int main() {
             }
           }
           window.clear();
+          hsRenderer.Draw();
           exitButton.draw(window);
           window.display();
         }
