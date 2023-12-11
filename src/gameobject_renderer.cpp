@@ -233,16 +233,8 @@ void renderGameObjects(sf::RenderWindow &renderWindow, Game &game) {
 			}
 			
 			tankCannonSprite.setRotation(gameObject->GetRotation());
-			sf::Vector2f tankCannonPosition = gameObject->getPosition().ToVector2f();
-			tankCannonPosition.y -= (float) game.GetGrid().TileWidth() / 2;
-			if (tankCannonSprite.getRotation() == 0 || tankCannonSprite.getRotation() == 180) {
-				tankCannonPosition.x -= (float) game.GetGrid().TileWidth() / 2;
-			}
-			else {
-				tankCannonPosition.x += (float) game.GetGrid().TileWidth() / 2;
-			}
-
-			tankCannonSprite.setPosition(tankCannonPosition);
+			tankCannonSprite.setOrigin(35, 35);
+			tankCannonSprite.setPosition(currentSprite.getPosition());
 			renderWindow.draw(tankCannonSprite);
 		}
 
