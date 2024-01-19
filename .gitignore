@@ -54,3 +54,8 @@ build/*
 .metals/
 ClashOfArmies
 _deps/
+
+# Build / Meson
+subprojects/
+!subprojects/gtest.wrap
+build*/
