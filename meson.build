@@ -1,4 +1,4 @@
-project('ClashOfArmies', 'cpp', default_options: ['warning_level=3'],
+project('ClashOfArmies', 'cpp', default_options: ['warning_level=3', 'optimization=2', 'b_lto=true'], 
     version: '1.0.0')
 
 add_project_arguments('-Wno-missing-field-initializers', language: ['cpp'])
@@ -51,8 +51,7 @@ executable('ClashOfArmies',
 
 gtest_dep = dependency('gtest_main', required : true)
 e = executable('unittests',
-    sources: [#'tests/test_main.cpp',
-              'tests/test_example.cpp',
+    sources: ['tests/test_example.cpp',
               'tests/game_test.cpp'],
     link_with: app_lib,
     include_directories: 'src',
